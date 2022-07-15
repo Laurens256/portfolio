@@ -1,0 +1,31 @@
+<h1>Mijn Projecten</h1>
+<div>Filters?</div>
+<main>
+    <div>
+        <article *ngFor="let project of projecten" class="{{project.url}}_info"
+            (click)="toggleProjectInfo($event.currentTarget)" tabindex="0">
+            <div>
+                <h2>{{project.titel}}</h2>
+                <p>{{project.tekst}}</p>
+            </div>
+            <div>
+                <img *ngIf="project.img !== ''" src="../../../assets/img/portfolio_preview/{{project.img}}"
+                    alt="{{project.imgAlt}}">
+            </div>
+            <h2>{{project.titel}}</h2>
+        </article>
+    </div>
+</main>
+
+<section class="popupcontainer">
+    <article>
+        <button type="button" aria-label="projectinformatie dicht"
+            (click)="toggleProjectInfo($event.currentTarget)">&#10005;</button>
+        <section>
+            <img *ngFor="let item of project.data.imgs; index as i" loading="lazy"
+                src="../../../assets/img/portfolio_img/{{project.url}}/{{project.data.imgs[i]}}" alt="{{project.data.imgsAlt[i]}}">
+        </section>
+        <section></section>
+    </article>
+    <div (click)="toggleProjectInfo($event.currentTarget)"></div>
+</section>

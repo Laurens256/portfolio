@@ -1,0 +1,19 @@
+<header>
+    <div>
+        <p routerLink="">&#60;laurens256&#62;</p>
+        <nav>
+            <ul>
+                <li *ngFor="let navItem of navItems">
+                    <a *ngIf="navItem.url === ''" routerLink="{{navItem.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">{{navItem.naam}}</a>
+                    <a *ngIf="navItem.url !== ''" routerLink="{{navItem.url}}" routerLinkActive="active">{{navItem.naam}}</a>
+                </li>
+            </ul>
+        </nav>
+        <button (click)="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>

@@ -1,0 +1,38 @@
+[
+    {
+        "titel": "Innersloth namaak-website",
+        "img": "placeholder.jpg",
+        "imgAlt": "placeholder",
+        "tekst": "Nagemaakte website met semantisch correcte HTML, CSS en Javascript",
+        "url": "innersloth",
+        "data": {
+            "imgs": ["placeholder.jpg", "placeholder.jpg"],
+            "imgsAlt": ["alt", "alt2"],
+            "tekst": ""
+        }
+    },
+    {
+        "titel": "Digitaal ganzenbord",
+        "img": "placeholder.jpg",
+        "imgAlt": "nee",
+        "tekst": "Een volledig werkend, online ganzenbord spel",
+        "url": "ganzenbord",
+        "data": {
+            "imgs": [""],
+            "imgsAlt": [""],
+            "tekst": ""
+        }
+    },
+    {
+        "titel": "Tamagotchi",
+        "img": "placeholder.jpg",
+        "imgAlt": "miss",
+        "tekst": "Een tamagotchi gemaakt met pure Javascript",
+        "url": "tamagotchi",
+        "data": {
+            "imgs": [""],
+            "imgsAlt": [""],
+            "tekst": ""
+        }
+    }
+]

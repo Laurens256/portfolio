@@ -1,0 +1,44 @@
+footer {
+    width: 100%;
+    background: var(--secundair);
+    height: 15em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 3em;
+}
+
+footer ul {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+footer ul li a {
+    display: block;
+}
+
+footer ul li a:focus {
+    outline: solid 2px black;
+}
+
+footer ul li a svg {
+    fill: white;
+    width: 2.5em;
+    overflow: visible;
+    transition: all .15s ease-in-out;
+}
+
+footer ul li a svg:hover,
+footer ul li a:focus-visible svg {
+    fill: red;
+}
+
+footer small {
+    position: absolute;
+    left: .3em;
+    bottom: .2em;
+}

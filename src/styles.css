@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: opensans;
+    src: url(./assets/fonts/OpenSans-VariableFont.ttf);
+}
+
+@font-face {
+    font-family: silkscreen;
+    src: url(./assets/fonts/slkscr.ttf);
+}
+
+@font-face {
+    font-family: staatliches;
+    src: url(./assets/fonts/Staatliches-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    color: var(--tekst);
+    font-family: opensans;
+}
+
+:root {
+    --wit: #fff;
+    --zwart: #000;
+
+    --achtergrond: #fff;
+    --code: #f6f8fa;
+
+
+    --tekst: #000;
+    --tekstalt: #fff;
+    --link: #2568FB;
+
+    --primair: #3aafa9;
+    --secundair: #17252a;
+}
+
+body {
+    /* hoogte van fixed header */
+    margin-top: 5em;
+    background: var(--achtergrond);
+}
+
+a {
+    color: var(--link);
+}
+
+strong {
+    font-weight: 800;
+}
+
+
+
+/*****************************
+mobile nav styles
+*****************************/
+body.mobilenav header div button span:nth-child(1),
+body.mobilenav header div button span:nth-child(4) {
+    top: 50% !important;
+    width: 0 !important;
+    margin-left: 50%;
+}
+
+body.mobilenav header div button span:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+body.mobilenav header div button span:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+
+
+@media screen and (max-width: 768px) {
+    body.mobilenav {
+        overflow: hidden;
+    }
+    
+    body.mobilenav header div nav {
+        height: 70vh !important;
+    }
+}
+
+@media (prefers-reduced-motion) {
+    * {
+        transition: none !important;
+    }
+  }
