@@ -1,22 +1,41 @@
-main > div {
-    display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(20em, 1fr));
-    gap: 2.5em;
-    width: 90%;
+app-portfolio header {
+    width: calc(80% - 4em);
+    padding: 2em;
     margin: 0 auto;
+    background: red;
+    margin-top: 7em;
+    margin-bottom: 2em;
+    border-radius: 1em;
 }
 
-main > div article {
-    background: green;
-    margin-top: 1em;
+app-portfolio main > div {
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(20em, 1fr));
+    column-gap: 2.5em;
+    row-gap: 3.5em;
+    /* width calc 80% - padding link rechts */
+    width: calc(80% - 4em);
+    margin: 0 auto;
+    background: blue;
+    /* extra padding onderkant vanwege absolute element in articles */
+    padding: 2em 2em 5em 2em;
+    border-radius: 1.5em;
+}
+
+app-portfolio main > div article {
+    background: var(--achtergrond);
     height: calc(15em + 5% + 3em);
     border-radius: 20px;
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    box-shadow: var(--projectSchaduw);
 }
 
-main > div article div:first-of-type {
+/*****************************
+hover rgba deel van project preview
+*****************************/
+app-portfolio main > div article div:first-of-type {
     position: absolute;
     margin-top: calc(15em + 5% + 2.5em);
     /* height en width = 100% - padding */
@@ -28,46 +47,65 @@ main > div article div:first-of-type {
     transition: all .4s ease;
 }
 
-main > div article div:first-of-type h2 {
+app-portfolio main > div article div:first-of-type h2 {
     color: var(--wit);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-bottom: .1em;
 }
 
-main > div article div:first-of-type p {
+app-portfolio main > div article div:first-of-type p {
     color: var(--wit);
+    font-size: 1.15rem;
 }
 
-main > div article:hover div:first-of-type,
-main > div article:focus div:first-of-type {
+app-portfolio main > div article div:first-of-type span {
+    background: red;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 3em;
+    padding: .5em .75em;
+    border-radius: 8px;
+}
+
+app-portfolio main > div article:hover > div:first-of-type,
+app-portfolio main > div article:focus > div:first-of-type {
     margin-top: 0;
 }
 
-main > div article:hover > h2,
-main > div article:focus > h2 {
-    margin-bottom: 12.6em;
+app-portfolio main > div article:hover > h2,
+app-portfolio main > div article:focus > h2 {
+    margin-bottom: 15.8em;
 }
 
-main > div article > div:last-of-type {
+/*****************************
+normale deel van project preview
+*****************************/
+app-portfolio main > div article > div:last-of-type {
     width: 90%;
     height: 15em;
     margin: 5% auto .1em auto;
 }
 
-main > div article > div:last-of-type img {
+app-portfolio main > div article > div:last-of-type img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
 }
 
-main > div article > h2 {
+app-portfolio main > div article > h2 {
+    font-size: 1.2em;
     width: 90%;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: 0;
+    bottom: 0em;
     text-align: center;
-    background: red;
-    padding: 0 5%;
+    color: var(--tekst);
+    background: var(--achtergrond);
+    padding: 0 5% .4em 5%;
     transition: all .4s ease;
 }
 
@@ -76,7 +114,7 @@ main > div article > h2 {
 /*****************************
 porject popup styles
 *****************************/
-section.popupcontainer article {
+app-portfolio section.popupcontainer article {
     background: var(--tekstalt);
     /* calc 90% - padding */
     width: calc(90% - 5em);
@@ -93,7 +131,7 @@ section.popupcontainer article {
     border-radius: 1em;
 }
 
-section.popupcontainer article button {
+app-portfolio section.popupcontainer article button {
     font-size: 1.2em;
     height: 1.8em;
     width: 1.8em;
@@ -103,18 +141,70 @@ section.popupcontainer article button {
     border-radius: 8px;
     cursor: pointer;
     transition: all .2s ease-in-out;
-    border: solid 1px var(--tekst);
+    border: solid 1px var(--zwart);
+    color: var(--zwart);
 }
 
-section.popupcontainer article button:hover,
-section.popupcontainer article button:focus {
+app-portfolio section.popupcontainer article button:hover,
+app-portfolio section.popupcontainer article button:focus-visible {
     transform: scale(1.2);
+}
+
+/*****************************
+img section voor projecten
+*****************************/
+app-portfolio section.popupcontainer article section:first-of-type {
+    background: var(--achtergrond);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
+    position: relative;
+}
+
+app-portfolio section.popupcontainer article section:first-of-type h3 {
+    position: sticky;
+    top: 0;
+    /* calc 100% - padding */
+    width: calc(100% - 1em);
+    background: var(--achtergrond);
+    color: var(--tekst);
+    padding: .5em;
+}
+
+app-portfolio section.popupcontainer article section:first-of-type img {
+    width: 100%;
+    max-height: 50em;
+}
+
+/*****************************
+tekst section voor projecten
+*****************************/
+app-portfolio section.popupcontainer article section:last-of-type {
+    background: var(--achtergrond);
+    padding: 1.5em;
+    overflow: auto;
+}
+
+app-portfolio section.popupcontainer article section:last-of-type p {
+    color: var(--tekst);
+}
+
+/*****************************
+rich text voor tekstdeel projecten
+*****************************/
+app-portfolio section.popupcontainer article section:last-of-type p > p {
+    margin-bottom: 1em;
+}
+
+app-portfolio section.popupcontainer article section:last-of-type li {
+    list-style-type: initial;
 }
 
 /*****************************
 zwarte achtergrond voor popup
 *****************************/
-section.popupcontainer div {
+app-portfolio section.popupcontainer div {
     background: rgba(0, 0, 0, 0.6);
     position: fixed;
     top: 0;
@@ -125,8 +215,8 @@ section.popupcontainer div {
     display: none;
 }
 
-section.popupcontainer.open article,
-section.popupcontainer.open div {
+app-portfolio section.popupcontainer.open article,
+app-portfolio section.popupcontainer.open div {
     display: grid;
 }
 
@@ -136,7 +226,13 @@ section.popupcontainer.open div {
 mobile styles
 *****************************/
 @media screen and (max-width: 768px) {
-    main > div {
+    app-portfolio header {
+        width: calc(95% - 2em);
+        padding: .5em 1em;
+    }
+
+    app-portfolio main > div {
         width: 95%;
+        padding: .5em .5em 3em .5em;
     }
 }

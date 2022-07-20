@@ -22,7 +22,11 @@ export class NavComponent implements OnInit {
     url: 'contact'
   }];
 
-  toggleMobileNav() {
+  toggleMobileNav(e?: MouseEvent) {
+    if(e) {
+      document.querySelector('body')?.classList.remove('mobilenav');
+      return;
+    }
     document.querySelector('body')?.classList.toggle('mobilenav');
   }
 

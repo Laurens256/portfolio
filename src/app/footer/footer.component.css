@@ -41,4 +41,5 @@ footer small {
     position: absolute;
     left: .3em;
     bottom: .2em;
+    color: var(--wit);
 }

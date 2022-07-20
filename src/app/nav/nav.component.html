@@ -4,8 +4,8 @@
         <nav>
             <ul>
                 <li *ngFor="let navItem of navItems">
-                    <a *ngIf="navItem.url === ''" routerLink="{{navItem.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">{{navItem.naam}}</a>
-                    <a *ngIf="navItem.url !== ''" routerLink="{{navItem.url}}" routerLinkActive="active">{{navItem.naam}}</a>
+                    <a (click)="toggleMobileNav($event)" *ngIf="navItem.url === ''" routerLink="{{navItem.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">{{navItem.naam}}</a>
+                    <a (click)="toggleMobileNav($event)" *ngIf="navItem.url !== ''" routerLink="{{navItem.url}}" routerLinkActive="active">{{navItem.naam}}</a>
                 </li>
             </ul>
         </nav>

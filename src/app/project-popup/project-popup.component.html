@@ -1,0 +1,18 @@
+<section class="popupcontainer">
+    <article>
+        <button type="button" aria-label="projectinformatie dicht" (click)="toggleProjectInfo($event)">&#10005;</button>
+        <section>
+            <h3>Afbeeldingen uit het project</h3>
+            <img *ngFor="let item of project.data.imgs; index as i" loading="lazy"
+                src="../../../assets/img/portfolio_img/{{project.url}}/{{project.data.imgs[i]}}"
+                alt="{{project.data.imgsAlt[i]}}">
+        </section>
+
+        <section>
+            <h2>{{project.titel}}</h2>
+            <p [innerHTML]="project.data.tekst"></p>
+        </section>
+    </article>
+
+    <div (click)="toggleProjectInfo($event)"></div>
+</section>

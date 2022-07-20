@@ -13,7 +13,7 @@ export class HttpReqService {
     private http: HttpClient,
   ) { }
 
-  test(url: any, file: any) {
+  getLocalFile(url: any, file: any) {
     return this.http.get<any>(`assets/data/${url}/${file}.json`);
   }
 

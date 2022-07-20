@@ -28,6 +28,7 @@
     --achtergrond: #fff;
     --code: #f6f8fa;
 
+    --projectSchaduw: 2px 3px 32px rgba(213, 223, 231, 0.31);
 
     --tekst: #000;
     --tekstalt: #fff;
@@ -35,6 +36,16 @@
 
     --primair: #3aafa9;
     --secundair: #17252a;
+}
+
+:root.darkmode {
+    --achtergrond: #1E1E1E;
+    --code: #4d525a;
+
+    --projectSchaduw: 2px 3px 32px rgba(141, 155, 167, 0.31);
+
+    --tekst: #fff;
+    --tekstalt: #000;
 }
 
 body {
@@ -49,6 +60,12 @@ a {
 
 strong {
     font-weight: 800;
+}
+
+code {
+    background: var(--code);
+    padding: 1px;
+    border-radius: 2px;
 }
 
 

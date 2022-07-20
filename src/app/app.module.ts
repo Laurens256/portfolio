@@ -6,6 +6,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpReqService } from './services/http-req.service';
+import { ProjectPopupComponent } from './project-popup/project-popup.component';
 
 
 
@@ -14,6 +15,7 @@ import { HttpReqService } from './services/http-req.service';
     // alle components
     routingComponents,
     AppComponent,
+    ProjectPopupComponent,
   ],
   imports: [
     BrowserModule,

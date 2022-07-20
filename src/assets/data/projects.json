@@ -3,12 +3,12 @@
         "titel": "Innersloth namaak-website",
         "img": "placeholder.jpg",
         "imgAlt": "placeholder",
-        "tekst": "Nagemaakte website met semantisch correcte HTML, CSS en Javascript",
+        "tekst": "Nagemaakte website met semantisch correcte HTML, CSS en Javascript dasdasdada",
         "url": "innersloth",
         "data": {
-            "imgs": ["placeholder.jpg", "placeholder.jpg"],
+            "imgs": ["placeholder.jpg", "placeholder.jpg", "placeholder.jpg", "placeholder.jpg", "placeholder.jpg"],
             "imgsAlt": ["alt", "alt2"],
-            "tekst": ""
+            "tekst": "<p>Dit project was een opdracht voor het vak; Frontend Development. Voor dit project heb ik de site van Innersloth, een game studio, gedeeltelijk nagemaakt. De twee pagina's die ik heb nagemaakt zijn de \"games\" en \"news\" pagina's. Deze twee pagina's zijn geheel responsive en hebben een licht en donker thema wat de gebruiker zelf kan kiezen.</p><p>De focus van het project lag veel op toegankelijkheid, daarom is de site bijvoorbeeld ook te gebruiken door keyboard-only users of mensen die een screen reader gebruiken. Ook is de site getest met verschillende brillen en apparaten om aandoeningen te simuleren die het moeilijker zouden kunnen maken om een website te gebruiken.</p>"
         }
     },
     {
