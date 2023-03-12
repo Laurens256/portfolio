@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let data;
 	const projects = data.response;
-	console.log(projects);
 </script>
 
 <h1>lijst met projecten</h1>
