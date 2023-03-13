@@ -1,7 +1,38 @@
 ############################
+# Svelte-Kit
+############################
+.svelte-kit
+package
+.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+############################
+# Strapi
+############################
+license.txt
+exports
+*.cache
+dist
+build
+.strapi-updater.json
+
+############################
+# Node.js
+############################
+lib-cov
+lcov.info
+pids
+logs
+results
+node_modules
+.node_history
+
+############################
 # OS X
 ############################
-
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -10,18 +41,14 @@ Icon
 .Trashes
 ._*
 
-
 ############################
 # Linux
 ############################
-
 *~
-
 
 ############################
 # Windows
 ############################
-
 Thumbs.db
 ehthumbs.db
 Desktop.ini
@@ -31,11 +58,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-
 ############################
 # Packages
 ############################
-
 *.7z
 *.csv
 *.dat
@@ -60,22 +85,18 @@ $RECYCLE.BIN/
 *.out
 *.pid
 
-
 ############################
 # Logs and databases
 ############################
-
 .tmp
 *.log
 *.sql
 *.sqlite
 *.sqlite3
 
-
 ############################
 # Misc.
 ############################
-
 *#
 ssl
 .idea
@@ -84,32 +105,7 @@ public/uploads/*
 !public/uploads/.gitkeep
 
 ############################
-# Node.js
-############################
-
-lib-cov
-lcov.info
-pids
-logs
-results
-node_modules
-.node_history
-
-############################
 # Tests
 ############################
-
 testApp
 coverage
-
-############################
-# Strapi
-############################
-
-.env
-license.txt
-exports
-*.cache
-dist
-build
-.strapi-updater.json
