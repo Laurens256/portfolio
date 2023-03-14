@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import fetchData from '$lib/functions/fetchData';
-	let wrapper: HTMLElement;
 
 	interface NavLink {
 		attributes: {
@@ -10,39 +8,18 @@
 			icon: string;
 			order: number;
 		};
-	};
+	}
 
 	let navLinks: NavLink[] = [];
 
 	(async () => {
 		navLinks = (await fetchData('navLinks')).data;
-		console.log(navLinks);
 	})();
 
-	onMount(async() => {
-		betterNavLinks();
-	});
-
-	const linkColors: string[] = [];
-
-	const betterNavLinks = () => {
-		const navLinks: NodeListOf<HTMLAnchorElement> = wrapper.querySelectorAll('nav a');
-
-		for (
-			let i = 0;
-			getComputedStyle(wrapper).getPropertyValue(`--panel-color-${i + 1}`) !== '';
-			i++
-		) {
-			const color = getComputedStyle(wrapper).getPropertyValue(`--panel-color-${i + 1}`);
-			linkColors.splice(Math.floor(Math.random() * (linkColors.length + 1)), 0, color);
-		}
-
-		// apply the link color to the nav links and set click handler
-		for (const [i, navLink] of navLinks.entries()) {
-			navLink.addEventListener('click', betterLinkLogic);
-			navLink.style.setProperty('--panel-color', linkColors[i]);
-			navLink.classList.remove('unloaded');
-		}
+	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
+	const getRandomPanelColor = () => {
+		const randomIndex = Math.floor(Math.random() * panelColors.length);
+		return panelColors.splice(randomIndex, 1)[0];
 	};
 
 	const betterLinkLogic = (e: MouseEvent) => {
@@ -63,22 +40,21 @@
 	};
 </script>
 
-<section bind:this={wrapper}>
+<section class="splash">
 	<div>
 		<h1>Laurens Duin</h1>
 	</div>
 
 	<nav>
 		{#each navLinks as navLink}
-			<a draggable="false" class="unloaded" href={navLink.attributes.href}
+			<a
+				draggable="false"
+				style="--panel-color:{getRandomPanelColor()};"
+				on:click={betterLinkLogic}
+				href="#{navLink.attributes.href}"
 				>{navLink.attributes.title}
 
-				<!-- {@html navLink.attributes.icon} -->
-				<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-					<path class="cls-1" d="M16.3,16.78l4.11-4.11a1,1,0,0,0,0-1.41l-4-4" />
-					<path class="cls-1" d="M7.7,7.22,3.59,11.33a1,1,0,0,0,0,1.41l4,4" />
-					<line class="cls-1" x1="13.84" y1="3.14" x2="10.72" y2="20.86" />
-				</svg> -->
+			{@html navLink.attributes.icon}
 			</a>
 		{/each}
 	</nav>
@@ -86,13 +62,6 @@
 
 <style>
 	section {
-		/* kleuren worden random ingeladen dmv js */
-		--panel-color-1: #5627af;
-		--panel-color-2: #9d27b0;
-		--panel-color-3: #2729af;
-		--panel-color-4: #256bb0;
-		--panel-color-5: #e91f63;
-
 		display: grid;
 		grid-template-rows: 40% 1fr;
 		min-height: 100vh;
@@ -134,11 +103,15 @@
 		transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
 		border: solid 2px var(--main-bg);
 		background-size: 200% 200%;
-		background-position: 0 0;
+		background-position: 100% 100%;
+
+		animation: panelLoad 1.8s ease forwards;
 	}
 
-	section nav a.unloaded {
-		background-position: 100% 100%;
+	@keyframes panelLoad {
+		to {
+			background-position: 0 0;
+		}
 	}
 
 	section nav a:first-of-type {
@@ -161,7 +134,7 @@
 		outline-color: var(--link-color);
 	}
 
-	section nav a svg {
+	:global(section.splash nav a svg) {
 		position: absolute;
 		bottom: 1em;
 		right: 2em;
