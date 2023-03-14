@@ -13,6 +13,12 @@
 
 :root {
 	/* ---------------------- */
+	/* ---- Static Color ---- */
+	/* ---------------------- */
+	--black-text: #333;
+	--white-text: #fff;
+
+	/* ---------------------- */
 	/* ----- Bg Colors ------ */
 	/* ---------------------- */
 	--main-bg: #fff;
@@ -24,6 +30,12 @@
 	--main-text: #111;
 	--secondary-text: #333;
 	--link-color: #0969da;
+	--selection-color: #ef0fff;
+
+	--nav-panel-1: #5627af;
+	--nav-panel-2: #9d27b0;
+	--nav-panel-3: #2729af;
+	--nav-panel-4: #256bb0;
 }
 
 :root {
@@ -44,6 +56,11 @@ body {
 }
 
 a {
+	color: var(--main-text);
+	text-decoration: none;
+}
+
+a.underline {
 	color: var(--link-color);
 	text-decoration: none;
 	position: relative;
@@ -67,4 +84,9 @@ a.underline::after {
 
 ul, ol {
 	list-style: none;
+}
+
+*::selection {
+	color: var(--selection-color);
+	background: var(--main-bg);
 }
