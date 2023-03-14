@@ -1,6 +1,5 @@
 <script lang="ts">
+	import Splash from '$lib/partials/splash.svelte';
 </script>
 
-<h1>Hello World</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<img src="/favicon.png" alt="" />
+<Splash />

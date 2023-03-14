@@ -5,7 +5,7 @@
   "scripts": {
 	"svelte": "cd svelte-kit && npm run dev",
 	"strapi": "cd strapi && npm run develop",
-	"start": "concurrently \"npm run strapi\" \"npm run svelte\" "
+	"dev": "concurrently \"npm run strapi\" \"npm run svelte\" "
   },
   "author": "",
   "license": "MIT",
