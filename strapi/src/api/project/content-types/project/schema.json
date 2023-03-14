@@ -27,6 +27,12 @@
     },
     "slug": {
       "type": "uid"
+    },
+    "order": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "unique": true
     }
   }
 }
