@@ -2,8 +2,27 @@
 	import { onMount } from 'svelte';
 	let wrapper: HTMLElement;
 
+	const navItems = [
+		{
+			name: 'Skills',
+			href: '#skills'
+		},
+		{
+			name: 'Projecten',
+			href: '#projects'
+		},
+		{
+			name: 'Over mij',
+			href: '#about'
+		},
+		{
+			name: 'Contact',
+			href: '#contact'
+		}
+	];
+
 	onMount(() => {
-		// betterNavLinks();
+		betterNavLinks();
 	});
 
 	const linkColors: string[] = [];
@@ -11,16 +30,21 @@
 	const betterNavLinks = () => {
 		const navLinks: NodeListOf<HTMLAnchorElement> = wrapper.querySelectorAll('nav a');
 
-		for (const [i, navLink] of navLinks.entries()) {
-			navLink.addEventListener('click', betterLinkLogic);
-
-			// get the css variable values and insert into random positions in the array
-			const color = getComputedStyle(document.documentElement).getPropertyValue(
-				`--nav-panel-${i + 1}`
-			);
+		for (
+			let i = 0;
+			getComputedStyle(wrapper).getPropertyValue(`--panel-color-${i + 1}`) !== '';
+			i++
+		) {
+			const color = getComputedStyle(wrapper).getPropertyValue(`--panel-color-${i + 1}`);
 			linkColors.splice(Math.floor(Math.random() * (linkColors.length + 1)), 0, color);
 		}
-		setLinkColors();
+
+		// apply the link color to the nav links and set click handler
+		for (const [i, navLink] of navLinks.entries()) {
+			navLink.addEventListener('click', betterLinkLogic);
+			navLink.style.setProperty('--panel-color', linkColors[i]);
+			navLink.classList.remove('unloaded');
+		}
 	};
 
 	const betterLinkLogic = (e: MouseEvent) => {
@@ -39,12 +63,6 @@
 			}
 		}
 	};
-
-	const setLinkColors = () => {
-		for (const [i, color] of linkColors.entries()) {
-			document.documentElement.style.setProperty(`--nav-panel-${i + 1}`, color);
-		}
-	};
 </script>
 
 <section bind:this={wrapper}>
@@ -53,42 +71,28 @@
 	</div>
 
 	<nav>
-		<a draggable="false" href="#skills">Skills</a>
-		<a draggable="false" href="#projects">Projecten</a>
-		<a draggable="false" href="#about">Over mij</a>
-		<a draggable="false" href="#contact">Contact</a>
+		{#each navItems as navItem}
+			<a draggable="false" class="unloaded" href={navItem.href}
+				>{navItem.name}
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path class="cls-1" d="M16.3,16.78l4.11-4.11a1,1,0,0,0,0-1.41l-4-4" />
+					<path class="cls-1" d="M7.7,7.22,3.59,11.33a1,1,0,0,0,0,1.41l4,4" />
+					<line class="cls-1" x1="13.84" y1="3.14" x2="10.72" y2="20.86" />
+				</svg>
+			</a>
+		{/each}
 	</nav>
 </section>
 
-<style lang="scss">
-	$bgColors: #42a5f5, #26a69a, #ffa727, #ef5350, #c561d6;
-
-	@function list-remove($list, $index) {
-		$newList: ();
-		@for $i from 1 through length($list) {
-			@if $i != $index {
-				$newList: append($newList, nth($list, $i));
-			}
-		}
-		@return $newList;
-	}
-
-	@for $i from 1 through length($bgColors) {
-		$bgColor-index: random(length($bgColors));
-		$bgColor: nth($bgColors, $bgColor-index);
-		$bgColors: list-remove($bgColors, $bgColor-index);
-		section nav a:nth-of-type(#{$i}) {
-			background-color: $bgColor;
-		}
-	}
-
+<style>
 	section {
-		/* --panel-1: #5627af;
-		--panel-2: #9d27b0;
-		--panel-3: #2729af;
-		--panel-4: #256bb0; */
+		/* kleuren worden random ingeladen dmv js */
+		--panel-color-1: #5627af;
+		--panel-color-2: #9d27b0;
+		--panel-color-3: #2729af;
+		--panel-color-4: #256bb0;
+		--panel-color-5: #e91f63;
 
-		background-color: var(--main-bg);
 		display: grid;
 		grid-template-rows: 40% 1fr;
 		min-height: 100vh;
@@ -117,31 +121,34 @@
 	}
 
 	section nav a {
-		background-color: var(--secondary-bg);
+		position: relative;
+		overflow: hidden;
+		color: var(--text-white);
+		background: linear-gradient(
+			140deg,
+			var(--panel-color, var(--secondary-bg)) 50%,
+			var(--secondary-bg) 0
+		);
 		border-radius: 4rem;
-		padding: 2em;
-		transition: transform 0.4s ease, border-color 0.2s ease;
-		border: solid 2px transparent;
+		padding: 4em;
+		transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
+		border: solid 2px var(--main-bg);
+		background-size: 200% 200%;
+		background-position: 0 0;
+	}
+
+	section nav a.unloaded {
+		background-position: 100% 100%;
 	}
 
 	section nav a:first-of-type {
 		grid-column: 1 / 3;
 		grid-row: 1 / 3;
 		min-height: 30rem;
-		// background-color: var(--nav-panel-1);
-	}
-
-	section nav a:nth-of-type(2) {
-		// background-color: var(--nav-panel-2);
-	}
-
-	section nav a:nth-of-type(3) {
-		// background-color: var(--nav-panel-3);
 	}
 
 	section nav a:last-of-type {
 		grid-column: 3 / -1;
-		// background-color: var(--nav-panel-4);
 	}
 
 	section nav a:is(:hover, :focus-visible) {
@@ -152,6 +159,20 @@
 	section nav a:focus-visible {
 		outline-offset: 3px;
 		outline-color: var(--link-color);
+	}
+
+	section nav a svg {
+		position: absolute;
+		bottom: 1em;
+		right: 2em;
+		width: 3em;
+		fill: none;
+		stroke: currentColor;
+		mix-blend-mode: difference;
+		transition: fill 0.2s ease;
+		stroke-linecap: round;
+		stroke-linejoin: bevel;
+		stroke-width: 1.5px;
 	}
 
 	@media (max-width: 1028px) {
