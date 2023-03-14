@@ -1,27 +1,25 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import fetchData from '$lib/functions/fetchData';
 	let wrapper: HTMLElement;
 
-	const navItems = [
-		{
-			name: 'Skills',
-			href: '#skills'
-		},
-		{
-			name: 'Projecten',
-			href: '#projects'
-		},
-		{
-			name: 'Over mij',
-			href: '#about'
-		},
-		{
-			name: 'Contact',
-			href: '#contact'
-		}
-	];
+	interface NavLink {
+		attributes: {
+			title: string;
+			href: string;
+			icon: string;
+			order: number;
+		};
+	};
 
-	onMount(() => {
+	let navLinks: NavLink[] = [];
+
+	(async () => {
+		navLinks = (await fetchData('navLinks')).data;
+		console.log(navLinks);
+	})();
+
+	onMount(async() => {
 		betterNavLinks();
 	});
 
@@ -71,14 +69,16 @@
 	</div>
 
 	<nav>
-		{#each navItems as navItem}
-			<a draggable="false" class="unloaded" href={navItem.href}
-				>{navItem.name}
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		{#each navLinks as navLink}
+			<a draggable="false" class="unloaded" href={navLink.attributes.href}
+				>{navLink.attributes.title}
+
+				<!-- {@html navLink.attributes.icon} -->
+				<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 					<path class="cls-1" d="M16.3,16.78l4.11-4.11a1,1,0,0,0,0-1.41l-4-4" />
 					<path class="cls-1" d="M7.7,7.22,3.59,11.33a1,1,0,0,0,0,1.41l4,4" />
 					<line class="cls-1" x1="13.84" y1="3.14" x2="10.72" y2="20.86" />
-				</svg>
+				</svg> -->
 			</a>
 		{/each}
 	</nav>
