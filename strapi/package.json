@@ -27,8 +27,5 @@
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "yarn": "^1.22.19"
-  }
+  "license": "MIT"
 }
