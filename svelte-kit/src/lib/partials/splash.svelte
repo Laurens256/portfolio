@@ -56,10 +56,7 @@
 				draggable="false"
 				on:click={betterLinkLogic}
 				href="#{navLink.attributes.href}"
-				style="--panel-color: {panelColors.splice(
-					Math.floor(Math.random() * panelColors.length),
-					1
-				)}"
+				style="--panel-color: {getRandomPanelColor()}"
 				>{navLink.attributes.title}
 				{@html navLink.attributes.icon}
 			</a>
