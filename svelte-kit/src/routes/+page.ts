@@ -1,9 +1,12 @@
 import fetchData from '$lib/functions/fetchData';
+import { browser } from '$app/environment';
 
 export const load = async ({fetch}) => {
-	const navLinks = await fetchData('navLinks');
+	if(!browser) {
+		const navLinks = await fetchData('navLinks');
 
-	return {
-		navLinks: navLinks.data
+		return {
+			navLinks: navLinks.data
+		};
 	}
 };

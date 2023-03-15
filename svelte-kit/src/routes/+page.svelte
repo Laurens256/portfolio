@@ -6,4 +6,4 @@
 	const { navLinks } = data;
 </script>
 
-<Splash {navLinks} />
+<Splash navLinks={navLinks} />

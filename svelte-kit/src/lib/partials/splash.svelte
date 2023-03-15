@@ -1,12 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let navLinks: NavLink[];
-
-	navLinks.sort((a, b) => {
-		return a.attributes.order - b.attributes.order;
-	});
-
 	interface NavLink {
 		attributes: {
 			title: string;
@@ -16,23 +10,19 @@
 		};
 	}
 
-	onMount(() => {
-		setRandomPanelColors();
+	export let navLinks: NavLink[];
+
+	navLinks.sort((a, b) => {
+		return a.attributes.order - b.attributes.order;
 	});
 
-	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
-	const setRandomPanelColors = () => {
-		const navLinkEls: NodeListOf<HTMLAnchorElement> =
-			document.querySelectorAll('section.splash nav a');
-			
-		navLinkEls.forEach((navLinkEl) => {
-			const randomIndex = Math.floor(Math.random() * panelColors.length);
-			const randomColor = panelColors[randomIndex];
-			panelColors.splice(randomIndex, 1);
+	// onMount(() => {
+	// 	setRandomPanelColors();
+	// });
 
-			navLinkEl.style.setProperty('--panel-color', randomColor);
-			navLinkEl.classList.remove('unloaded');
-		});
+	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
+	const getRandomPanelColor = () => {
+		return panelColors.splice(Math.floor(Math.random() * panelColors.length), 1);
 	};
 
 	const betterLinkLogic = (e: MouseEvent) => {
@@ -51,6 +41,8 @@
 			}
 		}
 	};
+	// style="--panel-color: var(--panel-color-{i + 1}"
+	// style="--panel-color: {panelColors.splice(Math.floor(Math.random() * panelColors.length), 1)}"
 </script>
 
 <section class="splash">
@@ -59,12 +51,15 @@
 	</div>
 
 	<nav>
-		{#each navLinks as navLink}
+		{#each navLinks as navLink, i}
 			<a
 				draggable="false"
-				class="unloaded"
 				on:click={betterLinkLogic}
 				href="#{navLink.attributes.href}"
+				style="--panel-color: {panelColors.splice(
+					Math.floor(Math.random() * panelColors.length),
+					1
+				)}"
 				>{navLink.attributes.title}
 				{@html navLink.attributes.icon}
 			</a>
@@ -87,6 +82,7 @@
 
 	section > div:first-of-type {
 		height: 40vh;
+		min-height: 15rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -107,10 +103,17 @@
 	}
 
 	section nav a {
+		--panel-color-1: #5627af;
+		--panel-color-2: #9d27b0;
+		--panel-color-3: #2729af;
+		--panel-color-4: #e91f63;
+		--panel-color-5: #256bb0;
+
 		position: relative;
 		overflow: hidden;
 		color: var(--text-white);
-		background: linear-gradient(
+		background-color: var(--secondary-bg);
+		background-image: linear-gradient(
 			140deg,
 			var(--panel-color, var(--secondary-bg)) 50%,
 			var(--secondary-bg) 0
@@ -123,10 +126,6 @@
 		background-position: 100% 100%;
 
 		animation: panelLoad 1.8s ease forwards;
-		animation-play-state: running;
-	}
-	section nav a.unloaded {
-		animation-play-state: paused;
 	}
 
 	@keyframes panelLoad {
@@ -139,10 +138,20 @@
 		grid-column: 1 / 3;
 		grid-row: 1 / 3;
 		min-height: 30rem;
+		/* --panel-color: #5627af; */
+	}
+
+	section nav a:nth-of-type(2) {
+		/* --panel-color: #9d27b0; */
+	}
+
+	section nav a:nth-of-type(3) {
+		/* --panel-color: #2729af; */
 	}
 
 	section nav a:last-of-type {
 		grid-column: 3 / -1;
+		/* --panel-color: #e91f63; */
 	}
 
 	section nav a:is(:hover, :focus-visible) {
@@ -189,11 +198,22 @@
 
 		section nav a:nth-of-type(2),
 		section nav a:last-of-type {
-			min-height: 10rem;
+			min-height: 12rem;
 		}
 
 		section nav a:last-of-type {
 			grid-column: 1 / -1;
+		}
+	}
+
+	@media (max-width: 768px) {
+		section > div:first-of-type {
+			height: 20vh;
+		}
+
+		section nav {
+			gap: 0.1em;
+			padding: 0.1em;
 		}
 	}
 </style>
