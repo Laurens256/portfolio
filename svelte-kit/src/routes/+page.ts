@@ -1,9 +1,9 @@
-import { PUBLIC_API_URL } from '$env/static/public';
+import fetchData from '$lib/functions/fetchData';
 
 export const load = async ({fetch}) => {
-	console.log('before fetch');
-	const data = await (await fetch(`${PUBLIC_API_URL}navlinks`)).json();
-	console.log('after fetch');
+	const navLinks = await fetchData('navLinks');
 
-	return data;
+	return {
+		navLinks: navLinks.data
+	}
 };

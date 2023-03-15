@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { PUBLIC_API_URL } from '$env/static/public';
-	import fetchData from '$lib/functions/fetchData';
+	export let navLinks: NavLink[];
+
+	navLinks.sort((a, b) => {
+		return a.attributes.order - b.attributes.order;
+	});
 
 	interface NavLink {
 		attributes: {
@@ -10,19 +13,6 @@
 			order: number;
 		};
 	}
-
-	let navLinks: NavLink[] = [];
-
-	console.log('before func');
-	const getNavLinks = async () => {
-		console.log('before fetch');
-		const data = await (await fetch(`${PUBLIC_API_URL}navlinks`)).json();
-		navLinks = data.data;
-		// navLinks = (await fetchData('navLinks')).data;
-		console.log('after fetch');
-	};
-	
-	getNavLinks();
 
 
 	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
@@ -62,12 +52,16 @@
 				on:click={betterLinkLogic}
 				href="#{navLink.attributes.href}"
 				>{navLink.attributes.title}
-
 			{@html navLink.attributes.icon}
 			</a>
 		{/each}
 	</nav>
 </section>
+
+<h2 id="skills">skills</h2>
+<h2 id="projects">projecten</h2>
+<h2 id="about">over mij</h2>
+<h2 id="contact">contact</h2>
 
 <style>
 	section {
