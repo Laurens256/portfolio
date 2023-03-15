@@ -12,9 +12,13 @@
 
 	export let navLinks: NavLink[];
 
-	navLinks.sort((a, b) => {
-		return a.attributes.order - b.attributes.order;
-	});
+	if (navLinks) {
+		navLinks.sort((a, b) => {
+			return a.attributes.order - b.attributes.order;
+		});
+	} else {
+		navLinks = [];
+	}
 
 	// onMount(() => {
 	// 	setRandomPanelColors();
