@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { PUBLIC_API_URL } from '$env/static/public';
 	import fetchData from '$lib/functions/fetchData';
 
 	interface NavLink {
@@ -12,9 +13,17 @@
 
 	let navLinks: NavLink[] = [];
 
-	(async () => {
-		navLinks = (await fetchData('navLinks')).data;
-	})();
+	console.log('before func');
+	const getNavLinks = async () => {
+		console.log('before fetch');
+		const data = await (await fetch(`${PUBLIC_API_URL}navlinks`)).json();
+		navLinks = data.data;
+		// navLinks = (await fetchData('navLinks')).data;
+		console.log('after fetch');
+	};
+	
+	getNavLinks();
+
 
 	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
 	const getRandomPanelColor = () => {
