@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	export let navLinks: NavLink[];
 
 	navLinks.sort((a, b) => {
@@ -14,11 +16,23 @@
 		};
 	}
 
+	onMount(() => {
+		setRandomPanelColors();
+	});
 
 	const panelColors = ['#5627af', '#9d27b0', '#2729af', '#256bb0', '#e91f63'];
-	const getRandomPanelColor = () => {
-		const randomIndex = Math.floor(Math.random() * panelColors.length);
-		return panelColors.splice(randomIndex, 1)[0];
+	const setRandomPanelColors = () => {
+		const navLinkEls: NodeListOf<HTMLAnchorElement> =
+			document.querySelectorAll('section.splash nav a');
+			
+		navLinkEls.forEach((navLinkEl) => {
+			const randomIndex = Math.floor(Math.random() * panelColors.length);
+			const randomColor = panelColors[randomIndex];
+			panelColors.splice(randomIndex, 1);
+
+			navLinkEl.style.setProperty('--panel-color', randomColor);
+			navLinkEl.classList.remove('unloaded');
+		});
 	};
 
 	const betterLinkLogic = (e: MouseEvent) => {
@@ -48,11 +62,11 @@
 		{#each navLinks as navLink}
 			<a
 				draggable="false"
-				style="--panel-color:{getRandomPanelColor()};"
+				class="unloaded"
 				on:click={betterLinkLogic}
 				href="#{navLink.attributes.href}"
 				>{navLink.attributes.title}
-			{@html navLink.attributes.icon}
+				{@html navLink.attributes.icon}
 			</a>
 		{/each}
 	</nav>
@@ -109,6 +123,10 @@
 		background-position: 100% 100%;
 
 		animation: panelLoad 1.8s ease forwards;
+		animation-play-state: running;
+	}
+	section nav a.unloaded {
+		animation-play-state: paused;
 	}
 
 	@keyframes panelLoad {
