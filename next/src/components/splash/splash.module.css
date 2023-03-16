@@ -28,17 +28,10 @@
 }
 
 .splash nav a {
-	--panel-color-1: #5627af;
-	--panel-color-2: #9d27b0;
-	--panel-color-3: #2729af;
-	--panel-color-4: #e91f63;
-	--panel-color-5: #256bb0;
-
 	position: relative;
 	overflow: hidden;
 	color: var(--text-white);
 	background-color: var(--panel-color, var(--secondary-bg));
-	/* background-color: var(--secondary-bg); */
 	background-image: linear-gradient(
 		140deg,
 		var(--panel-color, var(--secondary-bg)) 50%,
@@ -52,6 +45,13 @@
 	background-position: 100% 100%;
 
 	animation: panelLoad 1.8s ease forwards;
+}
+
+/* prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.splash nav a {
+		background-position: 0 0;
+	}
 }
 
 @keyframes panelLoad {
@@ -86,8 +86,8 @@
 }
 
 .splash nav a:focus-visible {
-	outline-offset: 3px;
-	outline-color: var(--link-color);
+	outline-offset: 5px;
+	outline: solid 3px var(--panel-color);
 }
 
 .splash.splash nav a svg {
