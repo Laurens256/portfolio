@@ -1,12 +1,19 @@
 .splash {
+	--big-panel-min-height: 30rem;
+	--small-panel-min-height: 12rem;
 	display: grid;
-	grid-template-rows: 40% 1fr;
-	min-height: 100vh;
-	height: fit-content;
+	grid-template-rows: 40% max(1fr, min-content);
+	/* werkt alleen in firefox zo :( */
+	/* min-height: 100vh;
+	height: fit-content; */
+
+	/* calc max van hoogte van header div + min-height van nav a:first-of-type (30rem) + 2rem extra */
+	min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + 2rem);
+	height: 100vh;
 }
 
 .splash > div:first-of-type {
-	height: 40vh;
+	height: 100%;
 	min-height: 15rem;
 	display: flex;
 	justify-content: center;
@@ -63,7 +70,7 @@
 .splash nav a:first-of-type {
 	grid-column: 1 / 3;
 	grid-row: 1 / 3;
-	min-height: 30rem;
+	min-height: var(--big-panel-min-height);
 	--panel-color: #5627af;
 }
 
@@ -98,15 +105,16 @@
 	fill: none;
 	stroke: currentColor;
 	mix-blend-mode: difference;
-	transition: fill 0.2s ease;
 	stroke-linecap: round;
 	stroke-linejoin: bevel;
 	stroke-width: 1.5px;
 }
 
 @media (max-width: 1028px) {
-	.splash > div:first-of-type {
-		height: 30vh;
+	.splash {
+		grid-template-rows: 30% 1fr;
+		/* calc zelfde als buiten media query + 12rem  */
+		min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + var(--small-panel-min-height) * 2 + 2rem);
 	}
 
 	.splash nav {
@@ -124,7 +132,7 @@
 
 	.splash nav a:nth-of-type(2),
 	.splash nav a:last-of-type {
-		min-height: 12rem;
+		min-height: var(--small-panel-min-height);
 	}
 
 	.splash nav a:last-of-type {
@@ -133,8 +141,9 @@
 }
 
 @media (max-width: 768px) {
-	.splash > div:first-of-type {
-		height: 20vh;
+	.splash {
+		grid-template-rows: 20% 1fr;
+		min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + var(--small-panel-min-height) * 2 + 2rem);
 	}
 
 	.splash nav {

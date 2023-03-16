@@ -14,8 +14,6 @@ const getRandomPanelColor = () => {
 	const randomIndex = Math.floor(Math.random() * availableColors.length);
 	const color = availableColors[randomIndex];
 	availableColors.splice(randomIndex, 1);
-
-	// Return the random string
 	return color;
 };
 
