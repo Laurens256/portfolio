@@ -16,7 +16,7 @@ const strapiFetch = async (query: string, options?: Options): Promise<any> => {
 		}
 	};
 
-	return await (await fetch(process.env.API_URL + query, customOptions)).json();
+	return await (await fetch(process.env.NEXT_PUBLIC_API_URL + query, customOptions)).json();
 };
 
 export default strapiFetch;
