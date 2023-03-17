@@ -1,6 +1,7 @@
 import styles from './splash.module.css';
 import NavLink from '@/types/NavLinks';
 import { CSSProperties } from 'react';
+import { useState } from 'react';
 
 // prettier-ignore
 const panelColors = ['#5627af', '#9d27b0', '#2729af', '#e91f63', '#256bb0', '#4d50b1', '#0b698e', '#038387'];
@@ -28,10 +29,8 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 			<nav>
 				{navLinks.map((navLink: any) => (
 					<a
-						onClick={() => console.log('clicked:)')}
 						key={navLink.attributes.order}
 						draggable="false"
-						// on:click={betterLinkLogic}
 						href={`#${navLink.attributes.href}`}
 						style={{ '--panel-color': getRandomPanelColor() } as CSSProperties}
 						dangerouslySetInnerHTML={{
