@@ -6,7 +6,7 @@
 		"svelte": "cd svelte-kit && npm run dev",
 		"strapi": "cd strapi && npm run develop",
 		"next": "cd next && npm run dev",
-		"dev": "concurrently \"npm run next\" \"npm run svelte\" "
+		"dev": "concurrently \"npm run strapi\" \"npm run next\" "
 	},
 	"author": "",
 	"license": "MIT",
