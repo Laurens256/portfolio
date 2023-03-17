@@ -1,4 +1,17 @@
 ############################
+# NextJS
+############################
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+
+
+############################
 # Svelte-Kit
 ############################
 .svelte-kit
