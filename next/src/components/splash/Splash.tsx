@@ -36,7 +36,7 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 			`nav a[draggable="false"]`
 		);
 
-		navLinkElements.forEach((navLinkEl, i) => {
+		navLinkElements.forEach((navLinkEl) => {
 			navLinkEl.style.setProperty('--panel-color', getRandomPanelColor());
 		});
 	}, []);
