@@ -8,5 +8,8 @@ export default ({ env }) => ({
         bucket: env("SUPABASE_BUCKET"),
       },
     },
-  }
+  },
+  "drag-drop-content-types": {
+    enabled: true,
+  },
 });

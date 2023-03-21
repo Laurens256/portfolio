@@ -18,7 +18,7 @@ const getRandomPanelColor = () => {
 	return color;
 };
 
-const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement> ) => {
+const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
 	e.preventDefault();
 	const heading = document.querySelector(`#${href}`);
 
@@ -51,7 +51,7 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 				{navLinks.map((navLink, i) => (
 					<a
 						onClick={(e) => betterLinkScroll(navLink.attributes.href, e)}
-						key={navLink.attributes.order}
+						key={navLink.attributes.rank}
 						draggable="false"
 						href={`#${navLink.attributes.href}`}
 						dangerouslySetInnerHTML={{

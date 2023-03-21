@@ -3,6 +3,6 @@ export default interface NavLink {
 		title: string;
 		href: string;
 		icon: string;
-		order: number;
+		rank: number;
 	};
 }

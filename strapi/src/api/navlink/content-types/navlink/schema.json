@@ -16,12 +16,6 @@
       "type": "string",
       "required": true
     },
-    "order": {
-      "unique": true,
-      "default": 0,
-      "type": "integer",
-      "required": true
-    },
     "icon": {
       "type": "text",
       "default": "\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"> \t\t\t\t\t<path class=\"cls-1\" d=\"M16.3,16.78l4.11-4.11a1,1,0,0,0,0-1.41l-4-4\" /> \t\t\t\t\t<path class=\"cls-1\" d=\"M7.7,7.22,3.59,11.33a1,1,0,0,0,0,1.41l4,4\" /> \t\t\t\t\t<line class=\"cls-1\" x1=\"13.84\" y1=\"3.14\" x2=\"10.72\" y2=\"20.86\" /> \t\t\t\t</svg>"
@@ -30,6 +24,12 @@
       "type": "uid",
       "targetField": "title",
       "required": true
+    },
+    "rank": {
+      "type": "integer",
+      "required": false,
+      "unique": false,
+      "min": 0
     }
   }
 }
