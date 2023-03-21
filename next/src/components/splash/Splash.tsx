@@ -18,8 +18,18 @@ const getRandomPanelColor = () => {
 	return color;
 };
 
-export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
+const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement> ) => {
+	e.preventDefault();
+	const heading = document.querySelector(`#${href}`);
 
+	if (heading) {
+		heading.scrollIntoView({
+			behavior: 'smooth'
+		});
+	}
+};
+
+export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 	// Set the panel colors randomly
 	useEffect(() => {
 		const navLinkElements: NodeListOf<HTMLElement> = document.querySelectorAll(
@@ -40,6 +50,7 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 			<nav>
 				{navLinks.map((navLink, i) => (
 					<a
+						onClick={(e) => betterLinkScroll(navLink.attributes.href, e)}
 						key={navLink.attributes.order}
 						draggable="false"
 						href={`#${navLink.attributes.href}`}

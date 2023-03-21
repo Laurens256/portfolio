@@ -54,13 +54,6 @@
 	animation: panelLoad 1.8s ease forwards;
 }
 
-/* prefers reduced motion */
-@media (prefers-reduced-motion: reduce) {
-	.splash nav a {
-		background-position: 0 0;
-	}
-}
-
 @keyframes panelLoad {
 	to {
 		background-position: 0 0;
@@ -149,5 +142,17 @@
 	.splash nav {
 		gap: 0.1em;
 		padding: 0.1em;
+	}
+}
+
+
+/* prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.splash nav a {
+		background-position: 0 0;
+	}
+
+	.splash nav a:is(:hover, :focus-visible) {
+		transform: none;
 	}
 }
