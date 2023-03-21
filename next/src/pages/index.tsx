@@ -12,6 +12,7 @@ export default function Home({ navLinks }: { navLinks: NavLink[] }) {
 
 export const getStaticProps = async () => {
 	const response = await strapiFetch('navlinks?sort=rank:ASC');
+	console.log(response);
 	const navLinks: NavLink[] = response.data;
 
 	return {
