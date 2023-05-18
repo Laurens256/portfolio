@@ -1,5 +1,5 @@
 import styles from './splash.module.css';
-import NavLink from '@/types/NavLinks';
+import type NavLink from '@/types/NavLink';
 import { useEffect } from 'react';
 
 // prettier-ignore
@@ -22,11 +22,9 @@ const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement>) 
 	e.preventDefault();
 	const heading = document.querySelector(`#${href}`);
 
-	if (heading) {
-		heading.scrollIntoView({
-			behavior: 'smooth'
-		});
-	}
+	heading?.scrollIntoView({
+		behavior: 'smooth'
+	});
 };
 
 export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
@@ -48,15 +46,15 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 			</div>
 
 			<nav>
-				{navLinks.map((navLink, i) => (
+				{navLinks.map(({ attributes: { title, href, icon } }, i) => (
 					<a
-						onClick={(e) => betterLinkScroll(navLink.attributes.href, e)}
-						key={navLink.attributes.rank}
+						onClick={(e) => betterLinkScroll(href, e)}
+						key={i}
 						draggable="false"
-						href={`#${navLink.attributes.href}`}
+						href={`#${href}`}
 						dangerouslySetInnerHTML={{
-							__html: `<h2>${navLink.attributes.title}</h2>
-					${navLink.attributes.icon}`
+							__html: `<h2>${title}</h2>
+					${icon}`
 						}}></a>
 				))}
 			</nav>

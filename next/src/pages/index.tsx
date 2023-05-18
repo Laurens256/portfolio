@@ -1,22 +1,29 @@
 import Splash from '@/components/splash/Splash';
-import type NavLink from '@/types/NavLinks';
+import Projects from '@/components/projects/Projects';
+
+import type NavLink from '@/types/NavLink';
+import type Project from '@/types/Project';
+
 import strapiFetch from '@/utils/fetchWithHeaders';
 
-export default function Home({ navLinks }: { navLinks: NavLink[] }) {
+export default function Home({ navLinks, projects }: { navLinks: NavLink[], projects: Project[] }) {
+	// export default function Home({ navLinks }: { navLinks: NavLink[] }, { projects }: { projects: Project[] }) {
 	return (
 		<>
 			<Splash navLinks={navLinks} />
+			<Projects projects={projects}/>
 		</>
 	);
 }
 
 export const getStaticProps = async () => {
-	const response = await strapiFetch('navlinks?sort=rank:ASC');
-	const navLinks: NavLink[] = response.data;
+	const navLinks: NavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
+	const projects: Project[] = (await strapiFetch('projects')).data;
 
 	return {
 		props: {
-			navLinks
+			navLinks,
+			projects
 		}
 	};
 };
