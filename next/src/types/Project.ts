@@ -3,5 +3,6 @@ export default interface Project {
 		title: string;
 		slug: string;
 		rank: number;
+		background: string;
 	};
 }

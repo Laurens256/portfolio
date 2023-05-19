@@ -1,0 +1,20 @@
+.linkPanel {
+	position: relative;
+	overflow: hidden;
+	color: var(--text-white);
+	background-color: var(--panel-bg-color, var(--secondary-bg));
+	border-radius: var(--panel-border-radius);
+	padding: min(3rem, 6vw);
+	border: solid 2px var(--main-bg);
+	transition: transform 0.4s ease, border-color 0.2s ease;
+}
+
+.linkPanel:is(:hover, :focus-visible) {
+	transform: scale(0.975);
+	border-color: var(--main-text);
+}
+
+.linkPanel:focus-visible {
+	outline-offset: 5px;
+	outline: solid 3px var(--panel-color);
+}

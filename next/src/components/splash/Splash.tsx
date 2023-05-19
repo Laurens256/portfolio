@@ -1,4 +1,6 @@
 import styles from './splash.module.css';
+import panelStyles from '@/styles/link-panel.module.css';
+
 import type NavLink from '@/types/NavLink';
 import { useEffect } from 'react';
 
@@ -35,7 +37,7 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 		);
 
 		navLinkElements.forEach((navLinkEl) => {
-			navLinkEl.style.setProperty('--panel-color', getRandomPanelColor());
+			navLinkEl.style.setProperty('--panel-bg-color', getRandomPanelColor());
 		});
 	}, []);
 
@@ -49,12 +51,12 @@ export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
 				{navLinks.map(({ attributes: { title, href, icon } }, i) => (
 					<a
 						onClick={(e) => betterLinkScroll(href, e)}
+						className={panelStyles.linkPanel}
 						key={i}
 						draggable="false"
 						href={`#${href}`}
 						dangerouslySetInnerHTML={{
-							__html: `<h2>${title}</h2>
-					${icon}`
+							__html: `<h2>${title}</h2>${icon}`
 						}}></a>
 				))}
 			</nav>

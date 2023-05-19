@@ -39,19 +39,12 @@
 
 .splash nav a {
 	min-height: var(--small-panel-min-height);
-	position: relative;
-	overflow: hidden;
-	color: var(--text-white);
-	background-color: var(--panel-color, var(--secondary-bg));
 	background-image: linear-gradient(
 		140deg,
 		var(--panel-color, var(--secondary-bg)) 50%,
 		var(--secondary-bg) 0
 	);
-	border-radius: 4rem;
-	padding: min(3rem, 6vw);
 	transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
-	border: solid 2px var(--main-bg);
 	background-size: 200% 200%;
 	background-position: 100% 100%;
 
@@ -84,16 +77,6 @@
 	--panel-color: #e91f63;
 }
 
-.splash nav a:is(:hover, :focus-visible) {
-	transform: scale(0.975);
-	border-color: var(--main-text);
-}
-
-.splash nav a:focus-visible {
-	outline-offset: 5px;
-	outline: solid 3px var(--panel-color);
-}
-
 .splash.splash nav a svg {
 	position: absolute;
 	bottom: 1rem;
@@ -116,10 +99,6 @@
 
 	.splash nav {
 		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.splash nav a {
-		border-radius: 3rem;
 	}
 
 	.splash nav a:first-of-type {

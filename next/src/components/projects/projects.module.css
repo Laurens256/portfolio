@@ -1,6 +1,10 @@
 .projects {
-	color: red;
 	padding: var(--panel-gap);
+}
+
+.projects > h2 {
+	position: absolute;
+	clip: rect(0 0 0 0);
 }
 
 .projects ul {
@@ -10,10 +14,35 @@
 }
 
 .projects ul li {
-	background-color: blue;
 	min-height: 30rem;
+	overflow: hidden;
+	border-radius: var(--panel-border-radius);
+	font-size: clamp(1.5rem, 2.5vw, 3.4rem);
+	font-size: clamp(1.5rem, 2.5cqw, 3.4rem);
 }
 
 .projects ul.uneven li:first-of-type {
 	grid-column: 1 / -1;
+}
+
+.projects ul li a {
+	display: flex;
+	height: 100%;
+	padding: min(3rem, 6vw);
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+/* project specific styles */
+.projects ul li.pokemon {
+	font-family: pokemon, 'satoshi', 'Source Sans Pro', Arial, Helvetica, sans-serif;
+	--text-shadow-color: #424242;
+	--text-shadow-size: min(0.3rem, max(0.5vw, 0.15rem));
+	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
+		0 var(--text-shadow-size) var(--text-shadow-color),
+		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
+
+	font-size: clamp(2rem, 3vw, 4rem);
+	font-size: clamp(2rem, 6cqw, 4rem);
 }

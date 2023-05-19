@@ -3,6 +3,11 @@
 	font-family: 'satoshi';
 }
 
+@font-face {
+	src: url(/fonts/pokemon-fire-red.woff2);
+	font-family: pokemon;
+}
+
 *,
 *::before,
 *::after {
@@ -12,17 +17,46 @@
 }
 
 :root {
+	color-scheme: dark;
 	/* ---------------------- */
 	/* ---- Static Color ---- */
 	/* ---------------------- */
 	--text-black: #333;
 	--text-white: #fff;
+	--nav-panel-1: #5627af;
+	--nav-panel-2: #9d27b0;
+	--nav-panel-3: #2729af;
+	--nav-panel-4: #256bb0;
 
 	/* ---------------------- */
 	/* ----- Bg Colors ------ */
 	/* ---------------------- */
+	--main-bg: #0d1117;
+	--secondary-bg: #161b22;
+
+	/* ---------------------- */
+	/* ---- Text Colors ----- */
+	/* ---------------------- */
+	--main-text: #fff;
+	--secondary-text: #d5d5d5;
+	--link-color: #58a6ff;
+	--selection-color: #ef0fff;
+
+
+	/* ---------------------- */
+	/* ---- other values ---- */
+	/* ---------------------- */
+	--panel-gap: 0.5rem;
+	--panel-border-radius: min(4rem, 15vw);
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+	/* ---------------------- */
+	/* ----- Bg Colors ------ */
+	/* ---------------------- */
 	--main-bg: #fff;
-	--secondary-bg: #fafafa;
+	--secondary-bg: #d5d5d5;
 
 	/* ---------------------- */
 	/* ---- Text Colors ----- */
@@ -31,32 +65,6 @@
 	--secondary-text: #333;
 	--link-color: #0969da;
 	--selection-color: #ef0fff;
-
-	--nav-panel-1: #5627af;
-	--nav-panel-2: #9d27b0;
-	--nav-panel-3: #2729af;
-	--nav-panel-4: #256bb0;
-
-	/* ---------------------- */
-	/* ------ Padding ------- */
-	/* ---------------------- */
-	--panel-gap: 0.5rem;
-}
-
-@media screen and (prefers-color-scheme: dark) {
-	:root {
-		--main-bg: #0d1117;
-		--secondary-bg: #161b22;
-
-		--main-text: #fff;
-		--secondary-text: #fafafa;
-
-		--link-color: #58a6ff;
-	}
-}
-
-html {
-	color-scheme: light dark;
 }
 
 body {
@@ -66,12 +74,21 @@ body {
 	background-color: var(--main-bg);
 }
 
+button {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
 a {
 	color: var(--main-text);
 	text-decoration: none;
 }
 
-a.underline {
+/* a.underline {
 	color: var(--link-color);
 	text-decoration: none;
 	position: relative;
@@ -85,20 +102,20 @@ a.underline::after {
 	content: '';
 	width: 100%;
 	height: 2px;
-	background: var(--link-color);
+	background-color: var(--link-color);
 	transition: transform 0.25s;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	transform: scale(0);
-}
+} */
 
 ul,
 ol {
 	list-style: none;
 }
 
-*::selection {
+h1::selection {
 	color: var(--selection-color);
-	background: var(--main-bg);
+	background-color: var(--main-bg);
 }
