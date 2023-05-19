@@ -1,20 +1,23 @@
 .splash {
+	--name-div-min-height: 20rem;
 	--big-panel-min-height: 30rem;
-	--small-panel-min-height: 12rem;
+	/* small panel min-height 0 omdat de panels voor big screen nog naast elkaar staan dus alleen big panel height is nodig */
+	--small-panel-min-height: 0;
 	display: grid;
-	grid-template-rows: 40% max(1fr, min-content);
-	/* werkt alleen in firefox zo :( */
-	/* min-height: 100vh;
-	height: fit-content; */
+	grid-template-rows: max(40%, var(--name-div-min-height)) max(1fr, min-content);
 
-	/* calc max van hoogte van header div + min-height van nav a:first-of-type (30rem) + 2rem extra */
-	min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + 2rem);
+	/* min height calc div met naam min height, big panel min height, small panel height * 2, + 2rem voor extra witruimte */
+	min-height: calc(
+		var(--name-div-min-height) + var(--big-panel-min-height) +
+			var(--small-panel-min-height) * 2 + 2rem
+	);
 	height: 100vh;
 }
 
+/* div with name */
 .splash > div:first-of-type {
 	height: 100%;
-	min-height: 15rem;
+	min-height: var(--name-div-min-height);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -26,15 +29,16 @@
 	place-self: center;
 }
 
+/* actual navlinks */
 .splash nav {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 0.5em;
-	padding: 0.5em;
-	align-self: end;
+	gap: var(--panel-gap);
+	padding: var(--panel-gap);
 }
 
 .splash nav a {
+	min-height: var(--small-panel-min-height);
 	position: relative;
 	overflow: hidden;
 	color: var(--text-white);
@@ -45,7 +49,7 @@
 		var(--secondary-bg) 0
 	);
 	border-radius: 4rem;
-	padding: 4em;
+	padding: min(3rem, 6vw);
 	transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
 	border: solid 2px var(--main-bg);
 	background-size: 200% 200%;
@@ -92,9 +96,9 @@
 
 .splash.splash nav a svg {
 	position: absolute;
-	bottom: 1em;
-	right: 2em;
-	width: 3em;
+	bottom: 1rem;
+	right: 2rem;
+	width: 3rem;
 	fill: none;
 	stroke: currentColor;
 	mix-blend-mode: difference;
@@ -105,9 +109,9 @@
 
 @media (max-width: 1028px) {
 	.splash {
-		grid-template-rows: 30% 1fr;
-		/* calc zelfde als buiten media query + 12rem  */
-		min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + var(--small-panel-min-height) * 2 + 2rem);
+		/* small panel min height wordt hier aangegeven omdat de panels onder elkaar komen */
+		--small-panel-min-height: 12rem;
+		grid-template-rows: max(30%, var(--name-div-min-height)) max(1fr, min-content);
 	}
 
 	.splash nav {
@@ -115,17 +119,12 @@
 	}
 
 	.splash nav a {
-		border-radius: 3em;
+		border-radius: 3rem;
 	}
 
 	.splash nav a:first-of-type {
 		grid-column: 1 / -1;
 		grid-row: 1 / 2;
-	}
-
-	.splash nav a:nth-of-type(2),
-	.splash nav a:last-of-type {
-		min-height: var(--small-panel-min-height);
 	}
 
 	.splash nav a:last-of-type {
@@ -135,16 +134,14 @@
 
 @media (max-width: 768px) {
 	.splash {
-		grid-template-rows: 20% 1fr;
-		min-height: calc(max(40vh, 15rem) + var(--big-panel-min-height) + var(--small-panel-min-height) * 2 + 2rem);
+		grid-template-rows: max(20%, var(--name-div-min-height)) 1fr;
 	}
 
 	.splash nav {
-		gap: 0.1em;
-		padding: 0.1em;
+		gap: 0.1rem;
+		padding: 0.1rem;
 	}
 }
-
 
 /* prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {

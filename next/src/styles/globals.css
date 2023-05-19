@@ -36,6 +36,11 @@
 	--nav-panel-2: #9d27b0;
 	--nav-panel-3: #2729af;
 	--nav-panel-4: #256bb0;
+
+	/* ---------------------- */
+	/* ------ Padding ------- */
+	/* ---------------------- */
+	--panel-gap: 0.5rem;
 }
 
 @media screen and (prefers-color-scheme: dark) {
