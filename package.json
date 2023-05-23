@@ -5,7 +5,8 @@
 	"scripts": {
 		"strapi": "cd strapi && npm run develop",
 		"next": "cd next && npm run dev",
-		"dev": "concurrently \"npm run strapi\" \"npm run next\" "
+		"dev": "concurrently \"npm run strapi\" \"npm run next\" ",
+		"dev2": "cd strapi && npm run develop & cd next && npm run dev & cd .."
 	},
 	"author": "",
 	"license": "MIT",

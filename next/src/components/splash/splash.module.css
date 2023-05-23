@@ -2,7 +2,7 @@
 	--name-div-min-height: 20rem;
 	--big-panel-min-height: 30rem;
 	/* small panel min-height 0 omdat de panels voor big screen nog naast elkaar staan dus alleen big panel height is nodig */
-	--small-panel-min-height: 0;
+	--small-panel-min-height: 0px;
 	display: grid;
 	grid-template-rows: max(40%, var(--name-div-min-height)) max(1fr, min-content);
 
