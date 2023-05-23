@@ -1,0 +1,89 @@
+.contact {
+	width: 700px;
+	max-width: 90%;
+	margin: 0 auto .5rem;
+	background-color: var(--secondary-bg);
+	border-radius: 2rem;
+	padding: min(3rem, 5vw);
+}
+
+.contact h2 {
+	margin-bottom: 1rem;
+}
+
+.contact form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* section met naam, email input */
+.contact form section {
+	display: flex;
+	gap: 1rem;
+	width: 100%;
+}
+
+.contact form input,
+.contact form textarea {
+	padding: .7rem;
+	border-radius: .7rem;
+	border: none;
+	font-size: 1rem;
+	background-color: var(--input-bg);
+	border: solid 2px transparent;
+}
+
+.contact form div {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: .1rem;
+}
+
+.contact form div label {
+	display: flex;
+	gap: 1rem;
+}
+
+/* error styling */
+.contact form div label span {
+	display: none;
+}
+
+.contact form div label.error span {
+	display: initial;
+}
+
+.contact form div label.error + input,
+.contact form div label.error + textarea {
+	border-color: red;
+}
+
+.contact form textarea {
+	resize: none;
+	height: 6rem;	
+}
+
+.contact form button[type="submit"] {
+	padding: .7rem 1.5rem;
+	border-radius: .7rem;
+	border: none;
+	background-color: var(--link-color);
+	color: var(--main-bg);
+	width: 10rem;
+	max-width: 100%;
+	text-align: center;
+	margin: 1rem auto 0;
+}
+
+
+@media screen and (max-width: 700px) {
+	.contact {
+		width: 95%;
+	}
+
+	.contact form section {
+		flex-direction: column;
+	}
+}

@@ -2,6 +2,7 @@ import styles from './index.module.css';
 
 import Splash from '@/components/splash/Splash';
 import Projects from '@/components/projects/Projects';
+import Contact from '@/components/contact/Contact';
 
 import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
 
@@ -16,6 +17,7 @@ export default function Home({ navLinks, projects }: { navLinks: NavLink[], proj
 			<ThemeSwitcher customClass={styles["theme-switcher"]} />
 			<Splash navLinks={navLinks} />
 			<Projects projects={projects} />
+			<Contact />
 		</>
 	);
 }
