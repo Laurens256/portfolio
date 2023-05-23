@@ -1,4 +1,5 @@
 import strapiFetch from '@/utils/fetchWithHeaders';
+import styles from './project.module.css';
 
 import type Project from '@/types/Project';
 
@@ -7,7 +8,9 @@ export default function Project({ project }: { project: Project }) {
 	// const { url: imgUrl, alternativeText: imgAlt } = cover?.data?.attributes;
 
 	const {
-		title,
+		short_title,
+		long_title,
+		slug,
 		cover: {
 			data: {
 				attributes: { url: imgUrl, alternativeText: imgAlt }
@@ -16,10 +19,12 @@ export default function Project({ project }: { project: Project }) {
 	} = project.attributes;
 
 	return (
-		<>
-			<h1>{title}</h1>
-			<img src={imgUrl} alt={imgAlt} />
-		</>
+		<main className={`${styles.project} ${styles[slug]}`}>
+			<header>
+				<h1>{long_title}</h1>
+				<img src={imgUrl} alt={imgAlt} />
+			</header>
+		</main>
 	);
 }
 

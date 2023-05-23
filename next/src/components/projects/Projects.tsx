@@ -8,13 +8,13 @@ export default function Projects({ projects }: { projects: Project[] }) {
 		<section className={styles.projects}>
 			<h2 id='projects'>Mijn projecten</h2>
 			<ul className={projects.length % 2 === 0 ? styles.even : styles.uneven}>
-				{projects.map(({ attributes: { title, slug, rank, background } }, i) => (
+				{projects.map(({ attributes: { short_title, slug, rank, background } }, i) => (
 					<li
 						key={i}
 						style={{ '--panel-bg-color': background || '#fff' } as React.CSSProperties}
 						className={slug === 'pokedex' ? styles.pokemon : ''}>
 						<a className={panelStyles.linkPanel} href={`/projects/${slug}`}>
-							<h3>{title}</h3>
+							<h3>{short_title}</h3>
 						</a>
 					</li>
 				))}

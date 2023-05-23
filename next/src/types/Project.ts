@@ -1,6 +1,7 @@
 export default interface Project {
 	attributes: {
-		title: string;
+		short_title: string;
+		long_title: string;
 		slug: string;
 		rank: number;
 		background: string;
