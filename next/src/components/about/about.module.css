@@ -1,0 +1,14 @@
+.about {
+	width: calc(100% - var(--panel-gap) * 2);
+	margin: 0 auto;
+}
+
+.about header {
+	background-color: var(--secondary-bg);
+	border-radius: var(--panel-border-radius);
+	padding: min(3rem, 6vw);
+}
+
+.about header h2 {
+	/* font-size: 8rem; */
+}

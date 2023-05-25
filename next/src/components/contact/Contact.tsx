@@ -56,14 +56,14 @@ export default function Contact() {
 				<section>
 					<div>
 						<label htmlFor="name">
-							Naam <span>*Naam is vereist</span>
+							Name <span>*Name is required</span>
 						</label>
-						<input type="text" name="name" id="name" placeholder="Naam" required />
+						<input type="text" name="name" id="name" placeholder="Name" required />
 					</div>
 
 					<div>
 						<label htmlFor="email">
-							E-mailadres <span>*Email is vereist</span>
+							E-mail <span>*Email is required</span>
 						</label>
 						<input
 							type="email"
@@ -78,9 +78,9 @@ export default function Contact() {
 
 				<div>
 					<label htmlFor="message">
-						Bericht <span>*Vul een bericht in</span>
+						Message <span>*Please enter a message</span>
 					</label>
-					<textarea name="message" id="message" placeholder="Bericht" required></textarea>
+					<textarea name="message" id="message" placeholder="Message" required></textarea>
 				</div>
 
 				<button type="submit">Verstuur</button>
