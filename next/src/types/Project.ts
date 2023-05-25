@@ -5,6 +5,9 @@ export default interface Project {
 		slug: string;
 		rank: number;
 		background: string;
+		roles: string[];
+		case_description: string;
+		story: string;
 		cover: {
 			data: {
 				attributes: {

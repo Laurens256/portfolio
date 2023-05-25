@@ -41,6 +41,25 @@
       "type": "text",
       "required": true,
       "default": " "
+    },
+    "case_description": {
+      "type": "text",
+      "required": true
+    },
+    "roles": {
+      "type": "customField",
+      "options": [
+        "Developer",
+        "Front-end Developer",
+        "Back-end Developer",
+        "Designer"
+      ],
+      "customField": "plugin::multi-select.multi-select",
+      "required": true
+    },
+    "story": {
+      "type": "richtext",
+      "required": true
     }
   }
 }
