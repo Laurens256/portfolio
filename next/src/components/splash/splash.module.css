@@ -41,7 +41,7 @@
 	min-height: var(--small-panel-min-height);
 	background-image: linear-gradient(
 		140deg,
-		var(--panel-color, var(--secondary-bg)) 50%,
+		var(--panel-bg-color, var(--secondary-bg)) 50%,
 		var(--secondary-bg) 0
 	);
 	transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
@@ -61,20 +61,20 @@
 	grid-column: 1 / 3;
 	grid-row: 1 / 3;
 	min-height: var(--big-panel-min-height);
-	--panel-color: #5627af;
+	--panel-bg-color: #5627af;
 }
 
 .splash nav a:nth-of-type(2) {
-	--panel-color: #9d27b0;
+	--panel-bg-color: #9d27b0;
 }
 
 .splash nav a:nth-of-type(3) {
-	--panel-color: #2729af;
+	--panel-bg-color: #2729af;
 }
 
 .splash nav a:last-of-type {
 	grid-column: 3 / -1;
-	--panel-color: #e91f63;
+	--panel-bg-color: #e91f63;
 }
 
 .splash.splash nav a svg {

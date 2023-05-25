@@ -55,7 +55,7 @@
         "Designer"
       ],
       "customField": "plugin::multi-select.multi-select",
-      "required": true
+      "required": false
     },
     "story": {
       "type": "richtext",

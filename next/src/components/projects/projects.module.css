@@ -46,3 +46,8 @@
 	font-size: clamp(2rem, 3vw, 4rem);
 	font-size: clamp(2rem, 6cqw, 4rem);
 }
+
+.projects ul li.pokemon a,
+.projects ul li.pokemon a h3 {
+	font-family: inherit;
+}

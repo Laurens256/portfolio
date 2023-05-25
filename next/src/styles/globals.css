@@ -50,6 +50,8 @@
 	/* ---------------------- */
 	--panel-gap: 0.5rem;
 	--panel-border-radius: min(4rem, 15vw);
+	--heading-fonts: 'satoshi', 'Source Sans Pro', Arial, Helvetica, sans-serif;
+	--body-fonts: 'Source Sans Pro', Arial, Helvetica, sans-serif;
 }
 
 :root[data-theme='light'] {
@@ -70,10 +72,13 @@
 }
 
 body {
-	/* font-family: 'Source Sans Pro', sans-serif; */
-	font-family: 'satoshi', 'Source Sans Pro', Arial, Helvetica, sans-serif;
+	font-family: var(--body-fonts);
 	color: var(--main-text);
 	background-color: var(--main-bg);
+}
+
+h1, h2, h3, h4, h5, h6, a.underline {
+	font-family: var(--heading-fonts);
 }
 
 button {

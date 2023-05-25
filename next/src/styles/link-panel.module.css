@@ -16,5 +16,5 @@
 
 .linkPanel:focus-visible {
 	outline-offset: 5px;
-	outline: solid 3px var(--panel-color);
+	outline: solid 3px var(--panel-bg-color);
 }

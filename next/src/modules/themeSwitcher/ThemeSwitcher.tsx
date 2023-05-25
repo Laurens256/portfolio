@@ -1,7 +1,5 @@
 import styles from './themeSwitcher.module.css';
 
-import { useEffect } from 'react';
-
 const switchTheme = () => {
 	const theme = document.documentElement.getAttribute('data-theme');
 	const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -10,10 +8,10 @@ const switchTheme = () => {
 	localStorage.setItem('theme', newTheme);
 };
 
-export default function ThemeSwitcher({ customClass }: { customClass: string }) {
+export default function ThemeSwitcher({ customClass }: { customClass?: string }) {
 	return (
 		<button
-			className={`${customClass} ${styles['theme-switcher']}`}
+			className={`${customClass || ''} ${styles['theme-switcher']}`}
 			aria-label="thema wisselen"
 			onClick={switchTheme}>
 			<svg

@@ -1,30 +1,39 @@
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	padding: 0 min(2rem, 5vw);
+	height: 3.5rem;
+	justify-content: space-between;
+}
+
+.nav a {
+	--padding-horizontal: .5rem;
+	display: inline-block;
+	padding: .3rem var(--padding-horizontal);
+	margin-left: calc(var(--padding-horizontal) * -1);
+	/* background-color: red; */
+}
+
 .project {
-	width: 1500px;
+	width: 800px;
 	max-width: 90%;
 	margin: 0 auto;
 }
 
-.project a[href="/#projects"] {
-	position: absolute;
-	top: 1rem;
-	left: 1rem;
-}
 
 .project header {
-	margin: 25vh 0 5rem;
+	margin: 5rem 0;
 }
 
 .project header h1 {
 	font-size: 7rem;
-	font-size: clamp(2rem, 10vw, 7rem);
+	font-size: clamp(2rem, 10vw, 4rem);
 	line-height: 1.1;
-	margin-bottom: 3rem;
-}
-
-.project header img {
-	width: 100%;
-	max-height: 40rem;
-	object-fit: cover;
+	margin-bottom: 1rem;
 }
 
 /* case info en mijn rol section */
@@ -34,11 +43,7 @@
 }
 
 .project header section div:first-of-type {
-	padding-right: 20%;
-}
-
-.project header section div.case {
-	/* background-color: red; */
+	padding-right: 2rem;
 }
 
 .project header section div.case p {
@@ -50,7 +55,7 @@
 .project header section h2 {
 	color: var(--secondary-text);
 	font-weight: lighter;
-	margin: 2rem 0;
+	margin: 1rem 0;
 }
 
 .project header section div.role ul {
@@ -69,6 +74,12 @@
 	text-align: center;
 }
 
+/* hele verhaaltje */
+.project .story img {
+	width: 100%;
+	display: block;
+}
+
 @media screen and (max-width: 768px) {
 	.project {
 		max-width: 95%;
@@ -77,8 +88,11 @@
 	.project header section {
 		grid-template-columns: 1fr;
 	}
+}
 
-	.project header section h2 {
-		margin: 1rem 0;
+/* zorgt er voor dat nav achtergrondkleur krijgt wanneer de tekst erin in over de page content valt */
+@media screen and (max-width: 1100px) {
+	.nav {
+		background-color: var(--main-bg);
 	}
 }
