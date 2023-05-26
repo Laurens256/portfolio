@@ -29,6 +29,42 @@ const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement>) 
 	});
 };
 
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+let interval: ReturnType<typeof setInterval>;
+let glitchRunning = false;
+const glitchy = (event: React.MouseEvent<HTMLHeadingElement>) => {
+	if (glitchRunning || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		return;
+	}
+
+	const heading = event.target as HTMLHeadingElement;
+
+	let iteration = 0;
+	glitchRunning = true;
+
+	clearInterval(interval);
+
+	interval = setInterval(() => {
+		heading.textContent = heading
+			.textContent!.split('')
+			.map((letter: string, index: number) => {
+				if (index < iteration) {
+					return heading.getAttribute('aria-label')![index];
+				}
+
+				return letters[Math.floor(Math.random() * letters.length)];
+			})
+			.join('');
+
+		if (iteration >= heading.getAttribute('aria-label')!.length) {
+			clearInterval(interval);
+			glitchRunning = false;
+		}
+
+		iteration += 1 / 3;
+	}, 30);
+};
+
 export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 	// Set the panel colors randomly
 	useEffect(() => {
@@ -44,7 +80,9 @@ export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 	return (
 		<section className={styles.splash}>
 			<div>
-				<h1>Laurens Duin</h1>
+				<h1 aria-label="Laurens Duin" onMouseOver={glitchy}>
+					Laurens Duin
+				</h1>
 			</div>
 
 			<nav>

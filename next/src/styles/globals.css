@@ -1,11 +1,16 @@
 @font-face {
-	src: url(/fonts/Satoshi-Variable.woff);
 	font-family: 'satoshi';
+	src: url(/fonts/Satoshi-Variable.woff);
 }
 
 @font-face {
+	font-family: 'pokemon';
 	src: url(/fonts/pokemon-fire-red.woff2);
-	font-family: pokemon;
+}
+
+@font-face {
+	font-family: 'jetbrains';
+	src: url(/fonts/JetBrainsMono-VariableFont_wght);
 }
 
 *,

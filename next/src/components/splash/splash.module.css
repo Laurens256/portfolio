@@ -27,6 +27,8 @@
 	font-size: clamp(2rem, 5rem, 10vw);
 	text-align: center;
 	place-self: center;
+	font-family: 'jetbrains', monospace;
+	font-weight: bold;
 }
 
 /* actual navlinks */
