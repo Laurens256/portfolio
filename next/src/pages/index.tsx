@@ -13,12 +13,34 @@ import type IAbout from '@/types/About';
 
 import strapiFetch from '@/utils/fetchWithHeaders';
 
-export default function Home({ navLinks, projects, about }: { navLinks: INavLink[], projects: IProject[], about: IAbout }) {
+const scrollToHeading = (href: string) => {
+	const heading = document.querySelector(`#${href}`);
+
+	heading?.scrollIntoView({
+		behavior: 'smooth'
+	});
+};
+
+export default function Home({
+	navLinks,
+	projects,
+	about
+}: {
+	navLinks: INavLink[];
+	projects: IProject[];
+	about: IAbout;
+}) {
 	return (
 		<>
-			<ThemeSwitcher customClass={styles["theme-switcher"]} />
+			<ThemeSwitcher customClass={styles['theme-switcher']} />
 			<Splash navLinks={navLinks} />
 			<About about={about} />
+			<button
+				aria-label="scroll to my projects"
+				className={styles.scrollbtn}
+				onClick={() => scrollToHeading('projects')}>
+				My Projects
+			</button>
 			<Projects projects={projects} />
 			<Contact />
 		</>

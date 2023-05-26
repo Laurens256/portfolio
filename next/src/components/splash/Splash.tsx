@@ -80,7 +80,7 @@ export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 	return (
 		<section className={styles.splash}>
 			<div>
-				<h1 aria-label="Laurens Duin" onMouseOver={glitchy}>
+				<h1 aria-label="Laurens Duin" aria-describedby='Laurens Duin' onMouseOver={glitchy}>
 					Laurens Duin
 				</h1>
 			</div>
