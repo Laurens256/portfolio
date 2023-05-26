@@ -1,6 +1,8 @@
 import styles from './splash.module.css';
 import panelStyles from '@/styles/link-panel.module.css';
 
+import Pacman from '@/modules/pacman/Pacman';
+
 import type INavLink from '@/types/NavLink';
 import { useEffect } from 'react';
 
@@ -38,6 +40,7 @@ const glitchy = (event: React.MouseEvent<HTMLHeadingElement>) => {
 	}
 
 	const heading = event.target as HTMLHeadingElement;
+	heading.classList.add(styles.glitchy);
 
 	let iteration = 0;
 	glitchRunning = true;
@@ -52,13 +55,16 @@ const glitchy = (event: React.MouseEvent<HTMLHeadingElement>) => {
 					return heading.getAttribute('aria-label')![index];
 				}
 
-				return letters[Math.floor(Math.random() * letters.length)];
+				const randomNum = Math.floor(Math.random() * letters.length);
+
+				return letters[randomNum];
 			})
 			.join('');
 
 		if (iteration >= heading.getAttribute('aria-label')!.length) {
 			clearInterval(interval);
 			glitchRunning = false;
+			heading.classList.remove(styles.glitchy);
 		}
 
 		iteration += 1 / 3;
@@ -80,7 +86,10 @@ export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 	return (
 		<section className={styles.splash}>
 			<div>
-				<h1 aria-label="Laurens Duin" aria-describedby='Laurens Duin' onMouseOver={glitchy}>
+				<h1
+					aria-label="Laurens Duin"
+					aria-describedby="Laurens Duin"
+					onMouseOver={glitchy}>
 					Laurens Duin
 				</h1>
 			</div>
@@ -92,10 +101,16 @@ export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 						className={panelStyles.linkPanel}
 						key={i}
 						draggable="false"
-						href={`#${href}`}
-						dangerouslySetInnerHTML={{
-							__html: `<h2>${title}</h2>${icon}`
-						}}></a>
+						href={`#${href}`}>
+						<div>
+							<span>{title}</span>
+							<span dangerouslySetInnerHTML={{ __html: icon }}></span>
+						</div>
+
+						{i === 0 && (
+							<Pacman />
+						)}
+					</a>
 				))}
 			</nav>
 		</section>

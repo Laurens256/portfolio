@@ -29,6 +29,12 @@
 	place-self: center;
 	font-family: 'jetbrains', monospace;
 	font-weight: bold;
+	transition: color 0.8s ease 2s;
+}
+
+.splash div h1.glitchy {
+	transition: color 0.2s ease;
+	color: var(--glitchy-text);
 }
 
 /* actual navlinks */
@@ -78,14 +84,31 @@
 	--panel-bg-color: #e91f63;
 }
 
-.splash.splash nav a svg {
+.splash nav a > div {
 	position: absolute;
-	bottom: 1rem;
-	right: 2rem;
+	left: min(3rem, 6vw);
+	right: min(3rem, 6vw);
+	bottom: min(2rem, 6vw);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.splash nav a > div span:first-of-type {
+	font-family: var(--heading-fonts);
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.splash nav a > div span:last-of-type {
+	display: flex;
+}
+
+.splash.splash nav a > div span svg {
 	width: 3rem;
 	fill: none;
-	stroke: currentColor;
 	mix-blend-mode: difference;
+	stroke: currentColor;
 	stroke-linecap: round;
 	stroke-linejoin: bevel;
 	stroke-width: 1.5px;
@@ -112,7 +135,7 @@
 	}
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
 	.splash {
 		grid-template-rows: max(20%, var(--name-div-min-height)) 1fr;
 	}
@@ -120,6 +143,16 @@
 	.splash nav {
 		gap: 0.1rem;
 		padding: 0.1rem;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.splash nav a:not(:first-of-type):not(:last-of-type) > div {
+		justify-content: center;
+	}
+
+	.splash nav a:not(:first-of-type):not(:last-of-type) > div span:last-of-type {
+		display: none;
 	}
 }
 

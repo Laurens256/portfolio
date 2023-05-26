@@ -39,16 +39,16 @@
 	--main-bg: #0d1117;
 	--secondary-bg: #161b22;
 	--input-bg: #2b2a33;
-	
 
 	/* ---------------------- */
 	/* ---- Text Colors ----- */
 	/* ---------------------- */
 	--main-text: #fff;
 	--secondary-text: #d5d5d5;
+	--inverted-text: #111;
 	--link-color: #58a6ff;
 	--selection-color: #ef0fff;
-
+	--glitchy-text: #20c20e;
 
 	/* ---------------------- */
 	/* ---- other values ---- */
@@ -73,7 +73,16 @@
 	/* ---------------------- */
 	--main-text: #111;
 	--secondary-text: #333;
+	--inverted-text: #fff;
 	--link-color: #0969da;
+	--glitchy-text: #008602;
+}
+
+/* adds a smooth color transition when switching theme */
+:root.transitioning :not(.themeSwitcher *) {
+	--duration: 0.5s;
+	transition: color var(--duration) ease, background-color var(--duration) ease,
+		border-color var(--duration) ease !important;
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -88,7 +97,13 @@ body {
 	background-color: var(--main-bg);
 }
 
-h1, h2, h3, h4, h5, h6, a.underline {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a.underline {
 	font-family: var(--heading-fonts);
 }
 
@@ -117,7 +132,8 @@ a.underline {
 }
 
 a.underline:is(:hover, :focus-visible)::after {
-	transform: scale(1);
+	transform: scaleX(1);
+	transform-origin: left;
 }
 
 a.underline::after {
@@ -129,7 +145,8 @@ a.underline::after {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	transform: scale(0);
+	transform: scaleX(0);
+	transform-origin: right;
 }
 
 ul,

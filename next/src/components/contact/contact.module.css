@@ -34,6 +34,12 @@
 	border: solid 2px transparent;
 }
 
+.contact form input:focus,
+.contact form textarea:focus {
+	outline: none;
+	border-color: var(--link-color);
+}
+
 .contact form div {
 	width: 100%;
 	display: flex;
@@ -69,12 +75,20 @@
 	padding: .7rem 1.5rem;
 	border-radius: .7rem;
 	border: none;
-	background-color: var(--link-color);
-	color: var(--main-bg);
 	width: 10rem;
 	max-width: 100%;
 	text-align: center;
 	margin: 1rem auto 0;
+	font-weight: bold;
+	font-size: 1.1rem;
+	border: solid 2px var(--link-color);
+	transition: all .2s ease-in-out;
+	outline-offset: 2px;
+}
+
+.contact form button[type="submit"]:where(:hover, :focus-visible) {
+	background-color: var(--link-color);
+	color: var(--inverted-text);
 }
 
 

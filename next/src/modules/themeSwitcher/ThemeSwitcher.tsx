@@ -6,6 +6,12 @@ const switchTheme = () => {
 	const theme = document.documentElement.getAttribute('data-theme');
 	const newTheme = theme === 'dark' ? 'light' : 'dark';
 
+	document.documentElement.addEventListener('transitionend', () => {
+		document.documentElement.classList.remove('transitioning');
+	}, { once: true });
+	
+	document.documentElement.classList.add('transitioning');
+
 	document.documentElement.setAttribute('data-theme', newTheme);
 	localStorage.setItem('theme', newTheme);
 };
@@ -21,8 +27,8 @@ export default function ThemeSwitcher({ customClass }: { customClass?: string })
 		<>
 			{jsEnabled && (
 				<button
-					className={`${customClass || ''} ${styles['theme-switcher']}`}
-					aria-label="thema wisselen"
+					className={`${customClass || ''} ${styles['theme-switcher']} themeSwitcher`}
+					aria-label="switch theme"
 					onClick={switchTheme}>
 					<svg aria-hidden="true" viewBox="0 0 24 24">
 						<mask className={styles.moon} id="moon-mask">
