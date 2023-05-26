@@ -15,7 +15,6 @@
 	display: inline-block;
 	padding: .3rem var(--padding-horizontal);
 	margin-left: calc(var(--padding-horizontal) * -1);
-	/* background-color: red; */
 }
 
 .project {
@@ -26,7 +25,7 @@
 
 
 .project header {
-	margin: 5rem 0;
+	margin: 5rem 0 3rem;
 }
 
 .project header h1 {

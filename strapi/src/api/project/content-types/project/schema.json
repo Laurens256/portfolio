@@ -60,6 +60,9 @@
     "story": {
       "type": "richtext",
       "required": true
+    },
+    "quicklinks": {
+      "type": "text"
     }
   }
 }

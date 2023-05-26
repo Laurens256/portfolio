@@ -7,6 +7,7 @@ export default interface Project {
 		background: string;
 		roles: string[];
 		case_description: string;
+		quicklinks: string;
 		story: string;
 		cover: {
 			data: {

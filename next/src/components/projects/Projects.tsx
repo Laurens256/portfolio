@@ -1,9 +1,9 @@
 import styles from './projects.module.css';
 import panelStyles from '@/styles/link-panel.module.css';
 
-import type Project from '@/types/Project';
+import type IProject from '@/types/Project';
 
-export default function Projects({ projects }: { projects: Project[] }) {
+export default function Projects({ projects }: { projects: IProject[] }) {
 	return (
 		<section className={styles.projects}>
 			<h2 id='projects'>Mijn projecten</h2>

@@ -60,7 +60,7 @@
 	/* ----- Bg Colors ------ */
 	/* ---------------------- */
 	--main-bg: #fff;
-	--secondary-bg: #d5d5d5;
+	--secondary-bg: #e4e4e4;
 	--input-bg: #fff;
 
 	/* ---------------------- */
@@ -69,6 +69,12 @@
 	--main-text: #111;
 	--secondary-text: #333;
 	--link-color: #0969da;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
 }
 
 body {

@@ -1,4 +1,4 @@
-export default interface NavLink {
+export default interface INavLink {
 	attributes: {
 		title: string;
 		href: string;

@@ -1,24 +1,26 @@
+import IAbout from '@/types/About';
 import styles from './about.module.css';
 
-// very lazy
-const calcAge = () => {
-	const today = new Date();
-	const birthDate = new Date(2003, 8, 22);
-	let age = today.getFullYear() - birthDate.getFullYear();
-	const m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		age--;
-	}
-	return age;
-};
+import type About from '@/types/About';
 
-export default function About() {
+export default function About({ about }: { about: IAbout }) {
 	return (
 		<section className={styles.about}>
-			<header>
-				<h2 id="about">About me</h2>
-				<p>I'm Laurens, a {calcAge()} year old front-end webdeveloper. I'm currently studying at the Amsterdam University of Applied Sciences</p>
-			</header>
+			<article>
+				<section>
+					<h2 id="about">{about.attributes.heading}</h2>
+					<p>{about.attributes.main}</p>
+				</section>
+
+				<section>
+					<div>
+						<img
+							src={about.attributes.img.data.attributes.url}
+							alt={about.attributes.img.data.attributes.alternativeText}
+						/>
+					</div>
+				</section>
+			</article>
 		</section>
 	);
 }

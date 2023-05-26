@@ -2,7 +2,7 @@ import strapiFetch from '@/utils/fetchWithHeaders';
 
 import styles from './project.module.css';
 
-import type Project from '@/types/Project';
+import type IProject from '@/types/Project';
 
 import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
 
@@ -11,13 +11,14 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 
-export default function Project({ project }: { project: Project }) {
+export default function Project({ project }: { project: IProject }) {
 	const {
 		long_title,
 		slug,
 		roles,
 		case_description,
 		story,
+		quicklinks,
 		cover: {
 			data: {
 				attributes: { url: imgUrl, alternativeText: imgAlt }
@@ -56,6 +57,21 @@ export default function Project({ project }: { project: Project }) {
 								</ul>
 							</div>
 						)}
+
+						{quicklinks && (
+							<div className={styles.quicklinks}>
+								<h2>Quick links</h2>
+								<ul>
+									{quicklinks.split('\n').map((quickLink) => (
+										<li>
+											<a className='underline' href={quickLink.split(';')[1]} target="_blank">
+												{quickLink.split(';')[0]}
+											</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
 					</section>
 				</header>
 
@@ -70,18 +86,24 @@ export default function Project({ project }: { project: Project }) {
 }
 
 // convert markdown to html string
-const generateStoryHTML = async (story: string) => {
+const generateHTML = async (markdown: string) => {
 	return String(
-		await unified().use(remarkParse).use(remarkRehype).use(rehypeStringify).process(story)
+		await unified()
+			.use(remarkParse)
+			.use(remarkRehype)
+			.use(rehypeStringify)
+			.process(markdown)
 	);
 };
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
 	const slug = params.slug;
 
-	const project: Project = (await strapiFetch(`projects?filters[slug][$eq]=${slug}&populate=deep`)).data[0];
+	const project: IProject = (
+		await strapiFetch(`projects?filters[slug][$eq]=${slug}&populate=deep`)
+	).data[0];
 	// const project = (await strapiFetch(`projects/${slug}?populate=deep`)).data;
-	project.attributes.story = await generateStoryHTML(project.attributes.story);
+	project.attributes.story = await generateHTML(project.attributes.story);
 
 	return {
 		props: {
@@ -91,7 +113,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 export async function getStaticPaths() {
-	const projects: Project[] = (await strapiFetch('projects')).data;
+	const projects: IProject[] = (await strapiFetch('projects')).data;
 
 	const paths = projects.map((project) => {
 		return { params: { slug: project.attributes.slug } };

@@ -1,7 +1,7 @@
 import styles from './splash.module.css';
 import panelStyles from '@/styles/link-panel.module.css';
 
-import type NavLink from '@/types/NavLink';
+import type INavLink from '@/types/NavLink';
 import { useEffect } from 'react';
 
 // prettier-ignore
@@ -29,7 +29,7 @@ const betterLinkScroll = (href: string, e: React.MouseEvent<HTMLAnchorElement>) 
 	});
 };
 
-export default function Splash({ navLinks }: { navLinks: NavLink[] }) {
+export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 	// Set the panel colors randomly
 	useEffect(() => {
 		const navLinkElements: NodeListOf<HTMLElement> = document.querySelectorAll(

@@ -7,17 +7,18 @@ import Contact from '@/components/contact/Contact';
 
 import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
 
-import type NavLink from '@/types/NavLink';
-import type Project from '@/types/Project';
+import type INavLink from '@/types/NavLink';
+import type IProject from '@/types/Project';
+import type IAbout from '@/types/About';
 
 import strapiFetch from '@/utils/fetchWithHeaders';
 
-export default function Home({ navLinks, projects }: { navLinks: NavLink[], projects: Project[] }) {
+export default function Home({ navLinks, projects, about }: { navLinks: INavLink[], projects: IProject[], about: IAbout }) {
 	return (
 		<>
 			<ThemeSwitcher customClass={styles["theme-switcher"]} />
 			<Splash navLinks={navLinks} />
-			<About />
+			<About about={about} />
 			<Projects projects={projects} />
 			<Contact />
 		</>
@@ -25,13 +26,15 @@ export default function Home({ navLinks, projects }: { navLinks: NavLink[], proj
 }
 
 export const getStaticProps = async () => {
-	const navLinks: NavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
-	const projects: Project[] = (await strapiFetch('projects?sort=rank:ASC')).data;
+	const navLinks: INavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
+	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC')).data;
+	const about: IAbout = (await strapiFetch('about?populate=deep')).data;
 
 	return {
 		props: {
 			navLinks,
-			projects
+			projects,
+			about
 		}
 	};
 };
