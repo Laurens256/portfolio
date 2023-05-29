@@ -28,7 +28,7 @@
 	text-align: center;
 	place-self: center;
 	font-family: 'jetbrains', monospace;
-	font-weight: 900;
+	font-weight: bolder;
 	transition: color 0.8s ease 2s;
 }
 
