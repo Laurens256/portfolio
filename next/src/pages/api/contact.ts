@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	const missingFields = requiredFields.filter((field) => !req.body[field]);
 	if (missingFields.length > 0) {
-		return res.status(400).json({ error: `Missing fields: ${missingFields.join(', ')}` });
+		return res.status(400).json({ error: `Missing form fields: ${missingFields.join(', ')}` });
 	}
 
 	try {
@@ -28,7 +28,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			from: `"${name}" <${process.env.GMAIL_ACCOUNT}>`,
 			to: process.env.GMAIL_ACCOUNT,
 			subject: `Portfolio submission by: ${name}`,
-			html: `<h2>Naam:</h2><p>${name}</p><h2>Email:</h2><p>${email}</p><h2>Bericht:</h2><p>${message}</p>`
+			html: `
+			<div style="margin:0 auto;">
+				<h2 style="margin:0 0 0.2rem 0;">Naam:</h2><p style="margin: 0 0 1rem 0">${name}</p>
+				<h2 style="margin:0 0 0.2rem 0;">Email:</h2><p style="margin: 0 0 1rem 0">${email}</p>
+				<h2 style="margin:0 0 0.2rem 0;">Bericht:</h2><p style="margin: 0 0 1rem 0">${message}</p>
+			</div>
+			`
 		});
 
 		return res.redirect('/contact/success');
