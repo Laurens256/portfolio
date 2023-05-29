@@ -35,7 +35,7 @@ export default function Contact() {
 			<h2 id="contact">Contact</h2>
 
 			<form
-				action="https://submit-form.com/Z2XMPegq"
+				action="/api/contact"
 				method="POST"
 				onSubmit={validateForm}
 				noValidate>
