@@ -5,11 +5,12 @@ export default interface Project {
 		slug: string;
 		rank: number;
 		background: string;
-		roles: string[];
+		roles?: string[];
 		case_description: string;
-		quicklinks: string;
+		quicklinks?: string;
 		story: string;
-		cover: {
+		meta_description?: string;
+		cover?: {
 			data: {
 				attributes: {
 					alternativeText: string;

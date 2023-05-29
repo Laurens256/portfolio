@@ -1,5 +1,7 @@
 import strapiFetch from '@/utils/fetchWithHeaders';
 
+import Head from 'next/head';
+
 import styles from './project.module.css';
 
 import type IProject from '@/types/Project';
@@ -12,22 +14,31 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 
 export default function Project({ project }: { project: IProject }) {
+
+	
 	const {
+		short_title,
 		long_title,
 		slug,
 		roles,
 		case_description,
 		story,
 		quicklinks,
-		cover: {
-			data: {
-				attributes: { url: imgUrl, alternativeText: imgAlt }
-			}
-		}
+		meta_description
 	} = project.attributes;
-
+	
+	const imgUrl = project.attributes.cover?.data.attributes.url;
+	const imgAlt = project.attributes.cover?.data.attributes.alternativeText;
+	
 	return (
 		<>
+			<Head>
+				<title>{short_title} | Laurens Duin</title>
+				<meta name="og:title" content={`${short_title} | Laurens Duin`} />
+				<meta name="description" content={meta_description || ''} />
+				<meta name="og:description" content={meta_description || ''} />
+			</Head>
+
 			<nav className={styles.nav}>
 				<a className="underline" href="/#projects">
 					Terug

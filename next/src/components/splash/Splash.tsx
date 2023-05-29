@@ -105,7 +105,7 @@ export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
 						href={`#${href}`}>
 						<div>
 							<span>{title}</span>
-							<span dangerouslySetInnerHTML={{ __html: icon }}></span>
+							<span dangerouslySetInnerHTML={{ __html: icon || '' }}></span>
 						</div>
 
 						{i === 0 && (

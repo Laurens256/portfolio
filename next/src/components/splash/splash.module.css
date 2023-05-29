@@ -161,6 +161,7 @@
 
 @media screen and (max-width: 768px) {
 	.splash {
+		--name-div-min-height: 15rem;
 		grid-template-rows: max(20%, var(--name-div-min-height)) 1fr;
 	}
 
@@ -175,11 +176,7 @@
 		justify-content: center;
 	}
 
-	.splash
-		nav:not(.three-links)
-		a:not(:first-of-type):not(:last-of-type)
-		> div
-		span:last-of-type {
+	.splash nav:not(.three-links) a:not(:first-of-type):not(:last-of-type) > div span:last-of-type {
 		display: none;
 	}
 }

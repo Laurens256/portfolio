@@ -1,5 +1,7 @@
 import styles from './index.module.css';
 
+import Head from 'next/head';
+
 import Splash from '@/components/splash/Splash';
 import About from '@/components/about/About';
 import Projects from '@/components/projects/Projects';
@@ -26,11 +28,18 @@ export default function Home({
 }) {
 	return (
 		<>
+			<Head>
+				<title>Portfolio | Laurens Duin</title>
+				<meta name="og:title" content="Portfolio | Laurens Duin" />
+				<meta name="description" content=""/>
+				<meta name="og:description" content=""/>
+			</Head>
+
 			<ThemeSwitcher customClass={styles['theme-switcher']} />
 			<Splash navLinks={navLinks} />
 			<About about={about} />
 			<a
-				href='#projects'
+				href="#projects"
 				aria-label="scroll to my projects"
 				className={styles.scrollbtn}
 				onClick={betterLinkScroll}>

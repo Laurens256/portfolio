@@ -1,6 +1,6 @@
 export default interface IAbout {
 	attributes: {
-		heading: string;
+		heading?: string;
 		main: string;
 		img: {
 			data: {
