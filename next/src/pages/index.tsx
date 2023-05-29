@@ -7,21 +7,13 @@ import Contact from '@/components/contact/Contact';
 
 import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
 
+import { betterLinkScroll } from '@/components/splash/Splash';
+
 import type INavLink from '@/types/NavLink';
 import type IProject from '@/types/Project';
 import type IAbout from '@/types/About';
 
 import strapiFetch from '@/utils/fetchWithHeaders';
-
-const scrollToHeading = (e: React.MouseEvent<HTMLAnchorElement>) => {
-	e.preventDefault();
-	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
-	const heading = document.querySelector(`#${href}`);
-
-	heading?.scrollIntoView({
-		behavior: 'smooth'
-	});
-};
 
 export default function Home({
 	navLinks,
@@ -41,7 +33,7 @@ export default function Home({
 				href='#projects'
 				aria-label="scroll to my projects"
 				className={styles.scrollbtn}
-				onClick={scrollToHeading}>
+				onClick={betterLinkScroll}>
 				My Projects
 			</a>
 			<Projects projects={projects} />

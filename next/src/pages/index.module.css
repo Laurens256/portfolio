@@ -9,11 +9,17 @@
 	padding: 0.7rem;
 	padding-bottom: 0.5rem;
 	display: flex;
+	width:fit-content;
 	flex-direction: column;
 	align-items: center;
 	gap: 0.5rem;
 	font-weight: bold;
 	font-size: 1.4rem;
+	border-radius: 1rem;
+}
+
+.scrollbtn:focus-visible {
+	outline: 2px solid var(--link-color);
 }
 
 .scrollbtn::after {

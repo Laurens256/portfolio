@@ -49,7 +49,7 @@ export default function Project({ project }: { project: IProject }) {
 
 						{roles && roles.length > 0 && (
 							<div className={styles.role}>
-								<h2>Mijn rol{roles.length > 1 ? 'len' : ''}</h2>
+								<h2>My role</h2>
 								<ul>
 									{roles.map((role) => (
 										<li key={role}>{role}</li>
@@ -87,13 +87,19 @@ export default function Project({ project }: { project: IProject }) {
 
 // convert markdown to html string
 const generateHTML = async (markdown: string) => {
-	return String(
+	const HTMLString = String(
 		await unified()
 			.use(remarkParse)
 			.use(remarkRehype)
 			.use(rehypeStringify)
 			.process(markdown)
 	);
+
+	// find any <a> tags and add target="_blank" to them
+	const regex = /<a/gi;
+	const subst = '<a target="_blank"';
+
+	return HTMLString.replace(regex, subst);
 };
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {

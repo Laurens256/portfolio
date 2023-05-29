@@ -58,6 +58,16 @@
 	animation: panelLoad 1.8s ease forwards;
 }
 
+.splash nav a > div span {
+	--shadow-width: 1.5px;
+	position: relative;
+	text-shadow: calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) 0
+			var(--panel-bg-color),
+		var(--shadow-width) calc(var(--shadow-width) * -1) 0 var(--panel-bg-color),
+		calc(var(--shadow-width) * -1) var(--shadow-width) 0 var(--panel-bg-color),
+		var(--shadow-width) var(--shadow-width) 0 var(--panel-bg-color);
+}
+
 @keyframes panelLoad {
 	to {
 		background-position: 0 0;
@@ -73,6 +83,10 @@
 
 .splash nav a:nth-of-type(2) {
 	--panel-bg-color: #9d27b0;
+}
+
+.splash nav.three-links a:nth-of-type(2) {
+	grid-column: 3 / -1;
 }
 
 .splash nav a:nth-of-type(3) {
@@ -130,6 +144,7 @@
 		grid-row: 1 / 2;
 	}
 
+	.splash nav.three-links a:nth-of-type(2),
 	.splash nav a:last-of-type {
 		grid-column: 1 / -1;
 	}
@@ -147,11 +162,15 @@
 }
 
 @media screen and (max-width: 500px) {
-	.splash nav a:not(:first-of-type):not(:last-of-type) > div {
+	.splash nav:not(.three-links) a:not(:first-of-type):not(:last-of-type) > div {
 		justify-content: center;
 	}
 
-	.splash nav a:not(:first-of-type):not(:last-of-type) > div span:last-of-type {
+	.splash
+		nav:not(.three-links)
+		a:not(:first-of-type):not(:last-of-type)
+		> div
+		span:last-of-type {
 		display: none;
 	}
 }
