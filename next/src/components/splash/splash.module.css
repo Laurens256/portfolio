@@ -43,6 +43,15 @@
 	grid-template-columns: repeat(4, 1fr);
 	gap: var(--panel-gap);
 	padding: var(--panel-gap);
+	animation: navLoad 1.8s ease forwards;
+	transform: scale(0.98);
+	transform-origin: bottom;
+}
+
+@keyframes navLoad {
+	to {
+		transform: scale(1);
+	}
 }
 
 .splash nav a {
@@ -180,6 +189,7 @@
 		background-position: 0 0;
 	}
 
+	.splash nav,
 	.splash nav a:is(:hover, :focus-visible) {
 		transform: none;
 	}
