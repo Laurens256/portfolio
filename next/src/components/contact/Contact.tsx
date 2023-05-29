@@ -7,12 +7,12 @@ const validateForm = (e: FormEvent<HTMLFormElement>) => {
 
 	const form = e.currentTarget;
 
+	updateForm(form);
+	
 	const formIsValid = form.checkValidity();
-
 	if (formIsValid) {
 		form.submit();
 	}
-	updateForm(form);
 };
 
 const updateForm = (form: HTMLFormElement) => {
@@ -69,7 +69,7 @@ export default function Contact() {
 					<textarea name="message" id="message" placeholder="Message" required></textarea>
 				</div>
 
-				<button type="submit">Verstuur</button>
+				<button type="submit">Send</button>
 			</form>
 		</section>
 	);
