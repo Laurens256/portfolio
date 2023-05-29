@@ -162,6 +162,7 @@
 @media screen and (max-width: 768px) {
 	.splash {
 		--name-div-min-height: 15rem;
+		--big-panel-min-height: 20rem;
 		grid-template-rows: max(20%, var(--name-div-min-height)) 1fr;
 	}
 

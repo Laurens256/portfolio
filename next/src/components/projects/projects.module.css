@@ -51,3 +51,9 @@
 .projects ul li.pokemon a h3 {
 	font-family: inherit;
 }
+
+@media screen and (max-width: 768px) {
+	.projects ul li {
+		min-height: 20rem;
+	}
+}
