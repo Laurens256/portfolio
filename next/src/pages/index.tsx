@@ -13,7 +13,9 @@ import type IAbout from '@/types/About';
 
 import strapiFetch from '@/utils/fetchWithHeaders';
 
-const scrollToHeading = (href: string) => {
+const scrollToHeading = (e: React.MouseEvent<HTMLAnchorElement>) => {
+	e.preventDefault();
+	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
 	const heading = document.querySelector(`#${href}`);
 
 	heading?.scrollIntoView({
@@ -35,12 +37,13 @@ export default function Home({
 			<ThemeSwitcher customClass={styles['theme-switcher']} />
 			<Splash navLinks={navLinks} />
 			<About about={about} />
-			<button
+			<a
+				href='#projects'
 				aria-label="scroll to my projects"
 				className={styles.scrollbtn}
-				onClick={() => scrollToHeading('projects')}>
+				onClick={scrollToHeading}>
 				My Projects
-			</button>
+			</a>
 			<Projects projects={projects} />
 			<Contact />
 		</>

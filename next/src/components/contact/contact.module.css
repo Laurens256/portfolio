@@ -63,7 +63,7 @@
 
 .contact form div label.error + input,
 .contact form div label.error + textarea {
-	border-color: red;
+	border-color: var(--form-error);
 }
 
 .contact form textarea {

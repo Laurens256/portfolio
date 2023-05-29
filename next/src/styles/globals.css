@@ -10,7 +10,7 @@
 
 @font-face {
 	font-family: 'jetbrains';
-	src: url(/fonts/JetBrainsMono-VariableFont_wght);
+	src: url(/fonts/jetbrains-mono.ttf);
 }
 
 *,
@@ -48,7 +48,8 @@
 	--inverted-text: #111;
 	--link-color: #58a6ff;
 	--selection-color: #ef0fff;
-	--glitchy-text: #20c20e;
+	--glitchy-text: #30dc1d;
+	--form-error: #e1ff00;
 
 	/* ---------------------- */
 	/* ---- other values ---- */
@@ -76,6 +77,7 @@
 	--inverted-text: #fff;
 	--link-color: #0969da;
 	--glitchy-text: #008602;
+	--form-error: #ff0000;
 }
 
 /* adds a smooth color transition when switching theme */
@@ -83,6 +85,10 @@
 	--duration: 0.5s;
 	transition: color var(--duration) ease, background-color var(--duration) ease,
 		border-color var(--duration) ease !important;
+}
+
+:root.no-transition * {
+	transition: none !important;
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {

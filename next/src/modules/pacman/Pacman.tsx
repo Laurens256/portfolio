@@ -6,12 +6,14 @@ const degrees = [0, 90, 180, 270];
 
 let pacmanSize = 40;
 export default function Pacman() {
-
 	const summonPacman = (degree = degrees[Math.floor(Math.random() * degrees.length)]) => {
 		pacmanSize = Math.min(pacmanSize + 2, 80);
 
 		pacmanRef.current?.classList.add(styles.summoned);
-		pacmanRef.current?.setAttribute('style', `transform: rotate(${degree}deg); --pacman-size: ${pacmanSize}px;`);
+		pacmanRef.current?.setAttribute(
+			'style',
+			`transform: rotate(${degree}deg); --pacman-size: ${pacmanSize}px;`
+		);
 
 		setTimeout(() => {
 			pacmanRef.current?.classList.remove(styles.summoned);
@@ -19,10 +21,15 @@ export default function Pacman() {
 	};
 
 	useEffect(() => {
-		summonPacman(0);
-		setInterval(() => {
-			summonPacman();
-		}, 15000);
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			return;
+		}
+		setTimeout(() => {
+			summonPacman(0);
+			setInterval(() => {
+				summonPacman();
+			}, 15000);
+		}, 5000);
 	}, []);
 
 	const pacmanRef: RefObject<HTMLDivElement> = useRef(null);
