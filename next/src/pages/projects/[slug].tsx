@@ -33,8 +33,8 @@ export default function Project({ project }: { project: IProject }) {
 	return (
 		<>
 			<Head>
-				<title>{short_title} | Laurens Duin</title>
-				<meta name="og:title" content={`${short_title} | Laurens Duin`} />
+				<title key="title">{short_title} | Laurens Duin</title>
+				<meta key="og-title" name="og:title" content={`${short_title} | Laurens Duin`} />
 				<meta name="description" content={meta_description || ''} />
 				<meta name="og:description" content={meta_description || ''} />
 			</Head>

@@ -1,0 +1,25 @@
+.form-feedback {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-feedback article {
+	background-color: var(--secondary-bg);
+	padding: 3rem;
+	border-radius: 1rem;
+	text-align: center;
+}
+
+.form-feedback article p {
+	max-width: 350px;
+	margin-top: .5rem;
+}
+
+.form-feedback article a {
+	text-align: center;
+	margin: 2rem auto 0;
+	display: block;
+	width: fit-content;
+}

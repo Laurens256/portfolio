@@ -48,7 +48,7 @@
 	.footer > ul {
 		flex-direction: column;
 		min-height: fit-content;
-		height: 10em;
+		height: 10rem;
 		padding: 1rem 0;
 		justify-content: end;
 		gap: 0.8em;

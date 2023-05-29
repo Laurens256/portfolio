@@ -52,3 +52,23 @@
 		}
 	}
 }
+
+.err404 {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.err404 article {
+	background-color: var(--secondary-bg);
+	padding: 3rem;
+	border-radius: 1rem;
+}
+
+.err404 article a {
+	text-align: center;
+	margin: 2rem auto 0;
+	display: block;
+	width: fit-content;
+}

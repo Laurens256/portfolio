@@ -29,8 +29,8 @@ export default function Home({
 	return (
 		<>
 			<Head>
-				<title>Portfolio | Laurens Duin</title>
-				<meta name="og:title" content="Portfolio | Laurens Duin" />
+				<title key="title">Portfolio | Laurens Duin</title>
+				<meta key="og-title" name="og:title" content="Portfolio | Laurens Duin" />
 				<meta name="description" content=""/>
 				<meta name="og:description" content=""/>
 			</Head>
