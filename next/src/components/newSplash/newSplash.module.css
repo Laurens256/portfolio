@@ -1,0 +1,114 @@
+.splash {
+	max-width: var(--main-page-width);
+	margin: 0 auto;
+	min-height: max(calc(100vh - var(--header-height)), 35rem);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+}
+
+.splash .adjective {
+	color: var(--typewriter-color);
+	font-family: 'jetbrains', monospace;
+}
+
+.splash div {
+	width: 100%;
+	margin-top: min(20vh, 15vw);
+}
+
+.splash div p:first-of-type {
+	font-weight: 500;
+	line-height: 2.5rem;
+	font-family: Helvetica Neue, sans-serif;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: 1px;
+	line-height: 2rem;
+	color: #1db954;
+	text-transform: uppercase;
+}
+
+.splash div h1 {
+	font-family: Georgia, Times, serif;
+	font-size: 5.8rem;
+	font-weight: 500;
+	line-height: 5.8rem;
+	margin-bottom: 2rem;
+}
+
+.splash div p:last-of-type {
+	font-family: Ubuntu, var(--body-fonts);
+	font-size: 2rem;
+	font-weight: 300;
+	line-height: 44.8px;
+}
+
+.splash div p:last-of-type span {
+	cursor: default;
+}
+
+.scrollbtn {
+	margin: 0 auto;
+	padding: 0.7rem;
+	padding-bottom: 0.5rem;
+	display: flex;
+	width: fit-content;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: bold;
+	font-size: 1.4rem;
+	border-radius: 1rem;
+}
+
+.scrollbtn:focus-visible {
+	outline: 2px solid var(--link-color);
+}
+
+.scrollbtn::after {
+	content: '';
+	background-color: var(--main-text);
+	mask-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 560'%3E%3Cpath d='M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937 c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937 c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z' /%3E%3C/svg%3E");
+	mask-repeat: no-repeat;
+	width: 3rem;
+	height: 1.75rem;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.scrollbtn:where(:hover, :focus-visible)::after {
+	background-color: var(--link-color);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+	.scrollbtn::after {
+		animation: arrowBounce 1.5s ease infinite;
+	}
+
+	.splash div {
+		animation: pageLoad 0.2s ease-in-out;
+	}
+
+	@keyframes pageLoad {
+		from {
+			opacity: 0.4;
+			transform: translateY(1rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes arrowBounce {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+
+		50% {
+			transform: translateY(-0.2rem);
+		}
+	}
+}

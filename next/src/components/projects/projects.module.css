@@ -1,59 +1,89 @@
 .projects {
-	padding: var(--panel-gap);
+	max-width: var(--main-page-width);
+	margin: 0 auto 2rem;
 }
 
 .projects > h2 {
 	position: absolute;
 	clip: rect(0 0 0 0);
+	scroll-margin-top: var(--header-height);
 }
 
 .projects ul {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: 1fr;
 	gap: var(--panel-gap);
 }
 
 .projects ul li {
-	min-height: 30rem;
 	overflow: hidden;
 	border-radius: var(--panel-border-radius);
-	font-size: clamp(1.5rem, 2.5vw, 3.4rem);
-	font-size: clamp(1.5rem, 2.5cqw, 3.4rem);
-}
-
-.projects ul.uneven li:first-of-type {
-	grid-column: 1 / -1;
 }
 
 .projects ul li a {
-	display: flex;
-	height: 100%;
+	display: grid;
+	grid-template-columns: 60% 1fr;
+	height: 20rem;
 	padding: min(3rem, 6vw);
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+}
+
+.projects ul li a div {
+	align-self: end;
+}
+
+.projects ul li a div h3 {
+	font-size: clamp(1.5rem, 3rem, 12vw);
+}
+
+.projects ul li a div p {
+	font-size: clamp(1.2rem, 1.4rem, 5vw);
+}
+
+.projects ul li a img {
+	max-height: 100%;
+	place-self: center end;
 }
 
 /* project specific styles */
-.projects ul li.pokemon {
+.projects ul li.pokedex {
 	font-family: pokemon, 'satoshi', 'Source Sans Pro', Arial, Helvetica, sans-serif;
 	--text-shadow-color: #424242;
 	--text-shadow-size: min(0.3rem, max(0.5vw, 0.15rem));
+}
+
+.projects ul li.pokedex a div h3 {
+	font-family: inherit;
+	font-size: clamp(2rem, 3.5rem, 12vw);
 	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
 		0 var(--text-shadow-size) var(--text-shadow-color),
 		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
-
-	font-size: clamp(2rem, 3vw, 4rem);
-	font-size: clamp(2rem, 6cqw, 4rem);
 }
 
-.projects ul li.pokemon a,
-.projects ul li.pokemon a h3 {
-	font-family: inherit;
+.projects ul li.pokedex a div p {
+	margin-top: 0.4rem;
+	font-size: clamp(1.5rem, 1.6rem, 5.5vw);
+
+	--text-shadow-size: min(0.125rem, max(0.5vw, 0.15rem));
+
+	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
+		0 var(--text-shadow-size) var(--text-shadow-color),
+		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
-@media screen and (max-width: 768px) {
-	.projects ul li {
-		min-height: 20rem;
+@media screen and (max-width: 600px) {
+	.projects ul li a {
+		grid-template-columns: 1fr;
+	}
+	.projects ul li a {
+		grid-template-columns: 1fr;
+	}
+	
+	.projects ul li a div {
+		align-self: center;
+		text-align: center;
+	}
+
+	.projects ul li a img {
+		display: none;
 	}
 }

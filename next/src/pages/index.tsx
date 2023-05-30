@@ -2,14 +2,14 @@ import styles from './index.module.css';
 
 import Head from 'next/head';
 
+import Header from '@/modules/header/Header';
+import NewSplash from '@/components/newSplash/NewSplash';
 import Splash from '@/components/splash/Splash';
 import About from '@/components/about/About';
 import Projects from '@/components/projects/Projects';
 import Contact from '@/components/contact/Contact';
 
 import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
-
-import { betterLinkScroll } from '@/components/splash/Splash';
 
 import type INavLink from '@/types/NavLink';
 import type IProject from '@/types/Project';
@@ -35,17 +35,12 @@ export default function Home({
 				<meta name="og:description" content=""/>
 			</Head>
 
-			<ThemeSwitcher customClass={styles['theme-switcher']} />
-			<Splash navLinks={navLinks} />
-			<About about={about} />
-			<a
-				href="#projects"
-				aria-label="scroll to my projects"
-				className={styles.scrollbtn}
-				onClick={betterLinkScroll}>
-				My Projects
-			</a>
+<Header navLinks={navLinks} />
+			{/* <ThemeSwitcher customClass={styles['theme-switcher']} /> */}
+			<NewSplash />
+			{/* <Splash navLinks={navLinks} /> */}
 			<Projects projects={projects} />
+			<About about={about} />
 			<Contact />
 		</>
 	);

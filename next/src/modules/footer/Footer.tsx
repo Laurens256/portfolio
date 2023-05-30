@@ -1,10 +1,11 @@
 import styles from './footer.module.css';
+import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
 
 export default function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<ul>
-				<li>LD</li>
+				<li><ThemeSwitcher/></li>
 				<li>Copyright &copy; 2023 Laurens Duin</li>
 				<li>
 					<ul>

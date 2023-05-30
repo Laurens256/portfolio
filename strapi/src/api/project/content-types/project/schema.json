@@ -66,6 +66,14 @@
     },
     "meta_description": {
       "type": "text"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

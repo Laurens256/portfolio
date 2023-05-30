@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import type { AppProps } from 'next/app';
-import Footer from '../components/footer/Footer';
+import Footer from '@/modules/footer/Footer';
 
 const noFooterRoutes = ['/404', '/contact/success', '/contact/error'];
 export default function App({ Component, pageProps }: AppProps) {

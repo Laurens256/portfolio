@@ -8,7 +8,7 @@ export default function About({ about }: { about: IAbout }) {
 		<section className={styles.about}>
 			<article>
 				<section>
-					<h2 id="about">{about.attributes.heading}</h2>
+					<h2 id="about">About me</h2>
 					<p>{about.attributes.main}</p>
 				</section>
 

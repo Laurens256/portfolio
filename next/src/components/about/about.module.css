@@ -1,14 +1,9 @@
 .about {
-	width: calc(100% - var(--panel-gap) * 2);
-	margin: 0 auto;
-	background-color: var(--secondary-bg);
-	border-radius: var(--panel-border-radius);
-	padding: min(3rem, 6vw);
+	max-width: var(--main-page-width);
+	margin: 4rem auto 2rem;
 }
 
 .about article {
-	max-width: 1000px;
-	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
@@ -18,7 +13,7 @@
 }
 
 .about article section h2 {
-	scroll-margin-top: calc(min(3rem, 6vw) + 0.5rem);
+	scroll-margin-top: var(--header-height);
 	margin-bottom: .5rem;
 	font-size: clamp(1.2rem, 5vw, 1.8rem);
 }
