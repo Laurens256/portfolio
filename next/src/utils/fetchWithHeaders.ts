@@ -6,7 +6,6 @@ const strapiFetch = async (query: string, options?: Options): Promise<any> => {
 	const headers = {
 		Authorization: `bearer ${process.env.STRAPI_API_TOKEN}`
 	};
-
 	// Merge the existing headers with the custom headers
 	const customOptions: Options = {
 		...options,
