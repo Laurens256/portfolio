@@ -52,22 +52,31 @@
 }
 
 .projects ul li.pokedex a div h3 {
+	position: relative;
 	font-family: inherit;
 	font-size: clamp(2rem, 3.5rem, 12vw);
-	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
-		0 var(--text-shadow-size) var(--text-shadow-color),
-		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
+	color: #000;
 }
 
 .projects ul li.pokedex a div p {
 	margin-top: 0.4rem;
 	font-size: clamp(1.5rem, 1.6rem, 5.5vw);
-
+	color: #000;
+	position: relative;
 	--text-shadow-size: min(0.125rem, max(0.5vw, 0.15rem));
+}
+
+.projects ul li.pokedex a div h3::after,
+.projects ul li.pokedex a div p::after {
+	content: attr(data-value);
+	color: var(--text-white);
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
 
 	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
-		0 var(--text-shadow-size) var(--text-shadow-color),
-		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
+	0 var(--text-shadow-size) var(--text-shadow-color),
+	var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
 @media screen and (max-width: 600px) {

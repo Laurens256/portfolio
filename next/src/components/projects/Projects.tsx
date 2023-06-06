@@ -15,8 +15,8 @@ export default function Projects({ projects }: { projects: IProject[] }) {
 						className={styles[slug]}>
 						<a className={panelStyles.linkPanel} href={`/projects/${slug}`}>
 							<div>
-								<h3>{short_title}</h3>
-								<p>{long_title}</p>
+								<h3 data-value={short_title}>{short_title}</h3>
+								<p data-value={long_title}>{long_title}</p>
 							</div>
 							<img src={icon?.data.attributes.url} alt={icon?.data.attributes.alternativeText} />
 						</a>
