@@ -7,11 +7,10 @@
 	justify-content: space-between;
 	margin: 0 auto;
 	align-items: center;
-	width: 100%;
-	max-width: 1500px;
+	width: 800px;
+	max-width: 90%;
 	height: 7.5rem;
 	font-size: 1.1rem;
-	padding: 0 1rem;
 }
 
 .footer ul li {
@@ -47,16 +46,11 @@
 @media (max-width: 768px) {
 	.footer > ul {
 		flex-direction: column;
-		min-height: fit-content;
-		height: 10rem;
+		min-height: 9rem;
 		padding: 1rem 0;
 		justify-content: end;
 		gap: 0.8em;
 		font-size: 0.9rem;
-	}
-
-	.footer > ul > li:first-of-type {
-		margin-bottom: 1rem;
 	}
 
 	.footer > ul li ul {

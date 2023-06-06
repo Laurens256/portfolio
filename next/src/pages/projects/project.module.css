@@ -73,10 +73,30 @@
 	text-align: center;
 }
 
+.project .story a,
+.project header section div.quicklinks a {
+	color: var(--link-color);
+	font-weight: bold;
+}
+
+.project .story a:where(:hover, :focus-visible),
+.project header section div.quicklinks a:where(:hover, :focus-visible) {
+	text-decoration: underline;
+}
+
+.project .story {
+	font-size: 1.15rem;
+	line-height: 1.5;
+}
+
 /* hele verhaaltje */
 .project .story img {
 	width: 100%;
 	display: block;
+}
+
+.project .story *:not(:where(h1, h2, h3, h4, h5, h6)) + * {
+	margin-top: 1rem;
 }
 
 @media screen and (max-width: 768px) {

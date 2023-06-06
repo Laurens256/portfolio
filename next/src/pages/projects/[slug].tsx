@@ -6,8 +6,6 @@ import styles from './project.module.css';
 
 import type IProject from '@/types/Project';
 
-import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
-
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -43,7 +41,6 @@ export default function Project({ project }: { project: IProject }) {
 				<a className="underline" href="/#projects">
 					Terug
 				</a>
-				<ThemeSwitcher />
 			</nav>
 			<main className={`${styles.project} ${styles[slug]}`}>
 				<header>
@@ -62,8 +59,8 @@ export default function Project({ project }: { project: IProject }) {
 							<div className={styles.role}>
 								<h2>My role</h2>
 								<ul>
-									{roles.map((role) => (
-										<li key={role}>{role}</li>
+									{roles.map((role, i) => (
+										<li key={i}>{role}</li>
 									))}
 								</ul>
 							</div>
@@ -73,9 +70,9 @@ export default function Project({ project }: { project: IProject }) {
 							<div className={styles.quicklinks}>
 								<h2>Quick links</h2>
 								<ul>
-									{quicklinks.split('\n').map((quickLink) => (
-										<li>
-											<a className='underline' href={quickLink.split(';')[1]} target="_blank">
+									{quicklinks.split('\n').map((quickLink, i) => (
+										<li key={i}>
+											<a href={quickLink.split(';')[1]} target="_blank">
 												{quickLink.split(';')[0]}
 											</a>
 										</li>

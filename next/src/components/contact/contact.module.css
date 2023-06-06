@@ -1,10 +1,14 @@
 .contact {
-	width: 700px;
-	max-width: 90%;
+	width: var(--main-page-width);
 	margin: 0 auto .5rem;
 	background-color: var(--secondary-bg);
 	border-radius: 2rem;
 	padding: min(3rem, 5vw);
+}
+
+.contact > div {
+	max-width: 700px;
+	margin: 0 auto;
 }
 
 .contact h2 {
