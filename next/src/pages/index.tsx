@@ -31,12 +31,11 @@ export default function Home({
 			<Head>
 				<title key="title">Portfolio | Laurens Duin</title>
 				<meta key="og-title" name="og:title" content="Portfolio | Laurens Duin" />
-				<meta name="description" content=""/>
-				<meta name="og:description" content=""/>
+				<meta name="description" content="" />
+				<meta name="og:description" content="" />
 			</Head>
 
-<Header navLinks={navLinks} />
-			{/* <ThemeSwitcher customClass={styles['theme-switcher']} /> */}
+			<Header navLinks={navLinks} />
 			<NewSplash />
 			{/* <Splash navLinks={navLinks} /> */}
 			<Projects projects={projects} />
