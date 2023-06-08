@@ -47,7 +47,7 @@ export default function Home({
 
 export const getStaticProps = async () => {
 	const navLinks: INavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
-	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC')).data;
+	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC&populate=deep')).data;
 	const about: IAbout = (await strapiFetch('about?populate=deep')).data;
 
 	return {

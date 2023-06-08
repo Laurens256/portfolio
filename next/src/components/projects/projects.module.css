@@ -21,10 +21,11 @@
 }
 
 .projects ul li a {
+	--panel-padding: min(3rem, 6vw);
 	display: grid;
 	grid-template-columns: 60% 1fr;
 	height: 20rem;
-	padding: min(3rem, 6vw);
+	padding: var(--panel-padding);
 }
 
 .projects ul li a div {
@@ -40,7 +41,7 @@
 }
 
 .projects ul li a img {
-	max-height: 100%;
+	height: 100%;
 	place-self: center end;
 }
 

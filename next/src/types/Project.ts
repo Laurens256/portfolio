@@ -10,8 +10,8 @@ export default interface Project {
 		quicklinks?: string;
 		story: string;
 		meta_description?: string;
-		icon?: {
-			data: {
+		icon: {
+			data?: {
 				attributes: {
 					alternativeText: string;
 					caption: string;
