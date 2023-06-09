@@ -54,7 +54,7 @@
 .project header section h2 {
 	color: var(--secondary-text);
 	font-weight: lighter;
-	margin: 1rem 0;
+	margin: 1rem 0 .5rem;
 }
 
 .project header section div.role ul {
@@ -64,7 +64,6 @@
 	width: max-content;
 }
 
-/* todo: lichtere font uitzoeken */
 .project header section div.role ul li {
 	border: solid 1px var(--link-color);
 	border-radius: 10rem;
@@ -87,6 +86,7 @@
 .project .story {
 	font-size: 1.15rem;
 	line-height: 1.5;
+	margin-bottom: 2rem;
 }
 
 /* hele verhaaltje */

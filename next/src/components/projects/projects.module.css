@@ -22,9 +22,10 @@
 
 .projects ul li a {
 	--panel-padding: min(3rem, 6vw);
+	--panel-height: 20rem;
 	display: grid;
 	grid-template-columns: 60% 1fr;
-	height: 20rem;
+	height: var(--panel-height);
 	padding: var(--panel-padding);
 }
 
@@ -41,8 +42,8 @@
 }
 
 .projects ul li a img {
-	height: 100%;
 	place-self: center end;
+	height: calc(var(--panel-height) - var(--panel-padding) * 2);
 }
 
 /* project specific styles */
