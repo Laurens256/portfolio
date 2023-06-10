@@ -20,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	}, []);
 
 	const router = useRouter();
+	const currentRoute = router.pathname.split('/').filter((str) => str !== '')[0] || 'root';
 
 	return (
 		<>
@@ -31,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			</Head>
 			<Component {...pageProps} />
 
-			{!noFooterRoutes.includes(router.pathname) && <Footer />}
+			{!noFooterRoutes.includes(router.pathname) && <Footer route={currentRoute} />}
 		</>
 	);
 }

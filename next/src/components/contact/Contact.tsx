@@ -21,11 +21,20 @@ const updateForm = (form: HTMLFormElement) => {
 		form.querySelectorAll('form input, form textarea');
 	const formFieldNames = Array.from(formInputs).map((field) => field.name);
 
-	formFieldNames.forEach((fieldName) => {
+	formFieldNames.forEach((fieldName, i) => {
 		const value = formData.get(fieldName);
 		const label = document.querySelector(`label[for="${fieldName}"]`);
 
-		label?.classList.toggle(styles.error, !value);
+		label?.classList.remove(styles.error);
+
+		if (!value) {
+			label?.classList.add(styles.error);
+			if (label instanceof HTMLLabelElement) {
+			formInputs[i].addEventListener('input', () => {
+				label.classList.toggle(styles.error, !formInputs[i].value);
+			});
+		}
+		}
 	});
 };
 
@@ -41,7 +50,14 @@ export default function Contact() {
 							<label htmlFor="name">
 								Name <span>*Name is required</span>
 							</label>
-							<input type="text" name="name" id="name" placeholder="Name" required />
+							<input
+								type="text"
+								name="name"
+								id="name"
+								placeholder="Name"
+								required
+								// onInput={whileTyping}
+							/>
 						</div>
 
 						<div>
@@ -55,6 +71,7 @@ export default function Contact() {
 								inputMode="email"
 								placeholder="E-mail"
 								required
+								// onInput={whileTyping}
 							/>
 						</div>
 					</section>
@@ -67,7 +84,9 @@ export default function Contact() {
 							name="message"
 							id="message"
 							placeholder="Message"
-							required></textarea>
+							required
+							// onInput={whileTyping}
+							></textarea>
 					</div>
 
 					<button type="submit">Send</button>

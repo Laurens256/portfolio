@@ -18,8 +18,7 @@
 }
 
 .project {
-	width: 800px;
-	max-width: 90%;
+	width: var(--project-page-width);
 	margin: 0 auto;
 }
 

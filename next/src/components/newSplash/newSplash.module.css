@@ -32,10 +32,10 @@
 
 .splash div h1 {
 	font-family: Georgia, Times, serif;
-	font-size: 5.8rem;
+	font-size: clamp(4rem, 5.8rem, 25vw);
+	font-size: clamp(3rem, 5.8rem, 22.5cqw);
 	font-weight: 500;
-	line-height: 5.8rem;
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 }
 
 .splash div p:last-of-type {

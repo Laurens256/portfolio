@@ -2,60 +2,52 @@
 	background-color: var(--secondary-bg);
 }
 
-.footer > ul {
+.footer section {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	justify-content: center;
 	margin: 0 auto;
-	align-items: center;
-	width: 800px;
-	max-width: 90%;
-	height: 7.5rem;
+	width: var(--main-page-width);
+	min-height: 7.5rem;
+	padding: 1rem 0;
 	font-size: 1.1rem;
 }
 
-.footer ul li {
-	text-align: center;
+.footer.projects section {
+	width: var(--project-page-width);
 }
 
 /* lijstje met socials */
-.footer > ul ul {
+.footer section ul {
 	display: flex;
-	gap: 0.5rem;
-}
-
-.footer > ul ul a {
-	display: flex;
-	height: 100%;
+	gap: 1rem;
 	align-items: center;
-	justify-content: center;
 }
 
-.footer > ul ul svg {
-	width: 2em;
+.footer section ul li:last-of-type {
+	margin-left: auto;
 }
 
-.footer > ul ul svg path {
-	fill: var(--main-text);
-	transition: fill 0.15s ease-in-out;
+.footer section ul li a {
+	color: var(--main-text);
+	font-family: var(--body-fonts);
 }
 
-.footer > ul ul a:is(:focus-visible, :hover) svg path {
-	fill: var(--link-color);
+.footer section ul li a:active,
+.footer section ul li a:focus-visible {
+	color: var(--link-color);
 }
 
-@media (max-width: 768px) {
-	.footer > ul {
+@media screen and (max-width: 500px) {
+	.footer section ul {
 		flex-direction: column;
-		min-height: 9rem;
-		padding: 1rem 0;
-		justify-content: end;
-		gap: 0.8em;
-		font-size: 0.9rem;
+		align-items: start;
+		gap: .2rem;
+		margin-top: .5rem;
 	}
 
-	.footer > ul li ul {
-		height: 1.3rem;
-		align-items: center;
-		justify-content: center;
+	.footer section ul li:last-of-type {
+		margin: 1rem auto 0;
+		text-align: center;
 	}
 }

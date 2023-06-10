@@ -27,11 +27,13 @@ export default function Project({ project }: { project: IProject }) {
 	
 	const imgUrl = project.attributes.cover?.data.attributes.url;
 	const imgAlt = project.attributes.cover?.data.attributes.alternativeText;
+
+	const title = `${short_title} | Laurens Duin`;
 	
 	return (
 		<>
 			<Head>
-				<title key="title">{short_title} | Laurens Duin</title>
+				<title key="title">{title}</title>
 				<meta key="og-title" name="og:title" content={`${short_title} | Laurens Duin`} />
 				<meta name="description" content={meta_description || ''} />
 				<meta name="og:description" content={meta_description || ''} />
