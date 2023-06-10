@@ -1,6 +1,6 @@
 .contact {
 	width: var(--main-page-width);
-	margin: 0 auto .5rem;
+	margin: 0 auto 0.5rem;
 	background-color: var(--secondary-bg);
 	border-radius: 2rem;
 	padding: min(3rem, 5vw);
@@ -30,8 +30,8 @@
 
 .contact form input,
 .contact form textarea {
-	padding: .7rem;
-	border-radius: .7rem;
+	padding: 0.7rem;
+	border-radius: 0.7rem;
 	border: none;
 	font-size: 1rem;
 	background-color: var(--input-bg);
@@ -48,7 +48,7 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: .1rem;
+	gap: 0.1rem;
 }
 
 .contact form div label {
@@ -72,12 +72,13 @@
 
 .contact form textarea {
 	resize: none;
-	height: 6rem;	
+	height: 6rem;
 }
 
-.contact form button[type="submit"] {
-	padding: .7rem 1.5rem;
-	border-radius: .7rem;
+.contact form button[type='submit'] {
+	position: relative;
+	padding: 0.7rem 1.5rem;
+	border-radius: 0.7rem;
 	border: none;
 	width: 10rem;
 	max-width: 100%;
@@ -86,15 +87,38 @@
 	font-weight: bold;
 	font-size: 1.1rem;
 	border: solid 2px var(--link-color);
-	transition: all .2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	outline-offset: 2px;
 }
 
-.contact form button[type="submit"]:where(:hover, :focus-visible) {
+.contact form button[type='submit']:where(:hover, :focus-visible) {
 	background-color: var(--link-color);
 	color: var(--inverted-text);
 }
 
+/* loader via: https://cssloaders.github.io/ */
+.contact form.loading button[type='submit']::after {
+	content: '';
+	position: absolute;
+	right: -4.5rem;
+
+	height: 100%;
+	aspect-ratio: 1;
+	top: 0;
+	border-radius: 50%;
+	border-top: 3px solid var(--link-color);
+	border-right: 3px solid transparent;
+	animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 
 @media screen and (max-width: 700px) {
 	.contact {

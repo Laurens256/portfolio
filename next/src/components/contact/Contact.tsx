@@ -11,6 +11,7 @@ const validateForm = (e: FormEvent<HTMLFormElement>) => {
 
 	const formIsValid = form.checkValidity();
 	if (formIsValid) {
+		form.classList.add(styles.loading);
 		form.submit();
 	}
 };
@@ -30,10 +31,10 @@ const updateForm = (form: HTMLFormElement) => {
 		if (!value) {
 			label?.classList.add(styles.error);
 			if (label instanceof HTMLLabelElement) {
-			formInputs[i].addEventListener('input', () => {
-				label.classList.toggle(styles.error, !formInputs[i].value);
-			});
-		}
+				formInputs[i].addEventListener('input', () => {
+					label.classList.toggle(styles.error, !formInputs[i].value);
+				});
+			}
 		}
 	});
 };
@@ -50,14 +51,7 @@ export default function Contact() {
 							<label htmlFor="name">
 								Name <span>*Name is required</span>
 							</label>
-							<input
-								type="text"
-								name="name"
-								id="name"
-								placeholder="Name"
-								required
-								// onInput={whileTyping}
-							/>
+							<input type="text" name="name" id="name" placeholder="Name" required />
 						</div>
 
 						<div>
@@ -71,7 +65,6 @@ export default function Contact() {
 								inputMode="email"
 								placeholder="E-mail"
 								required
-								// onInput={whileTyping}
 							/>
 						</div>
 					</section>
@@ -84,9 +77,7 @@ export default function Contact() {
 							name="message"
 							id="message"
 							placeholder="Message"
-							required
-							// onInput={whileTyping}
-							></textarea>
+							required></textarea>
 					</div>
 
 					<button type="submit">Send</button>
