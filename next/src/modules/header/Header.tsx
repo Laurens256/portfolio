@@ -2,8 +2,6 @@ import styles from './header.module.css';
 
 import Router from 'next/router';
 
-import type INavLink from '@/types/NavLink';
-
 export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	e.preventDefault();
 	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
@@ -24,7 +22,13 @@ const logoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	}
 };
 
-export default function Header({ navLinks }: { navLinks: INavLink[] }) {
+const navLinks = [
+	{ title: 'Projects', href: 'projects' },
+	{ title: 'About', href: 'about' },
+	{ title: 'Contact', href: 'contact' }
+];
+
+export default function Header() {
 	return (
 		<header className={styles.header}>
 			<nav>
@@ -35,13 +39,9 @@ export default function Header({ navLinks }: { navLinks: INavLink[] }) {
 								/
 							</a>
 						</li>
-						{navLinks.map(({ attributes: { title, href, icon } }, i) => (
-							<li key={i}>
-								<a
-									className={`underline`}
-									onClick={betterLinkScroll}
-									draggable="false"
-									href={`#${href}`}>
+						{navLinks.map(({ title, href }) => (
+							<li key={title}>
+								<a className={`underline`} onClick={betterLinkScroll} href={`#${href}`}>
 									{title}
 								</a>
 							</li>

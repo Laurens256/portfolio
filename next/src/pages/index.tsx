@@ -9,8 +9,6 @@ import About from '@/components/about/About';
 import Projects from '@/components/projects/Projects';
 import Contact from '@/components/contact/Contact';
 
-import ThemeSwitcher from '@/modules/themeSwitcher/ThemeSwitcher';
-
 import type INavLink from '@/types/NavLink';
 import type IProject from '@/types/Project';
 import type IAbout from '@/types/About';
@@ -18,11 +16,9 @@ import type IAbout from '@/types/About';
 import strapiFetch from '@/utils/fetchWithHeaders';
 
 export default function Home({
-	navLinks,
 	projects,
 	about
 }: {
-	navLinks: INavLink[];
 	projects: IProject[];
 	about: IAbout;
 }) {
@@ -35,7 +31,7 @@ export default function Home({
 				<meta name="og:description" content="" />
 			</Head>
 
-			<Header navLinks={navLinks} />
+			<Header />
 			<NewSplash />
 			{/* <Splash navLinks={navLinks} /> */}
 			<Projects projects={projects} />
@@ -46,13 +42,14 @@ export default function Home({
 }
 
 export const getStaticProps = async () => {
-	const navLinks: INavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
-	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC&populate=deep')).data;
+	// const navLinks: INavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
+	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC&populate=deep'))
+		.data;
 	const about: IAbout = (await strapiFetch('about?populate=deep')).data;
 
 	return {
 		props: {
-			navLinks,
+			// navLinks,
 			projects,
 			about
 		}
