@@ -45,7 +45,7 @@
 }
 
 .project header section div.case p {
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	line-height: 1.5;
 }
 
@@ -92,6 +92,10 @@
 .project .story img {
 	width: 100%;
 	display: block;
+}
+
+.project .story a {
+	font-weight: normal;
 }
 
 .project .story *:not(:where(h1, h2, h3, h4, h5, h6)) + * {
