@@ -13,18 +13,26 @@ trigger_deploy_hook() {
 }
 
 redeploy_service() {
-    service_name=$1
-    hook_url=$2
-    read -p "Redeploy $service_name? (y/n): " value
+    local service_name=$1
+    local hook_url=$2
+    read -rp "Redeploy $service_name? (y/n): " value
     if [[ $value =~ ^[Yy]$ ]]; then
-        trigger_deploy_hook "$hook_url"
+		if [ "$service_name" == "Vercel" ]; then
+			redeploy_frontend
+		else
+        	trigger_deploy_hook "$hook_url"
+		fi
     else
         echo "Skipping $service_name redeploy."
     fi
 }
 
-VERCEL_HOOK_URL=$VERCEL_HOOK_URL
-RENDER_HOOK_URL=$RENDER_HOOK_URL
+redeploy_frontend() {
+	trigger_deploy_hook "$RENDER_URL"
+	echo "Waking up backend... This will take 30 seconds"
+    sleep 30
+	trigger_deploy_hook "$VERCEL_HOOK_URL"
+}
 
 if [ -n "$VERCEL_HOOK_URL" ]; then
     redeploy_service "Vercel" "$VERCEL_HOOK_URL"
