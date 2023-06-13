@@ -12,13 +12,16 @@ import Contact from '@/components/contact/Contact';
 import type INavLink from '@/types/NavLink';
 import type IProject from '@/types/Project';
 import type IAbout from '@/types/About';
+import type ISplash from '@/types/Splash';
 
 import strapiFetch from '@/utils/fetchWithHeaders';
 
 export default function Home({
+	splashData,
 	projects,
 	about
 }: {
+	splashData: ISplash;
 	projects: IProject[];
 	about: IAbout;
 }) {
@@ -32,7 +35,7 @@ export default function Home({
 			</Head>
 
 			<Header />
-			<NewSplash />
+			<NewSplash splashData={splashData} />
 			{/* <Splash navLinks={navLinks} /> */}
 			<Projects projects={projects} />
 			<About about={about} />
@@ -43,6 +46,7 @@ export default function Home({
 
 export const getStaticProps = async () => {
 	// const navLinks: INavLink[] = (await strapiFetch('navlinks?sort=rank:ASC')).data;
+	const splashData = (await strapiFetch('splash')).data;
 	const projects: IProject[] = (await strapiFetch('projects?sort=rank:ASC&populate=deep'))
 		.data;
 	const about: IAbout = (await strapiFetch('about?populate=deep')).data;
@@ -50,6 +54,7 @@ export const getStaticProps = async () => {
 	return {
 		props: {
 			// navLinks,
+			splashData,
 			projects,
 			about
 		}

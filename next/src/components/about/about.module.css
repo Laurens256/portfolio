@@ -15,7 +15,7 @@
 .about article section h2 {
 	scroll-margin-top: var(--header-height);
 	margin-bottom: .5rem;
-	font-size: clamp(1.2rem, 5vw, 1.8rem);
+	font-size: clamp(1.5rem, 5vw, 1.8rem);
 }
 
 .about article section p {
@@ -24,15 +24,22 @@
 }
 
 /* section met image */
-.about article section div {
-	--border-radius: 50%;
+.about article section:last-of-type div {
 	position: relative;
 	overflow: hidden;
-	border-radius: 0 var(--border-radius) 0 var(--border-radius);
-	width: fit-content;
+	border-radius: 5px 50% 5px 50%;
+	width: 100%;
+	max-width: 30rem;
+	height: 15rem;
 }
 
-.about article section div::after {
+.about article section:last-of-type div img {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.about article section:last-of-type div::after {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -51,7 +58,7 @@
 		margin-bottom: 2rem;
 	}
 
-	.about article section div {
+	.about article section:last-of-type div {
 		border-radius: 30%;
 		margin: 0 auto;
 	}

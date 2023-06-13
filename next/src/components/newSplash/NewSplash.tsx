@@ -2,6 +2,7 @@ import { useEffect, useRef, RefObject } from 'react';
 import styles from './newSplash.module.css';
 
 import { betterLinkScroll } from '@/modules/header/Header';
+import type ISplash from '@/types/Splash';
 
 // prettier-ignore
 const adjectives = ['responsive', 'fast', 'fun', 'interactive', 'engaging', 'dynamic', 'modern', 'sleek', 'intuitive'];
@@ -51,7 +52,7 @@ const typewriterEffect = (element: HTMLSpanElement) => {
 	removeText();
 };
 
-export default function NewSplash() {
+export default function NewSplash({ splashData }: { splashData: ISplash }) {
 	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
 	let ran = false;
 	useEffect(() => {
@@ -70,6 +71,11 @@ export default function NewSplash() {
 		}
 	}, []);
 
+	const adjectiveArr = splashData.attributes.adjectives.split('\n');
+	const subheading1 = splashData.attributes.subheading.split('{')[0];
+	const subheading2 = splashData.attributes.subheading.split('{')[1].split('}')[1];
+	console.log(subheading1, subheading2);
+
 	return (
 		<>
 			<section className={styles.splash}>
@@ -77,12 +83,13 @@ export default function NewSplash() {
 					<p aria-hidden="true">Hi! My name is</p>
 					<h1 aria-label="hi! my name is Laurens Duin">Laurens Duin</h1>
 					<p>
-						I'm a Dutch <span className={styles.frontend}>front-end developer</span> based
-						in Amersfoort, Netherlands. I love creating{' '}
+						{subheading1}
 						<span ref={adjectiveRef} aria-label="responsive" className={styles.adjective}>
+							{' '}
 							responsive
 						</span>{' '}
-						and <span className={styles.accessible}>accessible</span> web experiences.
+						and accessible web experiences.
+						{/* {splashData.attributes.subheading} */}
 					</p>
 				</div>
 				<a
