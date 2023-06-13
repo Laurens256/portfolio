@@ -10,6 +10,7 @@ export default function About({ about }: { about: IAbout }) {
 				<section>
 					<h2 id="about">About me</h2>
 					<p>{about.attributes.main}</p>
+					<p className={styles.resume}>Want to know more?<a className='underline' href="Laurens_Duin-resume.pdf">Check out my resume</a></p>
 				</section>
 
 				<section>

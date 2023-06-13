@@ -5,10 +5,11 @@ import { betterLinkScroll } from '@/modules/header/Header';
 import type ISplash from '@/types/Splash';
 
 // prettier-ignore
-const adjectives = ['responsive', 'fast', 'fun', 'interactive', 'engaging', 'dynamic', 'modern', 'sleek', 'intuitive'];
+let adjectives: string[] = [];
+// const adjectives = ['responsive', 'fast', 'fun', 'interactive', 'engaging', 'dynamic', 'modern', 'sleek', 'intuitive'];
 
 const usedAdjectives: string[] = [];
-let previousAdjective = 'responsive';
+let previousAdjective = '';
 
 const delay = 100;
 const removeDelay = 80;
@@ -54,10 +55,7 @@ const typewriterEffect = (element: HTMLSpanElement) => {
 
 export default function NewSplash({ splashData }: { splashData: ISplash }) {
 	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
-	let ran = false;
 	useEffect(() => {
-		if (ran) return;
-		ran = true;
 		const element = adjectiveRef.current;
 
 		if (element) {
@@ -71,10 +69,23 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 		}
 	}, []);
 
-	const adjectiveArr = splashData.attributes.adjectives.split('\n');
-	const subheading1 = splashData.attributes.subheading.split('{')[0];
-	const subheading2 = splashData.attributes.subheading.split('{')[1].split('}')[1];
-	console.log(subheading1, subheading2);
+	let subheading1 = '';
+	let subheading2 = '';
+	let randomAdjective = '';
+	if (splashData.attributes.subheading.includes('{adjective}')) {
+		subheading1 = splashData.attributes.subheading.split('{adjective}')[0];
+		subheading2 = splashData.attributes.subheading.split('{adjective}')[1];
+
+		const adjectiveArr = splashData.attributes.adjectives?.split('\n');
+		if (adjectiveArr) {
+			adjectives = adjectiveArr;
+			randomAdjective = adjectives[0];
+			previousAdjective = adjectives[0];
+			usedAdjectives.push(adjectives[0]);
+		}
+	} else {
+		subheading1 = splashData.attributes.subheading;
+	}
 
 	return (
 		<>
@@ -84,12 +95,15 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 					<h1 aria-label="hi! my name is Laurens Duin">Laurens Duin</h1>
 					<p>
 						{subheading1}
-						<span ref={adjectiveRef} aria-label="responsive" className={styles.adjective}>
-							{' '}
-							responsive
-						</span>{' '}
-						and accessible web experiences.
-						{/* {splashData.attributes.subheading} */}
+						{randomAdjective && (
+							<>
+								<span ref={adjectiveRef} aria-label={randomAdjective} className={styles.adjective}>
+									{randomAdjective}
+								</span>
+
+								{subheading2}
+							</>
+						)}
 					</p>
 				</div>
 				<a

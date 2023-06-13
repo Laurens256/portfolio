@@ -35,7 +35,7 @@ export default function Header() {
 				<div>
 					<ul>
 						<li key="-1">
-							<a onClick={logoClick} href="/">
+							<a onClick={logoClick} href="/" aria-label='home'>
 								/
 							</a>
 						</li>

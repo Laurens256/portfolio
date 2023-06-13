@@ -15,11 +15,6 @@
 	gap: var(--panel-gap);
 }
 
-.projects ul li {
-	overflow: hidden;
-	border-radius: var(--panel-border-radius);
-}
-
 .projects ul li a {
 	--panel-padding: min(3rem, 6vw);
 	--panel-height: 20rem;

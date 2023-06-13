@@ -23,6 +23,15 @@
 	line-height: 1.4;
 }
 
+.about article section p.resume {
+	margin-top: 1.5rem;
+}
+
+.about article section p.resume a {
+	display: block;
+	width: fit-content;
+}
+
 /* section met image */
 .about article section:last-of-type div {
 	position: relative;

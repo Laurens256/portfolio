@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<title key="title">Portfolio | Laurens Duin</title>
 				<meta key="og-title" name="og:title" content="Portfolio | Laurens Duin" />
 
+
 				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 			</Head>
 			<Component {...pageProps} />

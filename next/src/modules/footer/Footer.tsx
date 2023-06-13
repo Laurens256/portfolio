@@ -11,7 +11,7 @@ export default function Footer({ route }: { route: string }) {
 	return (
 		<footer className={`${styles.footer} ${styles[route]}`}>
 				<section>
-					<h4>Socials</h4>
+					<h4 id="socials">Socials</h4>
 					<ul>
 						{socials.map((social) => (
 							<li key={social.name}>
