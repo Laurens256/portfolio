@@ -28,7 +28,7 @@ export default function About({ about }: { about: IAbout }) {
 					{/* source: https://tympanus.net/Tutorials/AnimatedTextFills/ */}
 					<svg className={styles.svg} viewBox="0 0 650 300">
 						<symbol id="s-text">
-							<text text-anchor="middle" x="50%" y="50%" dy=".35em">
+							<text textAnchor="middle" x="50%" y="50%" dy=".35em">
 								Code
 							</text>
 						</symbol>
