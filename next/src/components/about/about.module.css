@@ -72,3 +72,45 @@
 		margin: 0 auto;
 	}
 }
+
+
+
+/* cool css animation thingy: https://tympanus.net/Tutorials/AnimatedTextFills/ */
+.svg {
+	font-size: 14.5rem;
+	font-family: 'open sans', 'sans-serif';
+}
+
+.svg use {
+	fill: none;
+	stroke-width: 6;
+	stroke-linejoin: round;
+	stroke-dasharray: 70 330;
+	stroke-dashoffset: 0;
+	animation: stroke 10s infinite linear;
+}
+.svg use:nth-child(5n + 1) {
+	stroke: #f2385a;
+	animation-delay: -1.2s;
+}
+.svg use:nth-child(5n + 2) {
+	stroke: #f5a503;
+	animation-delay: -2.4s;
+}
+.svg use:nth-child(5n + 3) {
+	stroke: #e9f1df;
+	animation-delay: -3.6s;
+}
+.svg use:nth-child(5n + 4) {
+	stroke: #56d9cd;
+	animation-delay: -4.8s;
+}
+.svg use:nth-child(5n + 5) {
+	stroke: #3aa1bf;
+	animation-delay: -6s;
+}
+@keyframes stroke {
+	100% {
+		stroke-dashoffset: -400;
+	}
+}
