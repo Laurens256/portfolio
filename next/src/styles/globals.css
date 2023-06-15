@@ -175,6 +175,16 @@ input, textarea, select {
 	font-family: inherit;
 }
 
+.label-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border-width: 0;
+}
+
 h1::selection {
 	color: var(--selection-color);
 	background-color: var(--main-bg);

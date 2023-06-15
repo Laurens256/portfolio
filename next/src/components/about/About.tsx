@@ -1,9 +1,36 @@
+import { useRef, RefObject } from 'react';
+
 import IAbout from '@/types/About';
 import styles from './about.module.css';
 
 import type About from '@/types/About';
 
 export default function About({ about }: { about: IAbout }) {
+	const useRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
+
+	let animationPlaying: boolean | null = null;
+	const toggleAnimation = () => {
+		if (animationPlaying === null) {
+			animationPlaying = window.matchMedia(
+				'(prefers-reduced-motion: no-preference)'
+			).matches;
+		}
+
+		useRefs.forEach((useRef) => {
+			const useElement = useRef.current;
+			if (useElement) {
+				console.log('a');
+				const { style } = useElement;
+				if (animationPlaying) {
+					style.animationPlayState = 'paused';
+				} else {
+					style.animationPlayState = 'running';
+				}
+			}
+		});
+		animationPlaying = !animationPlaying;
+	};
+
 	return (
 		<section className={styles.about}>
 			<article>
@@ -19,12 +46,8 @@ export default function About({ about }: { about: IAbout }) {
 				</section>
 
 				<section>
-					{/* <div>
-						<img
-							src={about.attributes.img.data.attributes.url}
-							alt={about.attributes.img.data.attributes.alternativeText}
-						/>
-					</div> */}
+					<button onClick={toggleAnimation} aria-label="toggle animation"></button>
+
 					{/* source: https://tympanus.net/Tutorials/AnimatedTextFills/ */}
 					<svg className={styles.svg} viewBox="0 0 650 300">
 						<symbol id="s-text">
@@ -33,11 +56,9 @@ export default function About({ about }: { about: IAbout }) {
 							</text>
 						</symbol>
 
-						<use xlinkHref="#s-text"></use>
-						<use xlinkHref="#s-text"></use>
-						<use xlinkHref="#s-text"></use>
-						<use xlinkHref="#s-text"></use>
-						<use xlinkHref="#s-text"></use>
+						{useRefs.map((useRef, index) => (
+							<use key={index} xlinkHref="#s-text" ref={useRef}></use>
+						))}
 					</svg>
 				</section>
 			</article>
