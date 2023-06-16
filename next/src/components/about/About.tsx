@@ -1,4 +1,4 @@
-import { useRef, RefObject } from 'react';
+import { useRef } from 'react';
 
 import IAbout from '@/types/About';
 import styles from './about.module.css';
@@ -10,6 +10,9 @@ export default function About({ about }: { about: IAbout }) {
 
 	let animationPlaying: boolean | null = null;
 	const toggleAnimation = () => {
+		// to check if the animation is playing initially, we use the prefers-reduced-motion media query
+		// we're not doing this with a class because the media query is being annoying in css
+
 		if (animationPlaying === null) {
 			animationPlaying = window.matchMedia(
 				'(prefers-reduced-motion: no-preference)'
@@ -19,13 +22,7 @@ export default function About({ about }: { about: IAbout }) {
 		useRefs.forEach((useRef) => {
 			const useElement = useRef.current;
 			if (useElement) {
-				console.log('a');
-				const { style } = useElement;
-				if (animationPlaying) {
-					style.animationPlayState = 'paused';
-				} else {
-					style.animationPlayState = 'running';
-				}
+				useElement.style.animationPlayState = animationPlaying ? 'paused' : 'running';
 			}
 		});
 		animationPlaying = !animationPlaying;
