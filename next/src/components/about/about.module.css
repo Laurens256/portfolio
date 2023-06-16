@@ -43,7 +43,6 @@
 	width: 100%;
 	height: 100%;
 	height: 46.2cqw;
-	/* background: red; */
 }
 
 /* cool css animation thingy: https://tympanus.net/Tutorials/AnimatedTextFills/ */
@@ -76,7 +75,7 @@
 	animation-delay: -2.4s;
 }
 .svg use:nth-of-type(5n + 3) {
-	stroke: #e9f1df;
+	stroke: var(--main-text);
 	animation-delay: -3.6s;
 }
 .svg use:nth-of-type(5n + 4) {
