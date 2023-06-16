@@ -6,14 +6,9 @@ import styles from './project.module.css';
 
 import type IProject from '@/types/Project';
 
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import rehypeStringify from 'rehype-stringify';
+import { markdownToHtml } from '@/utils/markdownToHtml';
 
 export default function Project({ project }: { project: IProject }) {
-
-	
 	const {
 		short_title,
 		long_title,
@@ -95,23 +90,6 @@ export default function Project({ project }: { project: IProject }) {
 	);
 }
 
-// convert markdown to html string
-const generateHTML = async (markdown: string) => {
-	const HTMLString = String(
-		await unified()
-			.use(remarkParse)
-			.use(remarkRehype)
-			.use(rehypeStringify)
-			.process(markdown)
-	);
-
-	// find any <a> tags and add target="_blank" to them
-	const regex = /<a/gi;
-	const subst = '<a target="_blank"';
-
-	return HTMLString.replace(regex, subst);
-};
-
 export async function getStaticProps({ params }: { params: { slug: string } }) {
 	const slug = params.slug;
 
@@ -119,7 +97,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 		await strapiFetch(`projects?filters[slug][$eq]=${slug}&populate=deep`)
 	).data[0];
 	// const project = (await strapiFetch(`projects/${slug}?populate=deep`)).data;
-	project.attributes.story = await generateHTML(project.attributes.story);
+	project.attributes.story = await markdownToHtml(project.attributes.story);
 
 	return {
 		props: {

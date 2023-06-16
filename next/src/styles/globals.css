@@ -138,6 +138,8 @@ a {
 	text-decoration: none;
 }
 
+iframe,
+video,
 img {
 	max-width: 100%;
 }
