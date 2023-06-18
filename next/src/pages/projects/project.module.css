@@ -34,6 +34,14 @@
 	margin-bottom: 1rem;
 }
 
+.project header img {
+	width: 100%;
+}
+
+.project.pokedex header img {
+	image-rendering: pixelated;
+}
+
 /* case info en mijn rol section */
 .project header section {
 	display: grid;

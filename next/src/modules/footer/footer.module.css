@@ -14,9 +14,14 @@
 	font-size: 1.1rem;
 }
 
+.footer section h3 {
+	font-size: 1.1rem;
+}
+
 .footer.projects section {
 	width: var(--project-page-width);
 }
+
 
 /* lijstje met socials */
 .footer section ul {

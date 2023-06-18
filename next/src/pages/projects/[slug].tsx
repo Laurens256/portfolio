@@ -20,8 +20,8 @@ export default function Project({ project }: { project: IProject }) {
 		meta_description
 	} = project.attributes;
 	
-	const imgUrl = project.attributes.cover?.data.attributes.url;
-	const imgAlt = project.attributes.cover?.data.attributes.alternativeText;
+	const imgUrl = project.attributes.cover.data?.attributes.url;
+	const imgAlt = project.attributes.cover.data?.attributes.alternativeText;
 
 	const title = `${short_title} | Laurens Duin`;
 	
@@ -43,7 +43,8 @@ export default function Project({ project }: { project: IProject }) {
 				<header>
 					<div>
 						<h1>{long_title}</h1>
-						<img src={imgUrl} alt={imgAlt} />
+						{/* weird glitch but somehow the question mark makes animated webp videos play in firefox */}
+						<img src={`${imgUrl}?`} alt={imgAlt} />
 					</div>
 
 					<section>

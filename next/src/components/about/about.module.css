@@ -49,7 +49,7 @@
 .svg {
 	font-size: 13.5rem;
 	text-transform: uppercase;
-	font-family: 'Open Sans', 'sans-serif';
+	font-family: 'Open Sans', sans-serif;
 	stroke-linecap: round;
 }
 

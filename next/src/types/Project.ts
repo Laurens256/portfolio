@@ -20,8 +20,8 @@ export default interface Project {
 				};
 			};
 		};
-		cover?: {
-			data: {
+		cover: {
+			data?: {
 				attributes: {
 					alternativeText: string;
 					caption: string;

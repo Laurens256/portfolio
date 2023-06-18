@@ -76,6 +76,10 @@
 	var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
+.projects ul li.discofy a {
+	color: #000;
+}
+
 @media screen and (max-width: 600px) {
 	.projects ul li a {
 		grid-template-columns: 1fr;
