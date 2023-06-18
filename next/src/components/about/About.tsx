@@ -8,24 +8,15 @@ import type About from '@/types/About';
 export default function About({ about }: { about: IAbout }) {
 	const useRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
 
-	let animationPlaying: boolean | null = null;
 	const toggleAnimation = () => {
-		// to check if the animation is playing initially, we use the prefers-reduced-motion media query
-		// we're not doing this with a class because the media query is being annoying in css
-
-		if (animationPlaying === null) {
-			animationPlaying = window.matchMedia(
-				'(prefers-reduced-motion: no-preference)'
-			).matches;
-		}
-
 		useRefs.forEach((useRef) => {
 			const useElement = useRef.current;
 			if (useElement) {
-				useElement.style.animationPlayState = animationPlaying ? 'paused' : 'running';
+				const currentState = getComputedStyle(useElement).animationPlayState;
+				useElement.style.animationPlayState =
+					currentState === 'paused' ? 'running' : 'paused';
 			}
 		});
-		animationPlaying = !animationPlaying;
 	};
 
 	return (
