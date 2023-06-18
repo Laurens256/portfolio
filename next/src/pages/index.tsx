@@ -30,8 +30,8 @@ export default function Home({
 			<Head>
 				<title key="title">Portfolio | Laurens Duin</title>
 				<meta key="og-title" name="og:title" content="Portfolio | Laurens Duin" />
-				<meta name="description" content="" />
-				<meta name="og:description" content="" />
+				<meta name="description" content="I'm a Dutch front-end developer based in Amersfoort, Netherlands. I love creating fun and accessible web experiences" />
+				<meta name="og:description" content="I'm a Dutch front-end developer based in Amersfoort, Netherlands. I love creating fun and accessible web experiences" />
 			</Head>
 
 			<Header />
