@@ -56,6 +56,7 @@ const typewriterEffect = (element: HTMLSpanElement) => {
 export default function NewSplash({ splashData }: { splashData: ISplash }) {
 	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
 	useEffect(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		const element = adjectiveRef.current;
 
 		if (element) {
