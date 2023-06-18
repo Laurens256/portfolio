@@ -37,8 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			`
 		});
 
-		return res.redirect('/contact/success');
+		return res.redirect(301, '/contact/success');
 	} catch (error) {
-		return res.redirect('/contact/error');
+		return res.redirect(301, '/contact/error');
 	}
 }
