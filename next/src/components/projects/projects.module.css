@@ -76,6 +76,10 @@
 	var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
+.projects ul li.pokedex img {
+	image-rendering: pixelated;
+}
+
 .projects ul li.discofy a {
 	color: #000;
 }

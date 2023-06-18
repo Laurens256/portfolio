@@ -36,7 +36,7 @@ export default function Project({ project }: { project: IProject }) {
 
 			<nav className={styles.nav}>
 				<a className="underline" href="/#projects">
-					Terug
+					Back
 				</a>
 			</nav>
 			<main className={`${styles.project} ${styles[slug]}`}>
