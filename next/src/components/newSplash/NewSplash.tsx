@@ -4,21 +4,54 @@ import styles from './newSplash.module.css';
 import { betterLinkScroll } from '@/modules/header/Header';
 import type ISplash from '@/types/Splash';
 
-// prettier-ignore
-let adjectives: string[] = [];
-// const adjectives = ['responsive', 'fast', 'fun', 'interactive', 'engaging', 'dynamic', 'modern', 'sleek', 'intuitive'];
-
-const usedAdjectives: string[] = [];
-let previousAdjective = '';
-
 const delay = 100;
 const removeDelay = 80;
-const typewriterEffect = (element: HTMLSpanElement) => {
+// Start the typewriter effect to remove existing text
+const removeText = (
+	element: HTMLElement,
+	container: HTMLElement,
+	newAdjective: string,
+	ariaLabel: string
+) => {
+	let i = element.textContent!.length;
+	const removeNextCharacter = () => {
+		if (i > 0) {
+			element.textContent = element.textContent!.slice(0, i - 1);
+			i--;
+			setTimeout(removeNextCharacter, removeDelay);
+		} else {
+			typeNextCharacter(element, container, newAdjective, ariaLabel, 0);
+		}
+	};
+	removeNextCharacter();
+};
+
+const typeNextCharacter = (
+	element: HTMLElement,
+	container: HTMLElement,
+	newAdjective: string,
+	ariaLabel: string,
+	index: number
+) => {
+	if (index < newAdjective.length) {
+		element.textContent += newAdjective.charAt(index);
+		index++;
+		setTimeout(typeNextCharacter, delay, element, container, newAdjective, ariaLabel,index);
+	} else {
+		container.setAttribute('aria-label', ariaLabel);
+	}
+};
+
+let adjectives: string[] = [];
+const usedAdjectives: string[] = [];
+let previousAdjective = '';
+const getNewAdjective = () => {
 	if (usedAdjectives.length === adjectives.length) {
 		usedAdjectives.length = 0;
 	}
 	const possibleAdjectives = adjectives.filter(
-		(adjective) => !usedAdjectives.includes(adjective) && adjective !== previousAdjective
+		(adjective) =>
+			!usedAdjectives.includes(adjective) && adjective !== previousAdjective
 	);
 	const newAdjective =
 		possibleAdjectives[Math.floor(Math.random() * possibleAdjectives.length)];
@@ -26,53 +59,13 @@ const typewriterEffect = (element: HTMLSpanElement) => {
 	previousAdjective = newAdjective;
 	usedAdjectives.push(newAdjective);
 
-	// Start the typewriter effect to remove existing text
-	const removeText = () => {
-		let i = element.textContent!.length;
-		function removeNextCharacter() {
-			if (i > 0) {
-				element.textContent = element.textContent!.slice(0, i - 1);
-				i--;
-				setTimeout(removeNextCharacter, removeDelay);
-			} else {
-				typeNextCharacter(0);
-			}
-		}
-		removeNextCharacter();
-	};
-
-	const typeNextCharacter = (index: number) => {
-		if (index < newAdjective.length) {
-			element.textContent += newAdjective.charAt(index);
-			index++;
-			setTimeout(typeNextCharacter, delay, index);
-		} else {
-			element.setAttribute('aria-label', element.textContent || '');
-		}
-	};
-	removeText();
+	return newAdjective;
 };
 
 export default function NewSplash({ splashData }: { splashData: ISplash }) {
-	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
-	useEffect(() => {
-		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		const element = adjectiveRef.current;
-
-		if (element) {
-			setTimeout(() => {
-				typewriterEffect(element);
-
-				setInterval(() => {
-					typewriterEffect(element);
-				}, 8000);
-			}, 3000);
-		}
-	}, []);
-
 	let subheading1 = '';
 	let subheading2 = '';
-	let randomAdjective = '';
+	let firstAdjective = '';
 	if (splashData.attributes.subheading.includes('{adjective}')) {
 		subheading1 = splashData.attributes.subheading.split('{adjective}')[0];
 		subheading2 = splashData.attributes.subheading.split('{adjective}')[1];
@@ -80,7 +73,7 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 		const adjectiveArr = splashData.attributes.adjectives?.split('\n');
 		if (adjectiveArr) {
 			adjectives = adjectiveArr;
-			randomAdjective = adjectives[0];
+			firstAdjective = adjectives[0];
 			previousAdjective = adjectives[0];
 			usedAdjectives.push(adjectives[0]);
 		}
@@ -88,20 +81,57 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 		subheading1 = splashData.attributes.subheading;
 	}
 
+	// init typewriter effect
+	const adjectiveContainer: RefObject<HTMLParagraphElement> = useRef(null);
+	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
+	useEffect(() => {
+		const adjectiveContainerEl = adjectiveContainer.current;
+		const adjectiveEl = adjectiveRef.current;
+
+		if (
+			adjectiveContainerEl &&
+			adjectiveEl &&
+			!window.matchMedia('(prefers-reduced-motion: reduce)').matches
+		) {
+			setTimeout(() => {
+				const newAdjective = getNewAdjective();
+				removeText(
+					adjectiveEl,
+					adjectiveContainerEl,
+					newAdjective,
+					`${subheading1} ${newAdjective} ${subheading2}`
+				);
+				// typewriterEffect(adjectiveEl, adjectiveContainerEl);
+
+				setInterval(() => {
+					const newAdjective = getNewAdjective();
+					removeText(
+						adjectiveEl,
+						adjectiveContainerEl,
+						newAdjective,
+						`${subheading1} ${newAdjective} ${subheading2}`
+					);
+					// typewriterEffect(adjectiveEl, adjectiveContainerEl);
+				}, 8000);
+			}, 3000);
+		}
+	}, []);
+
 	return (
 		<>
 			<section className={styles.splash}>
 				<div>
 					<p aria-hidden="true">Hi! My name is</p>
 					<h1 aria-label="hi! my name is Laurens Duin">Laurens Duin</h1>
-					<p>
+					<p
+						ref={adjectiveContainer}
+						aria-label={`${subheading1} ${firstAdjective} ${subheading2}`}>
 						{subheading1}
-						{randomAdjective && (
+						{firstAdjective && (
 							<>
-								<span ref={adjectiveRef} aria-label={randomAdjective} className={styles.adjective}>
-									{randomAdjective}
+								<span ref={adjectiveRef} aria-hidden="true" className={styles.adjective}>
+									{firstAdjective}
 								</span>
-
 								{subheading2}
 							</>
 						)}

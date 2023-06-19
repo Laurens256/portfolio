@@ -26,7 +26,7 @@ export default function Projects({ projects }: { projects: IProject[] }) {
 								{icon.data && (
 									<img
 										src={icon.data?.attributes.url}
-										alt={icon.data?.attributes.alternativeText}
+										alt=""
 									/>
 								)}
 							</a>
