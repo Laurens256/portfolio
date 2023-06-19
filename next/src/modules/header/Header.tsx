@@ -8,7 +8,7 @@ export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	const heading: HTMLElement | null = document.querySelector(`#${href}`);
 
 	heading?.setAttribute('tabindex', '-1');
-	heading?.focus();
+	heading?.focus({preventScroll: true});
 	heading?.scrollIntoView({
 		behavior: 'smooth'
 	});
