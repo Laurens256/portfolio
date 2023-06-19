@@ -5,11 +5,14 @@ import Router from 'next/router';
 export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	e.preventDefault();
 	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
-	const heading = document.querySelector(`#${href}`);
+	const heading: HTMLElement | null = document.querySelector(`#${href}`);
 
+	heading?.setAttribute('tabindex', '-1');
+	heading?.focus();
 	heading?.scrollIntoView({
 		behavior: 'smooth'
 	});
+	heading?.blur();
 };
 
 const logoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
