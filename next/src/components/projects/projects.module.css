@@ -66,14 +66,16 @@
 .projects ul li.pokedex a div h3::after,
 .projects ul li.pokedex a div p::after {
 	content: attr(data-value);
+	/* zorgt ervoor dat screenreaders ::after niet voorlezen, werkt niet in Firefox dus fallback zonder */
+	content: attr(data-value) / '';
 	color: var(--text-white);
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
 
 	text-shadow: var(--text-shadow-size) 0 var(--text-shadow-color),
-	0 var(--text-shadow-size) var(--text-shadow-color),
-	var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
+		0 var(--text-shadow-size) var(--text-shadow-color),
+		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
 .projects ul li.pokedex img {
@@ -91,7 +93,7 @@
 	.projects ul li a {
 		grid-template-columns: 1fr;
 	}
-	
+
 	.projects ul li a div {
 		align-self: center;
 		text-align: center;

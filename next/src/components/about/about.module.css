@@ -14,7 +14,7 @@
 
 .about article section h2 {
 	scroll-margin-top: var(--header-height);
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 	font-size: clamp(1.5rem, 5vw, 1.8rem);
 }
 
@@ -67,24 +67,32 @@
 	}
 }
 
+.svg {
+	--color1: #7e6aa8;
+	--color2: #9ece69;
+	--color3: #7dcfff;
+	--color4: #2f69e4;
+	--color5: #dcac67;
+}
+
 .svg use:nth-of-type(5n + 1) {
-	stroke: #f2385a;
+	stroke: var(--color1);
 	animation-delay: -1.2s;
 }
 .svg use:nth-of-type(5n + 2) {
-	stroke: #f5a503;
+	stroke: var(--color2);
 	animation-delay: -2.4s;
 }
 .svg use:nth-of-type(5n + 3) {
-	stroke: var(--main-text);
+	stroke: var(--color3);
 	animation-delay: -3.6s;
 }
 .svg use:nth-of-type(5n + 4) {
-	stroke: #56d9cd;
+	stroke: var(--color4);
 	animation-delay: -4.8s;
 }
 .svg use:nth-of-type(5n + 5) {
-	stroke: #3aa1bf;
+	stroke: var(--color5);
 	animation-delay: -6s;
 }
 @keyframes stroke {
@@ -95,7 +103,6 @@
 		stroke-dashoffset: 0;
 	}
 }
-
 
 @media screen and (max-width: 768px) {
 	.about article {

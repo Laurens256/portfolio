@@ -1,9 +1,17 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 import IAbout from '@/types/About';
 import styles from './about.module.css';
 
 import type About from '@/types/About';
+
+const colorPalettes = [
+	['#7e6aa8', '#9ece69', '#7dcfff', '#2f69e4', '#dcac67'],
+	['#bb73d1', '#e3bf7a', '#61afef', '#98c379', '#e06c75'],
+	['#62cee2', '#ac7ffc', '#94c72c', '#d8ce6e', '#ec266d'],
+	['#eacd59', '#db6fc0', '#36f9f6', '#e37d37', '#6feab3'],
+	['#d919d1', '#f12c91', '#3ea5f9', '#fed300', '#0deffb'],
+];
 
 export default function About({ about }: { about: IAbout }) {
 	const useRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
@@ -18,6 +26,18 @@ export default function About({ about }: { about: IAbout }) {
 			}
 		});
 	};
+
+	// add random color palette to svg
+	const svgRef = useRef<SVGSVGElement>(null);
+	useEffect(() => {
+		const svgElement = svgRef.current;
+		if (svgElement) {
+			const randomColorPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+			randomColorPalette.forEach((color, index) => {
+				svgElement.style.setProperty(`--color${index + 1}`, color);
+			});
+		}
+	}, []);
 
 	return (
 		<section className={styles.about}>
@@ -37,7 +57,11 @@ export default function About({ about }: { about: IAbout }) {
 					<button onClick={toggleAnimation} aria-label="toggle animation"></button>
 
 					{/* source: https://tympanus.net/Tutorials/AnimatedTextFills/ */}
-					<svg className={styles.svg} viewBox="0 0 650 300">
+					<svg
+						ref={svgRef}
+						aria-hidden="true"
+						className={styles.svg}
+						viewBox="0 0 650 300">
 						<symbol id="s-text">
 							<text textAnchor="middle" x="50%" y="50%" dy=".35em">
 								Code
