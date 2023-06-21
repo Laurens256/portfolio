@@ -42,6 +42,13 @@
 	image-rendering: pixelated;
 }
 
+.project header div.spotifyloader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 15rem;
+}
+
 /* case info en mijn rol section */
 .project header section {
 	display: grid;
@@ -104,6 +111,11 @@
 
 .project .story a {
 	font-weight: normal;
+}
+
+.project .story ul,
+.project .story ol {
+	list-style: auto inside;
 }
 
 .project .story *:not(:where(h1, h2, h3, h4, h5, h6)) + * {

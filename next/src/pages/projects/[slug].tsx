@@ -1,5 +1,7 @@
 import strapiFetch from '@/utils/fetchWithHeaders';
 
+import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
+
 import Head from 'next/head';
 
 import styles from './project.module.css';
@@ -19,12 +21,12 @@ export default function Project({ project }: { project: IProject }) {
 		quicklinks,
 		meta_description
 	} = project.attributes;
-	
+
 	const imgUrl = project.attributes.cover.data?.attributes.url;
 	const imgAlt = project.attributes.cover.data?.attributes.alternativeText;
 
 	const title = `${short_title} | Laurens Duin`;
-	
+
 	return (
 		<>
 			<Head>
@@ -43,8 +45,15 @@ export default function Project({ project }: { project: IProject }) {
 				<header>
 					<div>
 						<h1>{long_title}</h1>
-						{/* weird glitch but somehow the question mark makes animated webp videos play in firefox */}
-						<img src={`${imgUrl}?`} alt={imgAlt} />
+						{imgUrl && (
+							// weird glitch but somehow the question mark makes animated webp videos play in firefox
+							<img src={`${imgUrl}?`} alt={imgAlt} />
+						)}
+						{!imgUrl && slug === 'discofy' && (
+							<div className={styles.spotifyloader}>
+								<SpotifyLoader/>
+							</div>
+						)}
 					</div>
 
 					<section>
