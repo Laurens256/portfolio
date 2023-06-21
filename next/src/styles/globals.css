@@ -1,21 +1,25 @@
 @font-face {
 	font-family: 'satoshi';
 	src: url(/fonts/Satoshi-Variable.woff);
+	font-display: fallback;
 }
 
 @font-face {
 	font-family: 'pokemon';
 	src: url(/fonts/pokemon-fire-red.woff2);
+	font-display: fallback;
 }
 
 @font-face {
 	font-family: 'jetbrains';
 	src: url(/fonts/jetbrains-mono.woff);
+	font-display: fallback;
 }
 
 @font-face {
 	font-family: 'ubuntu';
 	src: url(/fonts/ubuntu-regular.woff);
+	font-display: fallback;
 }
 
 *,
