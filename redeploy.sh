@@ -19,11 +19,11 @@ redeploy_service() {
 	local hook_url=$2
 	read -rp "Redeploy $service_name? (y/n): " value
 	if [[ $value =~ ^[Yy]$ ]]; then
-		if [ "$service_name" == "Vercel" ]; then
-			redeploy_frontend
-		else
-			trigger_deploy_hook "$hook_url"
-		fi
+		# if [ "$service_name" == "Vercel" ]; then
+		# 	redeploy_frontend
+		# else
+		trigger_deploy_hook "$hook_url"
+		# fi
 	else
 		echo "Skipping $service_name redeploy."
 	fi
