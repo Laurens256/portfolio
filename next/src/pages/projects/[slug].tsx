@@ -4,6 +4,7 @@ import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import styles from './project.module.css';
 
@@ -25,6 +26,8 @@ export default function Project({ project }: { project: IProject }) {
 
 	const imgUrl = project.attributes.cover.data?.attributes.url;
 	const imgAlt = project.attributes.cover.data?.attributes.alternativeText;
+	const imgHeight = project.attributes.cover.data?.attributes.height;
+	const imgWidth = project.attributes.cover.data?.attributes.width;
 
 	const title = `${short_title} | Laurens Duin`;
 
@@ -47,12 +50,15 @@ export default function Project({ project }: { project: IProject }) {
 					<div>
 						<h1>{long_title}</h1>
 						{imgUrl && (
-							// weird glitch but somehow the question mark makes animated webp videos play in firefox
-							<img src={`${imgUrl}?`} alt={imgAlt} />
+							<img
+								src={imgUrl}
+								alt={imgAlt}
+								style={imgWidth && imgHeight ? { aspectRatio: imgWidth / imgHeight } : {}}
+							/>
 						)}
 						{!imgUrl && slug === 'discofy' && (
 							<div className={styles.spotifyloader}>
-								<SpotifyLoader/>
+								<SpotifyLoader />
 							</div>
 						)}
 					</div>

@@ -33,10 +33,18 @@ const typeNextCharacter = (
 	ariaLabel: string,
 	index: number
 ) => {
-	if (index < newAdjective.length) {
+	if (newAdjective && index < newAdjective.length) {
 		element.textContent += newAdjective.charAt(index);
 		index++;
-		setTimeout(typeNextCharacter, delay, element, container, newAdjective, ariaLabel,index);
+		setTimeout(
+			typeNextCharacter,
+			delay,
+			element,
+			container,
+			newAdjective,
+			ariaLabel,
+			index
+		);
 	} else {
 		container.setAttribute('aria-label', ariaLabel);
 	}
@@ -50,8 +58,7 @@ const getNewAdjective = () => {
 		usedAdjectives.length = 0;
 	}
 	const possibleAdjectives = adjectives.filter(
-		(adjective) =>
-			!usedAdjectives.includes(adjective) && adjective !== previousAdjective
+		(adjective) => !usedAdjectives.includes(adjective) && adjective !== previousAdjective
 	);
 	const newAdjective =
 		possibleAdjectives[Math.floor(Math.random() * possibleAdjectives.length)];
@@ -81,10 +88,13 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 		subheading1 = splashData.attributes.subheading;
 	}
 
+	let ran = false;
 	// init typewriter effect
 	const adjectiveContainer: RefObject<HTMLParagraphElement> = useRef(null);
 	const adjectiveRef: RefObject<HTMLSpanElement> = useRef(null);
 	useEffect(() => {
+		if (ran) return;
+		ran = true;
 		const adjectiveContainerEl = adjectiveContainer.current;
 		const adjectiveEl = adjectiveRef.current;
 
@@ -101,7 +111,6 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 					newAdjective,
 					`${subheading1} ${newAdjective} ${subheading2}`
 				);
-				// typewriterEffect(adjectiveEl, adjectiveContainerEl);
 
 				setInterval(() => {
 					const newAdjective = getNewAdjective();
@@ -111,7 +120,6 @@ export default function NewSplash({ splashData }: { splashData: ISplash }) {
 						newAdjective,
 						`${subheading1} ${newAdjective} ${subheading2}`
 					);
-					// typewriterEffect(adjectiveEl, adjectiveContainerEl);
 				}, 8000);
 			}, 3000);
 		}

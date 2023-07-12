@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 
 import Head from 'next/head';
+import NextNProgress from 'nextjs-progressbar';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -20,7 +21,8 @@ export default function App({ Component, pageProps }: AppProps) {
 	}, []);
 
 	const router = useRouter();
-	const currentRoute = router.pathname.split('/').filter((str) => str !== '')[0] || 'root';
+	const currentRoute =
+		router.pathname.split('/').filter((str) => str !== '')[0] || 'root';
 
 	return (
 		<>
@@ -28,9 +30,11 @@ export default function App({ Component, pageProps }: AppProps) {
 				<title key="title">Portfolio | Laurens Duin</title>
 				<meta key="og-title" name="og:title" content="Portfolio | Laurens Duin" />
 
-
 				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 			</Head>
+
+			<NextNProgress color='var(--page-loader-color)' height={2} options={{showSpinner: false}}/>
+
 			<Component {...pageProps} />
 
 			{!noFooterRoutes.includes(router.pathname) && <Footer route={currentRoute} />}
