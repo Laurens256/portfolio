@@ -3,6 +3,7 @@ import strapiFetch from '@/utils/fetchWithHeaders';
 import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
 
 import Head from 'next/head';
+import Link from 'next/link';
 
 import styles from './project.module.css';
 
@@ -37,9 +38,9 @@ export default function Project({ project }: { project: IProject }) {
 			</Head>
 
 			<nav className={styles.nav}>
-				<a className="underline" href="/#projects">
+				<Link className="underline" href="/#projects">
 					Back
-				</a>
+				</Link>
 			</nav>
 			<main className={`${styles.project} ${styles[slug]}`}>
 				<header>

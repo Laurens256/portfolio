@@ -1,6 +1,8 @@
 import styles from './projects.module.css';
 import panelStyles from '@/styles/link-panel.module.css';
 
+import Link from 'next/link';
+
 import type IProject from '@/types/Project';
 
 export default function Projects({ projects }: { projects: IProject[] }) {
@@ -18,7 +20,7 @@ export default function Projects({ projects }: { projects: IProject[] }) {
 								} as React.CSSProperties
 							}
 							className={styles[slug]}>
-							<a className={panelStyles.linkPanel} href={`/projects/${slug}`}>
+							<Link className={panelStyles.linkPanel} href={`/projects/${slug}`}>
 								<div>
 									<h3 data-value={short_title}>{short_title}</h3>
 									<p data-value={long_title}>{long_title}</p>
@@ -29,7 +31,7 @@ export default function Projects({ projects }: { projects: IProject[] }) {
 										alt=""
 									/>
 								)}
-							</a>
+							</Link>
 						</li>
 					)
 				)}
