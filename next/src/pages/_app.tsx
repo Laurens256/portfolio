@@ -1,7 +1,9 @@
 import '@/styles/globals.css';
+import '@/styles/progressBar.css';
 
 import Head from 'next/head';
-import NextNProgress from 'nextjs-progressbar';
+
+import ProgressBar from '@/modules/progressBar/ProgressBar';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -33,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 			</Head>
 
-			<NextNProgress color='var(--page-loader-color)' height={2} options={{showSpinner: false}}/>
+			<ProgressBar delay={150} options={{ showSpinner: false }} />
 
 			<Component {...pageProps} />
 
