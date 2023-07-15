@@ -20,7 +20,7 @@ export default function Footer({ route }: { route: string }) {
 								</a>
 							</li>
 						))}
-						<li>
+						<li className={styles['theme-switcher-container']}>
 							<ThemeSwitcher />
 						</li>
 					</ul>

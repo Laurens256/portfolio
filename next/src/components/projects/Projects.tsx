@@ -8,7 +8,7 @@ import type IProject from '@/types/Project';
 export default function Projects({ projects }: { projects: IProject[] }) {
 	return (
 		<section className={styles.projects}>
-			<h2 id="projects">Mijn projecten</h2>
+			<h2 id="projects">My projects</h2>
 			<ul>
 				{projects.map(
 					({ attributes: { short_title, long_title, slug, background, icon } }, i) => (

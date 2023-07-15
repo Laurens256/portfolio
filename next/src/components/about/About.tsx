@@ -10,7 +10,7 @@ const colorPalettes = [
 	['#bb73d1', '#e3bf7a', '#61afef', '#98c379', '#e06c75'],
 	['#62cee2', '#ac7ffc', '#94c72c', '#d8ce6e', '#ec266d'],
 	['#eacd59', '#db6fc0', '#36f9f6', '#e37d37', '#6feab3'],
-	['#d919d1', '#f12c91', '#3ea5f9', '#fed300', '#0deffb'],
+	['#d919d1', '#f12c91', '#3ea5f9', '#fed300', '#0deffb']
 ];
 
 export default function About({ about }: { about: IAbout }) {
@@ -32,7 +32,8 @@ export default function About({ about }: { about: IAbout }) {
 	useEffect(() => {
 		const svgElement = svgRef.current;
 		if (svgElement) {
-			const randomColorPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+			const randomColorPalette =
+				colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
 			randomColorPalette.forEach((color, index) => {
 				svgElement.style.setProperty(`--color${index + 1}`, color);
 			});
@@ -46,7 +47,7 @@ export default function About({ about }: { about: IAbout }) {
 					<h2 id="about">About me</h2>
 					<p>{about.attributes.main}</p>
 					<p className={styles.resume}>
-						Want to know more?
+						Want to know more?{' '}
 						<a className="underline" href="Laurens_Duin-resume.pdf">
 							Check out my resume
 						</a>

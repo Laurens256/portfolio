@@ -24,7 +24,6 @@ export default function ProgressBar({
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log('called');
 		options && NProgress.configure(options);
 
 		let timeout: NodeJS.Timeout;

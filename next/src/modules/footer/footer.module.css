@@ -30,7 +30,7 @@
 	align-items: center;
 }
 
-.footer section ul li:last-of-type {
+.footer section ul li.theme-switcher-container {
 	margin-left: auto;
 }
 
@@ -52,7 +52,7 @@
 		margin-top: .5rem;
 	}
 
-	.footer section ul li:last-of-type {
+	.footer section ul li.theme-switcher-container {
 		margin: 1rem auto 0;
 		text-align: center;
 	}
