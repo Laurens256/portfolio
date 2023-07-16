@@ -1,6 +1,8 @@
 .env
 node_modules
 .contentlayer
+dist
+build
 
 ############################
 # NextJS
@@ -14,15 +16,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-############################
-# Strapi
-############################
-license.txt
-exports
-*.cache
-dist
-build
-.strapi-updater.json
 
 ############################
 # OS X
@@ -78,26 +71,3 @@ $RECYCLE.BIN/
 *.swm
 *.out
 *.pid
-
-############################
-# Logs and databases
-############################
-.tmp
-*.log
-*.sql
-*.sqlite
-*.sqlite3
-
-############################
-# Misc.
-############################
-*#
-ssl
-.idea
-nbproject
-
-############################
-# Tests
-############################
-testApp
-coverage
