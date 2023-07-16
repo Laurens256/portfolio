@@ -3,11 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "NODE_OPTIONS='--inspect' next dev",
-		"build": "next build",
+		"dev": "contentlayer dev & NODE_OPTIONS='--inspect' next dev",
+		"build": "contentlayer build && next build",
 		"start": "next start",
-		"lint": "next lint",
-		"contentlayer": "contentlayer build"
+		"lint": "next lint"
 	},
 	"overrides": {
 		"@opentelemetry/api": "1.4.1",
