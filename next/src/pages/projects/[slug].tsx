@@ -25,11 +25,14 @@ export default function Project({
 	const quickLinks = project.quick_links;
 	const cover_url = project.cover_url;
 	const cover_alt = project.cover_alt;
+	const cover_aspect_ratio = project.cover_aspect_ratio;
+
+	const documentTitle = `${document_title} | Laurens Duin`;
 
 	return (
 		<>
 			<Head>
-				<title key="title">{document_title}</title>
+				<title key="title">{documentTitle}</title>
 				<meta name="description" key="description" content={document_description} />
 			</Head>
 
@@ -46,7 +49,7 @@ export default function Project({
 							<img
 								src={cover_url}
 								alt={cover_alt}
-								// style={imgWidth && imgHeight ? { aspectRatio: imgWidth / imgHeight } : {}}
+								style={cover_aspect_ratio ? { aspectRatio: cover_aspect_ratio } : {}}
 							/>
 						)}
 						{!cover_url && slug === 'discofy' && (

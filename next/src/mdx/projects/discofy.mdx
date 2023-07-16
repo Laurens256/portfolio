@@ -1,0 +1,32 @@
+---
+published: true
+slug: 'discofy'
+
+document_title: 'Discofy'
+document_description: 'Discofy is a Spotify playlist visualisation tool. It generates a unique visualisation based on data from your very own Spotify playlist.'
+
+background_color: '#1DB954'
+icon_url: '/assets/img/discofy/spotify_icon.svg'
+
+short_title: 'Discofy'
+long_title: 'A spotify playlist stats visualiser'
+
+case_description: 'Design and build a data visualisation using an external api.'
+quick_links:
+  - name: 'Github Repo'
+    url: 'https://github.com/Laurens256/tech-track-22-23'
+---
+
+For this project, the conditions were simple; 
+1. Build a data visualisation
+2. Use an external API for your data source
+
+This data source could be any API of choice, even a self-made one. I chose to build my application around the Spotify API, specifically around the data Spotify generates per song. For example, Spotify generates data on the valence (happiness), danceablity, instrumentalness and a lot more data per song. I used this data to generate a data visualisation for your very own playlists.
+
+The way it works is simple; you login with your Spotify account and choose any playlist from your library. The application then retrieves all required data from each song in the playlist. Based on the average danceability, energy, acousticness and instrumentalness of each of these songs, a data visualisation is generated. To view a demo with an example playlist, watch the video below.
+
+![video showing the full flow of the Discofy application](/assets/img/discofy/discofy_showcase.webm)
+
+As can be seen in the video, all of the effects except for the dancing GIF videos are done using pure HTML, CSS and Javascript. For most of my visualisations I used (animated) SVG. Using animated SVG allows for finer control over colors, size, animation etc.
+
+The fully built product would be able to be viewed with any Spotify account. However, since the application isn't officially verified by Spotify, only manually added accounts can be used. If you are **really** curious about what your playlist's visualisation would look like, you can email me your Spotify email account at [duinlaurens2@gmail.com](mailto:duinlaurens2@gmail.com) and I will add your account to the list :).
