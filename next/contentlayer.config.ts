@@ -3,15 +3,21 @@ import {
 	defineNestedType,
 	makeSource
 } from 'contentlayer/source-files';
-import { url } from 'inspector';
 import rehypePrettyCode from 'rehype-pretty-code';
 
-const QuickLink = defineNestedType(() => ({
-	name: 'QuickLink',
+export const SplashMdx = defineDocumentType(() => ({
+	name: 'SplashMdx',
+	filePathPattern: 'splash.mdx',
+	contentType: 'mdx',
 	fields: {
-		name: { type: 'string', required: true },
-		url: { type: 'string', required: true }
+		adjectives: { type: 'list', of: { type: 'string' }, required: false }
 	}
+}));
+
+export const AboutMdx = defineDocumentType(() => ({
+	name: 'AboutMdx',
+	filePathPattern: 'about.mdx',
+	contentType: 'mdx'
 }));
 
 // project data type
@@ -22,6 +28,7 @@ export const ProjectMDX = defineDocumentType(() => ({
 	fields: {
 		slug: { type: 'string', required: true },
 		published: { type: 'boolean', default: false },
+		rank: { type: 'number', required: true },
 
 		document_title: { type: 'string', required: true },
 		document_description: { type: 'string', required: true },
@@ -51,7 +58,7 @@ export const ProjectMDX = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: 'src/mdx',
-	documentTypes: [ProjectMDX],
+	documentTypes: [SplashMdx, AboutMdx, ProjectMDX],
 	mdx: {
 		rehypePlugins: [
 			// [

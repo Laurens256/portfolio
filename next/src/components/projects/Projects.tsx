@@ -3,20 +3,20 @@ import panelStyles from '@/styles/link-panel.module.css';
 
 import Link from 'next/link';
 
-import type IProject from '@/types/Project';
+import { ProjectMDX } from 'contentlayer/generated';
 
-export default function Projects({ projects }: { projects: IProject[] }) {
+export default function Projects({ projects }: { projects: ProjectMDX[] }) {
 	return (
 		<section className={styles.projects}>
 			<h2 id="projects">My projects</h2>
 			<ul>
 				{projects.map(
-					({ attributes: { short_title, long_title, slug, background, icon } }, i) => (
+					({  short_title, long_title, slug, background_color, icon_url  }, i) => (
 						<li
 							key={i}
 							style={
 								{
-									'--panel-bg-color': background || 'var(--secondary-bg-color)'
+									'--panel-bg-color': background_color || 'var(--secondary-bg-color)'
 								} as React.CSSProperties
 							}
 							className={styles[slug]}>
@@ -25,9 +25,9 @@ export default function Projects({ projects }: { projects: IProject[] }) {
 									<h3 data-value={short_title}>{short_title}</h3>
 									<p data-value={long_title}>{long_title}</p>
 								</div>
-								{icon.data && (
+								{icon_url && (
 									<img
-										src={icon.data?.attributes.url}
+										src={icon_url}
 										alt=""
 									/>
 								)}
