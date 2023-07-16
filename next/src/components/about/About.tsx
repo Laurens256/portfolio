@@ -1,9 +1,8 @@
 import { useRef, useEffect } from 'react';
 
-import IAbout from '@/types/About';
-import styles from './about.module.css';
+import { AboutMdx } from 'contentlayer/generated';
 
-import type About from '@/types/About';
+import styles from './about.module.css';
 
 const colorPalettes = [
 	['#7e6aa8', '#9ece69', '#7dcfff', '#2f69e4', '#dcac67'],
@@ -13,7 +12,7 @@ const colorPalettes = [
 	['#d919d1', '#f12c91', '#3ea5f9', '#fed300', '#0deffb']
 ];
 
-export default function About({ about }: { about: IAbout }) {
+export default function About({ about }: { about: AboutMdx }) {
 	const useRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
 
 	const toggleAnimation = () => {
@@ -45,7 +44,7 @@ export default function About({ about }: { about: IAbout }) {
 			<article>
 				<section>
 					<h2 id="about">About me</h2>
-					<p>{about.attributes.main}</p>
+					<p>{about.body.raw}</p>
 					<p className={styles.resume}>
 						Want to know more?{' '}
 						<a className="underline" href="Laurens_Duin-resume.pdf">

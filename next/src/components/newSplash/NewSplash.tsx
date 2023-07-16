@@ -1,8 +1,9 @@
 import { useEffect, useRef, RefObject } from 'react';
 import styles from './newSplash.module.css';
 
+import { SplashMdx } from 'contentlayer/generated';
+
 import { betterLinkScroll } from '@/modules/header/Header';
-import type ISplash from '@/types/Splash';
 
 const delay = 100;
 const removeDelay = 80;
@@ -69,23 +70,20 @@ const getNewAdjective = () => {
 	return newAdjective;
 };
 
-export default function NewSplash({ splashData }: { splashData: ISplash }) {
-	let subheading1 = '';
+export default function NewSplash({ splashData }: { splashData: SplashMdx }) {
+	let subheading1 = splashData.body.raw;
 	let subheading2 = '';
 	let firstAdjective = '';
-	if (splashData.attributes.subheading.includes('{adjective}')) {
-		subheading1 = splashData.attributes.subheading.split('{adjective}')[0];
-		subheading2 = splashData.attributes.subheading.split('{adjective}')[1];
+	if (subheading1.includes('{adjective}')) {
+		subheading1 = splashData.body.raw.split('{adjective}')[0];
+		subheading2 = splashData.body.raw.split('{adjective}')[1];
 
-		const adjectiveArr = splashData.attributes.adjectives?.split('\n');
-		if (adjectiveArr) {
-			adjectives = adjectiveArr;
+		if (splashData.adjectives) {
+			adjectives = splashData.adjectives;
 			firstAdjective = adjectives[0];
 			previousAdjective = adjectives[0];
 			usedAdjectives.push(adjectives[0]);
 		}
-	} else {
-		subheading1 = splashData.attributes.subheading;
 	}
 
 	let ran = false;
