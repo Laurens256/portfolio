@@ -1,43 +1,36 @@
-import strapiFetch from '@/utils/fetchWithHeaders';
+import styles from './project.module.css';
 
-import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
+import { ProjectMDX, allProjectMDXes } from 'contentlayer/generated';
 
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 
-import styles from './project.module.css';
-
-import type IProject from '@/types/Project';
-
+import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
 import { markdownToHtml } from '@/utils/markdownToHtml';
 
-export default function Project({ project }: { project: IProject }) {
-	const {
-		short_title,
-		long_title,
-		slug,
-		roles,
-		case_description,
-		story,
-		quicklinks,
-		meta_description
-	} = project.attributes;
+const getProjectBySlug = (slug: string) => {
+	return allProjectMDXes.find((project) => project.slug === slug);
+};
 
-	const imgUrl = project.attributes.cover.data?.attributes.url;
-	const imgAlt = project.attributes.cover.data?.attributes.alternativeText;
-	const imgHeight = project.attributes.cover.data?.attributes.height;
-	const imgWidth = project.attributes.cover.data?.attributes.width;
+export default function Project({
+	project,
+	storyHTML
+}: {
+	project: ProjectMDX;
+	storyHTML: string;
+}) {
+	const { document_title, document_description, long_title, slug, case_description } =
+		project;
 
-	const title = `${short_title} | Laurens Duin`;
+	const quickLinks = project.quick_links;
+	const cover_url = project.cover_url;
+	const cover_alt = project.cover_alt;
 
 	return (
 		<>
 			<Head>
-				<title key="title">{title}</title>
-				<meta key="og-title" name="og:title" content={`${short_title} | Laurens Duin`} />
-				<meta name="description" content={meta_description || ''} />
-				<meta name="og:description" content={meta_description || ''} />
+				<title key="title">{document_title}</title>
+				<meta name="description" key="description" content={document_description} />
 			</Head>
 
 			<nav className={styles.nav}>
@@ -49,14 +42,14 @@ export default function Project({ project }: { project: IProject }) {
 				<header>
 					<div>
 						<h1>{long_title}</h1>
-						{imgUrl && (
+						{cover_url && (
 							<img
-								src={imgUrl}
-								alt={imgAlt}
-								style={imgWidth && imgHeight ? { aspectRatio: imgWidth / imgHeight } : {}}
+								src={cover_url}
+								alt={cover_alt}
+								// style={imgWidth && imgHeight ? { aspectRatio: imgWidth / imgHeight } : {}}
 							/>
 						)}
-						{!imgUrl && slug === 'discofy' && (
+						{!cover_url && slug === 'discofy' && (
 							<div className={styles.spotifyloader}>
 								<SpotifyLoader />
 							</div>
@@ -69,25 +62,14 @@ export default function Project({ project }: { project: IProject }) {
 							<p>{case_description}</p>
 						</div>
 
-						{roles && roles.length > 0 && (
-							<div className={styles.role}>
-								<h2>My role</h2>
-								<ul>
-									{roles.map((role, i) => (
-										<li key={i}>{role}</li>
-									))}
-								</ul>
-							</div>
-						)}
-
-						{quicklinks && (
+						{quickLinks && (
 							<div className={styles.quicklinks}>
 								<h2>Quick links</h2>
 								<ul>
-									{quicklinks.split('\n').map((quickLink, i) => (
+									{quickLinks.map((quickLink, i) => (
 										<li key={i}>
-											<a href={quickLink.split(';')[1]} target="_blank">
-												{quickLink.split(';')[0]}
+											<a href={quickLink.url} target="_blank">
+												{quickLink.name}
 											</a>
 										</li>
 									))}
@@ -99,36 +81,32 @@ export default function Project({ project }: { project: IProject }) {
 
 				<section
 					className={styles.story}
-					dangerouslySetInnerHTML={{
-						__html: story
-					}}></section>
+					dangerouslySetInnerHTML={{ __html: storyHTML }}></section>
 			</main>
 		</>
 	);
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-	const slug = params.slug;
+	const project = getProjectBySlug(params.slug);
 
-	const project: IProject = (
-		await strapiFetch(`projects?filters[slug][$eq]=${slug}&populate=deep`)
-	).data[0];
-	// const project = (await strapiFetch(`projects/${slug}?populate=deep`)).data;
-	project.attributes.story = await markdownToHtml(project.attributes.story);
+	const storyHTML = project?.body.raw ? await markdownToHtml(project.body.raw) : '';
 
 	return {
 		props: {
-			project: project
+			project: project,
+			storyHTML: storyHTML
 		}
 	};
 }
 
+// create paths for all published projects
 export async function getStaticPaths() {
-	const projects: IProject[] = (await strapiFetch('projects')).data;
-
-	const paths = projects.map((project) => {
-		return { params: { slug: project.attributes.slug } };
-	});
+	const paths = allProjectMDXes
+		.filter((project) => project.published === true)
+		.map((project) => {
+			return { params: { slug: project.slug } };
+		});
 
 	return {
 		paths: paths,

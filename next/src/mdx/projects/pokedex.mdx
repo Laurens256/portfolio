@@ -1,0 +1,36 @@
+---
+published: true
+slug: 'pokedex'
+
+document_title: 'Pokedex'
+document_description: 'For this case, I built two versions of a Pokédex website. A single page web application and a server side, progressively enhanced website.'
+
+cover_url: 'https://gjwthqvkkfklvhoqvqpw.supabase.co/storage/v1/object/public/strapi-uploads/pokedex_cover.webp'
+cover_alt: 'Pokédex cover image'
+
+short_title: 'Pokédex'
+long_title: 'Client- & Server side rendered Pokédex websites'
+
+case_description: 'First, build a single page web-app. Then convert it to a progressively enhanced server side rendered web-app.'
+quick_links:
+  [
+    {
+      'name': 'Client Side Repo',
+      'url': 'https://github.com/Laurens256/web-app-from-scratch-2223'
+    },
+    {
+      'name': 'Server Side Repo',
+      'url': 'https://github.com/Laurens256/pokedex-from-server'
+    }
+  ]
+---
+
+This case consists of 2 assignments. First, we were tasked with building a single page web-application from scratch. From scratch meaning no (JavaScript) frameworks were allowed. Afterwards, we had to take this website and make it completely server side rendered with performance optimizations. This application had to incorporate data from an external API of your own choice. For my project, I chose the [PokeAPI](https://pokeapi.co/), which supplies all sorts of data on Pokémon.
+
+The website is built in the style of my favorite Pokémon game: Pokémon Fire Red. My plan was to recreate the Pokémon Fire Red Pokédex using pure CSS and JavaScript / TypeScript. This style turned out to be quite challenging to recreate using pure CSS because of the pixelated style the game is in. I ended up having to modify an existing Pokémon font, draw my own pixelart sprites using CSS box shadow and many more challenges.
+![pokemon list in the style of Pokemon Fire Red](https://gjwthqvkkfklvhoqvqpw.supabase.co/storage/v1/object/public/strapi-uploads/list.webp)
+
+For the first part of this project, I built a JavaScript heavy website which gets rendered fully on the client. I did my best to rebuild the original Pokémon Fire Red ui using pure CSS and JavaScript for interaction. This website is not functional without JavaScript, but has a more "app-like" feel compared to traditional server-side rendered website. To view this version of the website online, check out [Pokédex from Scratch](https://pokedex-from-scratch.vercel.app/)
+![description page of Charizard](https://gjwthqvkkfklvhoqvqpw.supabase.co/storage/v1/object/public/strapi-uploads/charizard_description.webp)
+
+The second part of the assignment, was to completely bring the rendering of the website to the server. This meant a large overhaul in structure but the content stayed relatively the same. To render this website on the server, I used Express, Handlebars templating and TypeScript. A large focus of this assignment was progressive enhancement and optimization. For the progressive enhancement, this meant the website should be functional without client side JavaScript. To optimize the website, I applied bundling, minifying, caching and more smaller techniques to make load times as fast as possible. To view the website live, check out [Pokédex from Server](https://pokedex-from-server.onrender.com). Note that load times may be quite slow because of my free hosting plan.
