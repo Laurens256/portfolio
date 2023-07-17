@@ -1,194 +1,109 @@
 .splash {
-	--name-div-min-height: 20rem;
-	--big-panel-min-height: 30rem;
-	/* small panel min-height 0 omdat de panels voor big screen nog naast elkaar staan dus alleen big panel height is nodig */
-	--small-panel-min-height: 0px;
-	display: grid;
-	grid-template-rows: max(40%, var(--name-div-min-height)) max(1fr, min-content);
-
-	/* min height calc div met naam min height, big panel min height, small panel height * 2, + 2rem voor extra witruimte */
-	min-height: calc(
-		var(--name-div-min-height) + var(--big-panel-min-height) +
-			var(--small-panel-min-height) * 2 + 2rem
-	);
-	height: 100vh;
-}
-
-/* div with name */
-.splash > div:first-of-type {
-	height: 100%;
-	min-height: var(--name-div-min-height);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.splash div h1 {
-	font-size: clamp(2rem, 5rem, 10vw);
-	text-align: center;
-	place-self: center;
-	font-family: 'jetbrains', monospace;
-	font-weight: bolder;
-	transition: color 0.8s ease 2s;
-}
-
-.splash div h1.glitchy {
-	transition: color 0.2s ease;
-	color: var(--glitchy-text);
-}
-
-/* actual navlinks */
-.splash nav {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: var(--panel-gap);
-	padding: var(--panel-gap);
-	animation: navLoad 1.8s ease forwards;
-	transform: scale(0.98);
-	transform-origin: bottom;
-}
-
-@keyframes navLoad {
-	to {
-		transform: scale(1);
-	}
-}
-
-.splash nav a {
-	min-height: var(--small-panel-min-height);
-	background-image: linear-gradient(
-		140deg,
-		var(--panel-bg-color, var(--secondary-bg)) 50%,
-		var(--secondary-bg) 0
-	);
-	transition: transform 0.4s ease, border-color 0.2s ease, background-position 1.8s ease;
-	background-size: 200% 200%;
-	background-position: 100% 100%;
-	animation: panelLoad 1.8s ease forwards;
-}
-
-.splash nav a > div span {
-	--shadow-width: 1.5px;
-	position: relative;
-	text-shadow: calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) 0
-			var(--panel-bg-color),
-		var(--shadow-width) calc(var(--shadow-width) * -1) 0 var(--panel-bg-color),
-		calc(var(--shadow-width) * -1) var(--shadow-width) 0 var(--panel-bg-color),
-		var(--shadow-width) var(--shadow-width) 0 var(--panel-bg-color);
-}
-
-@keyframes panelLoad {
-	to {
-		background-position: 0 0;
-	}
-}
-
-.splash nav a:first-of-type {
-	grid-column: 1 / 3;
-	grid-row: 1 / 3;
-	min-height: var(--big-panel-min-height);
-	--panel-bg-color: #5627af;
-}
-
-.splash nav a:nth-of-type(2) {
-	--panel-bg-color: #9d27b0;
-}
-
-.splash nav.three-links a:nth-of-type(2) {
-	grid-column: 3 / -1;
-}
-
-.splash nav a:nth-of-type(3) {
-	--panel-bg-color: #2729af;
-}
-
-.splash nav a:last-of-type {
-	grid-column: 3 / -1;
-	--panel-bg-color: #e91f63;
-}
-
-.splash nav a > div {
-	position: absolute;
-	left: min(3rem, 6vw);
-	right: min(3rem, 6vw);
-	bottom: min(2rem, 6vw);
+	max-width: var(--main-page-width);
+	margin: 0 auto;
+	min-height: max(calc(100vh - var(--header-height)), 35rem);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-direction: column;
 }
 
-.splash nav a > div span:first-of-type {
-	font-family: var(--heading-fonts);
-	font-size: 1.5rem;
-	font-weight: bold;
+.splash div {
+	width: 100%;
+	margin-top: min(20vh, 15vw);
 }
 
-.splash nav a > div span:last-of-type {
+.splash div p:first-of-type {
+	font-weight: 500;
+	line-height: 2.5rem;
+	font-family: Helvetica Neue, sans-serif;
+	font-size: 1.2rem;
+	font-weight: 700;
+	letter-spacing: 1px;
+	line-height: 2rem;
+	color: #1db954;
+	text-transform: uppercase;
+}
+
+.splash div h1 {
+	font-family: Georgia, Times, serif;
+	font-size: clamp(4rem, 5.8rem, 25vw);
+	font-size: clamp(3rem, 5.8rem, 22.5cqw);
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
+.splash div p:last-of-type {
+	font-family: Ubuntu, var(--body-fonts);
+	font-size: 2rem;
+	font-weight: 300;
+	line-height: 44.8px;
+}
+
+.splash div p:last-of-type span {
+	cursor: default;
+}
+
+.scrollbtn {
+	margin: 0 auto;
+	padding: 0.7rem;
+	padding-bottom: 0.5rem;
 	display: flex;
+	width: fit-content;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: bold;
+	font-size: 1.4rem;
+	border-radius: 1rem;
 }
 
-.splash.splash nav a > div span svg {
+.scrollbtn:focus-visible {
+	outline: 2px solid var(--link-color);
+}
+
+.scrollbtn::after {
+	content: '';
+	background-color: var(--main-text);
+	mask-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 560'%3E%3Cpath d='M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937 c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937 c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z' /%3E%3C/svg%3E");
+	mask-repeat: no-repeat;
 	width: 3rem;
-	fill: none;
-	mix-blend-mode: difference;
-	stroke: currentColor;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	stroke-width: 1.5px;
+	height: 1.75rem;
+	transition: background-color 0.2s ease-in-out;
 }
 
-@media (max-width: 1028px) {
-	.splash {
-		/* small panel min height wordt hier aangegeven omdat de panels onder elkaar komen */
-		--small-panel-min-height: 12rem;
-		grid-template-rows: max(30%, var(--name-div-min-height)) max(1fr, min-content);
-	}
-
-	.splash nav {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.splash nav a:first-of-type {
-		grid-column: 1 / -1;
-		grid-row: 1 / 2;
-	}
-
-	.splash nav.three-links a:nth-of-type(2),
-	.splash nav a:last-of-type {
-		grid-column: 1 / -1;
-	}
+.scrollbtn:where(:hover, :focus-visible)::after {
+	background-color: var(--link-color);
 }
 
-@media screen and (max-width: 768px) {
-	.splash {
-		--name-div-min-height: 15rem;
-		--big-panel-min-height: 20rem;
-		grid-template-rows: max(20%, var(--name-div-min-height)) 1fr;
+@media screen and (prefers-reduced-motion: no-preference) {
+	.scrollbtn::after {
+		animation: arrowBounce 1.5s ease infinite;
 	}
 
-	.splash nav {
-		gap: 0.1rem;
-		padding: 0.1rem;
-	}
-}
-
-@media screen and (max-width: 500px) {
-	.splash nav:not(.three-links) a:not(:first-of-type):not(:last-of-type) > div {
-		justify-content: center;
+	.splash div {
+		animation: pageLoad 0.2s ease-in-out;
 	}
 
-	.splash nav:not(.three-links) a:not(:first-of-type):not(:last-of-type) > div span:last-of-type {
-		display: none;
+	@keyframes pageLoad {
+		from {
+			opacity: 0.4;
+			transform: translateY(1rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
-}
 
-@media (prefers-reduced-motion: reduce) {
-	.splash nav a {
-		background-position: 0 0;
-	}
+	@keyframes arrowBounce {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
 
-	.splash nav,
-	.splash nav a:is(:hover, :focus-visible) {
-		transform: none;
+		50% {
+			transform: translateY(-0.2rem);
+		}
 	}
 }

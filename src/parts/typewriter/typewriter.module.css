@@ -1,0 +1,4 @@
+.typewriter {
+	color: var(--typewriter-color);
+	font-family: 'jetbrains', monospace;
+}

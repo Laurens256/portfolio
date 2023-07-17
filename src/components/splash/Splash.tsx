@@ -1,119 +1,89 @@
+import { useEffect, useState } from 'react';
 import styles from './splash.module.css';
-import panelStyles from '@/styles/link-panel.module.css';
 
-import Pacman from '@/modules/pacman/Pacman';
+import { SplashMdx } from 'contentlayer/generated';
 
-import type INavLink from '@/types/NavLink';
-import { useEffect } from 'react';
+import { betterLinkScroll } from '@/modules/header/Header';
+import Typewriter from '@/parts/typewriter/Typewriter';
 
-// prettier-ignore
-const panelColors = ['#5627af', '#9d27b0', '#2729af', '#e91f63', '#256bb0', '#4d50b1', '#0b698e', '#038387'];
-let availableColors: string[] = panelColors;
-const getRandomPanelColor = () => {
-	// If the array is empty, refill it with the original colors
-	if (availableColors.length === 0) {
-		availableColors = panelColors;
+let adjectives: string[] = [];
+const usedAdjectives: string[] = [];
+let previousAdjective = '';
+// all logic for getting a new adjective and making sure it loops through all adjectives before resetting possible adjectives
+const getNewAdjective = () => {
+	if (usedAdjectives.length === adjectives.length) {
+		usedAdjectives.length = 0;
 	}
+	const possibleAdjectives = adjectives.filter(
+		(adjective) => !usedAdjectives.includes(adjective) && adjective !== previousAdjective
+	);
+	const newAdjective =
+		possibleAdjectives[Math.floor(Math.random() * possibleAdjectives.length)];
 
-	// Get a random index and remove the string at that index from the array
-	const randomIndex = Math.floor(Math.random() * availableColors.length);
-	const color = availableColors[randomIndex];
-	availableColors.splice(randomIndex, 1);
-	return color;
+	previousAdjective = newAdjective;
+	usedAdjectives.push(newAdjective);
+
+	return newAdjective;
 };
 
-export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
-	e.preventDefault();
-	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
-	const heading = document.querySelector(`#${href}`);
+export default function Splash({ splashData }: { splashData: SplashMdx }) {
+	let subheading1 = splashData.body.raw;
+	let subheading2 = '';
+	let firstAdjective = '';
 
-	heading?.scrollIntoView({
-		behavior: 'smooth'
-	});
-};
+	// check if subheading contains special {adjective} tag, if so, list of adjectives is needed and will be used in place of {adjective}
+	if (subheading1.includes('{adjective}')) {
+		subheading1 = splashData.body.raw.split('{adjective}')[0];
+		subheading2 = splashData.body.raw.split('{adjective}')[1];
 
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-let interval: ReturnType<typeof setInterval>;
-let glitchRunning = false;
-const glitchy = (event: React.MouseEvent<HTMLHeadingElement>) => {
-	if (glitchRunning || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		return;
-	}
-
-	const heading = event.target as HTMLHeadingElement;
-	heading.classList.add(styles.glitchy);
-
-	let iteration = 0;
-	glitchRunning = true;
-
-	clearInterval(interval);
-
-	interval = setInterval(() => {
-		heading.textContent = heading
-			.textContent!.split('')
-			.map((letter: string, index: number) => {
-				if (index < iteration) {
-					return heading.getAttribute('aria-label')![index];
-				}
-
-				const randomNum = Math.floor(Math.random() * letters.length);
-
-				return letters[randomNum];
-			})
-			.join('');
-
-		if (iteration >= heading.getAttribute('aria-label')!.length) {
-			clearInterval(interval);
-			glitchRunning = false;
-			heading.classList.remove(styles.glitchy);
+		if (splashData.adjectives) {
+			adjectives = splashData.adjectives;
+			firstAdjective = adjectives[0];
+			previousAdjective = firstAdjective;
+			usedAdjectives.push(firstAdjective);
 		}
+	}
 
-		iteration += 1 / 3;
-	}, 30);
-};
+	const [currentAdjective, setAdjective] = useState('');
 
-export default function Splash({ navLinks }: { navLinks: INavLink[] }) {
-	// Set the panel colors randomly
+	let ran = false;
 	useEffect(() => {
-		const navLinkElements: NodeListOf<HTMLElement> = document.querySelectorAll(
-			`nav a[draggable="false"]`
-		);
+		if (ran || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		ran = true;
 
-		navLinkElements.forEach((navLinkEl) => {
-			navLinkEl.style.setProperty('--panel-bg-color', getRandomPanelColor());
-		});
+		setTimeout(() => {
+			setAdjective(getNewAdjective());
+
+			setInterval(() => {
+				setAdjective(getNewAdjective());
+			}, 8000);
+		}, 3000);
 	}, []);
 
 	return (
-		<section className={styles.splash}>
-			<div>
-				<h1
-					aria-label="Laurens Duin"
-					aria-describedby="Laurens Duin"
-					onMouseOver={glitchy}>
-					Laurens Duin
-				</h1>
-			</div>
-
-			<nav className={navLinks.length === 3 ? styles['three-links'] : ''}>
-				{navLinks.map(({ attributes: { title, href, icon } }, i) => (
-					<a
-						onClick={betterLinkScroll}
-						className={panelStyles.linkPanel}
-						key={i}
-						draggable="false"
-						href={`#${href}`}>
-						<div>
-							<span>{title}</span>
-							<span dangerouslySetInnerHTML={{ __html: icon || '' }}></span>
-						</div>
-
-						{i === 0 && (
-							<Pacman />
+		<>
+			<section className={styles.splash}>
+				<div>
+					<p aria-hidden="true">Hi! My name is</p>
+					<h1 aria-label="hi! my name is Laurens Duin">Laurens Duin</h1>
+					<p>
+						{subheading1}
+						{firstAdjective && (
+							<>
+								<Typewriter newText={currentAdjective} initialValue={firstAdjective} />
+								{subheading2}
+							</>
 						)}
-					</a>
-				))}
-			</nav>
-		</section>
+					</p>
+				</div>
+				<a
+					href="#projects"
+					aria-label="scroll to my projects"
+					className={styles.scrollbtn}
+					onClick={betterLinkScroll}>
+					My Projects
+				</a>
+			</section>
+		</>
 	);
 }

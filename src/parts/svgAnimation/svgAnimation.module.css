@@ -1,0 +1,68 @@
+/* cool css animation thingy: https://tympanus.net/Tutorials/AnimatedTextFills/ */
+.svg-container {
+	position: relative;
+	container-type: inline-size;
+}
+
+.svg-container button.clickable {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	height: 46.2cqw;
+}
+
+.svg-container svg {
+	--color1: #7e6aa8;
+	--color2: #9ece69;
+	--color3: #7dcfff;
+	--color4: #2f69e4;
+	--color5: #dcac67;
+
+	font-size: 13.5rem;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+	stroke-linecap: round;
+}
+
+.svg-container svg use {
+	fill: none;
+	stroke-width: 6;
+	stroke-linejoin: round;
+	stroke-dasharray: 70 330;
+	animation: stroke 15s infinite linear;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	.svg-container svg use {
+		animation-play-state: paused;
+	}
+}
+
+.svg-container svg use:nth-of-type(5n + 1) {
+	stroke: var(--color1);
+	animation-delay: -1.2s;
+}
+.svg-container svg use:nth-of-type(5n + 2) {
+	stroke: var(--color2);
+	animation-delay: -2.4s;
+}
+.svg-container svg use:nth-of-type(5n + 3) {
+	stroke: var(--color3);
+	animation-delay: -3.6s;
+}
+.svg-container svg use:nth-of-type(5n + 4) {
+	stroke: var(--color4);
+	animation-delay: -4.8s;
+}
+.svg-container svg use:nth-of-type(5n + 5) {
+	stroke: var(--color5);
+	animation-delay: -6s;
+}
+@keyframes stroke {
+	from {
+		stroke-dashoffset: 800;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}

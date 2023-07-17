@@ -3,7 +3,7 @@ import './index.module.css';
 import Head from 'next/head';
 
 import Header from '@/modules/header/Header';
-import NewSplash from '@/components/newSplash/NewSplash';
+import Splash from '@/components/splash/Splash';
 import About from '@/components/about/About';
 import Projects from '@/components/projects/Projects';
 import Contact from '@/components/contact/Contact';
@@ -43,7 +43,7 @@ export default function Home({
 			</Head>
 
 			<Header />
-			<NewSplash splashData={splashData} />
+			<Splash splashData={splashData} />
 			<Projects projects={projects} />
 			<About about={about} />
 			<Contact />
