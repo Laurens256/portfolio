@@ -1,5 +1,5 @@
 import styles from './footer.module.css';
-import ThemeSwitcher from '../themeSwitcher/ThemeSwitcher';
+import ThemeSwitcher from '@/parts/themeSwitcher/ThemeSwitcher';
 
 const socials = [
 	{ name: 'Github', link: 'https://github.com/Laurens256/' },

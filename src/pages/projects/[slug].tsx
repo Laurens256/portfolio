@@ -5,7 +5,7 @@ import { ProjectMDX, allProjectMDXes } from 'contentlayer/generated';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import SpotifyLoader from '@/modules/spotifyLoader/SpotifyLoader';
+import SpotifyLoader from '@/parts/spotifyLoader/SpotifyLoader';
 import { markdownToHtml } from '@/utils/markdownToHtml';
 
 const getProjectBySlug = (slug: string) => {

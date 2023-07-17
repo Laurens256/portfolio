@@ -3,7 +3,7 @@ import styles from './splash.module.css';
 
 import { SplashMdx } from 'contentlayer/generated';
 
-import { betterLinkScroll } from '@/modules/header/Header';
+import { betterLinkScroll } from '@/components/header/Header';
 import Typewriter from '@/parts/typewriter/Typewriter';
 
 let adjectives: string[] = [];

@@ -1,7 +1,7 @@
 import styles from './contact.module.css';
 
 import { FormEvent } from 'react';
-import { betterLinkScroll } from '@/modules/header/Header';
+import { betterLinkScroll } from '@/components/header/Header';
 
 const validateForm = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();

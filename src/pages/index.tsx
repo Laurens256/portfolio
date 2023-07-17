@@ -2,7 +2,7 @@ import './index.module.css';
 
 import Head from 'next/head';
 
-import Header from '@/modules/header/Header';
+import Header from '@/components/header/Header';
 import Splash from '@/components/splash/Splash';
 import About from '@/components/about/About';
 import Projects from '@/components/projects/Projects';

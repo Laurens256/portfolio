@@ -3,13 +3,13 @@ import '@/styles/progressBar.css';
 
 import Head from 'next/head';
 
-import ProgressBar from '@/modules/progressBar/ProgressBar';
+import ProgressBar from '@/parts/progressBar/ProgressBar';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import type { AppProps } from 'next/app';
-import Footer from '@/modules/footer/Footer';
+import Footer from '@/components/footer/Footer';
 
 const noFooterRoutes = ['/404', '/contact/success', '/contact/error'];
 export default function App({ Component, pageProps }: AppProps) {
