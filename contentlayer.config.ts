@@ -3,7 +3,6 @@ import {
 	defineNestedType,
 	makeSource
 } from 'contentlayer/source-files';
-import rehypePrettyCode from 'rehype-pretty-code';
 
 export const SplashMdx = defineDocumentType(() => ({
 	name: 'SplashMdx',
@@ -58,20 +57,5 @@ export const ProjectMDX = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: 'src/mdx',
-	documentTypes: [SplashMdx, AboutMdx, ProjectMDX],
-	mdx: {
-		rehypePlugins: [
-			// [
-			// 	rehypePrettyCode,
-			// 	{
-			// 		theme: 'github-dark',
-			// 		onVisitLine(node) {
-			// 			if (node.children.length === 0) {
-			// 				node.children = [{ type: 'text', value: ' ' }];
-			// 			}
-			// 		}
-			// 	}
-			// ]
-		]
-	}
+	documentTypes: [SplashMdx, AboutMdx, ProjectMDX]
 });

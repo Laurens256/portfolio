@@ -118,7 +118,7 @@
 	list-style: auto inside;
 }
 
-.project .story *:not(:where(h1, h2, h3, h4, h5, h6)) + * {
+.project .story *:not(:where(h1, h2, h3, h4, h5, h6, pre > code > span)) + * {
 	margin-top: 1rem;
 }
 

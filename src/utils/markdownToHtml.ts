@@ -2,6 +2,7 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import remarkPettyCode from 'rehype-pretty-code';
 import sizeOf from 'image-size';
 
 const markdownToHtml = async (markdown: string) => {
@@ -10,6 +11,9 @@ const markdownToHtml = async (markdown: string) => {
 			.use(remarkParse)
 			.use(remarkRehype)
 			.use(rehypeStringify)
+			.use(remarkPettyCode, {
+				theme: 'css-variables'
+			})
 			.process(markdown)
 	);
 
