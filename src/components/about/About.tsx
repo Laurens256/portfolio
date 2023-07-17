@@ -18,7 +18,7 @@ export default function About({ about }: { about: AboutMdx }) {
 					</p>
 				</section>
 
-				<SvgAnimation />
+				<SvgAnimation text='code' />
 			</article>
 		</section>
 	);

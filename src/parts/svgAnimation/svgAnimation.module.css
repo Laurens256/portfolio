@@ -38,26 +38,6 @@
 	}
 }
 
-.svg-container svg use:nth-of-type(5n + 1) {
-	stroke: var(--color1);
-	animation-delay: -1.2s;
-}
-.svg-container svg use:nth-of-type(5n + 2) {
-	stroke: var(--color2);
-	animation-delay: -2.4s;
-}
-.svg-container svg use:nth-of-type(5n + 3) {
-	stroke: var(--color3);
-	animation-delay: -3.6s;
-}
-.svg-container svg use:nth-of-type(5n + 4) {
-	stroke: var(--color4);
-	animation-delay: -4.8s;
-}
-.svg-container svg use:nth-of-type(5n + 5) {
-	stroke: var(--color5);
-	animation-delay: -6s;
-}
 @keyframes stroke {
 	from {
 		stroke-dashoffset: 800;

@@ -1,6 +1,6 @@
 // source: https://tympanus.net/Tutorials/AnimatedTextFills/
 import styles from './svgAnimation.module.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const colorPalettes = [
 	['#7e6aa8', '#9ece69', '#7dcfff', '#2f69e4', '#dcac67'],
@@ -10,65 +10,69 @@ const colorPalettes = [
 	['#d919d1', '#f12c91', '#3ea5f9', '#fed300', '#0deffb']
 ];
 
-export default function SvgAnimation() {
-	// create ref to each <use> element in svg, i forgot why it needs a length of 5 lmao
-	const useRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
+export default function SvgAnimation({ text }: { text: string }) {
+	const svgUseRefs = Array.from({ length: 5 }, () => useRef<SVGUseElement>(null));
 
-	const toggleAnimation = (newState?: string) => {
-		useRefs.forEach((useRef) => {
-			const useElement = useRef.current;
-			if (!useElement) return;
+	const [playState, setPlayState] = useState('');
 
-			if (!newState) {
-				// if no new state is provided, toggle current state
-				const currentState = getComputedStyle(useElement).animationPlayState;
-				newState = currentState === 'paused' ? 'running' : 'paused';
+	useEffect(() => {
+		// check playstate to make sure it's not empty string (which is the initial state)
+		playState && localStorage.setItem('svgAnimPlayState', playState.toString());
+	}, [playState]);
+
+	useEffect(() => {
+		// add random color to each use element on mount
+		const randomPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+		svgUseRefs.forEach((svgUseRef) => {
+			const svgUseElement = svgUseRef.current;
+			if (svgUseElement) {
+				randomPalette.forEach((color, index) => {
+					svgUseElement.style.setProperty(`--color${index + 1}`, color);
+				});
 			}
-			useElement.style.animationPlayState = newState;
 		});
 
-		// save current play state to local storage
-		localStorage.setItem('svgAnimPlayState', newState || 'running');
-	};
-
-	// add random color palette to svg on mount
-	const svgRef = useRef<SVGSVGElement>(null);
-	const buttonRef = useRef<HTMLButtonElement>(null);
-	useEffect(() => {
-		const svgElement = svgRef.current;
-		if (svgElement) {
-			// add clickable class to button to show it's clickable
-			if (buttonRef.current) {
-				buttonRef.current.classList.add(styles.clickable);
+		// retrieve previous play state from local storage and set it, otherwise set it to the computed style
+		// reason computed style is used is because initial computed style can be different depending on prefers-reduced-motion media query
+		const previousPlayState = localStorage.getItem('svgAnimPlayState');
+		if (previousPlayState) {
+			setPlayState(previousPlayState);
+		} else {
+			const firstUseRef = svgUseRefs[0].current;
+			if (firstUseRef) {
+				const computedStyle = getComputedStyle(firstUseRef);
+				setPlayState(computedStyle.getPropertyValue('animation-play-state') || '');
 			}
-
-			const randomColorPalette =
-				colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
-			randomColorPalette.forEach((color, index) => {
-				svgElement.style.setProperty(`--color${index + 1}`, color);
-			});
-
-			// retrieve previous play state from local storage and set it
-			const previousPlayState = localStorage.getItem('svgAnimPlayState');
-			previousPlayState && toggleAnimation(previousPlayState);
 		}
 	}, []);
 
 	return (
 		<section className={styles['svg-container']}>
 			<button
-				ref={buttonRef}
-				onClick={() => toggleAnimation()}
+				onClick={() => setPlayState(playState === 'running' ? 'paused' : 'running')}
+				// add clickable class if playstate is not empty string which means it's not the initial state so js is enabled
+				className={playState === '' ? '' : styles.clickable}
 				aria-label="toggle animation"></button>
-			<svg ref={svgRef} aria-hidden="true" viewBox="0 0 650 300">
+			<svg aria-hidden="true" viewBox="0 0 650 300">
 				<symbol id="s-text">
 					<text textAnchor="middle" x="50%" y="50%" dy=".35em">
-						Code
+						{text}
 					</text>
 				</symbol>
 
-				{useRefs.map((useRef, index) => (
-					<use key={index} xlinkHref="#s-text" ref={useRef}></use>
+				{svgUseRefs.map((svgUseRef, index) => (
+					<use
+						key={index}
+						ref={svgUseRef}
+						xlinkHref="#s-text"
+						// blehhhhhh makes sure the server rendered version of the animation is the same as the client rendered version (any non-css value works)
+						style={{
+							animationPlayState: playState || 'blehhhhhh',
+							animationDelay: `${(index + 1) * -1.2}s`,
+							stroke: `var(--color${index + 1})`,
+							[`--color${index + 1}`]: colorPalettes[0][index]
+						}}
+					/>
 				))}
 			</svg>
 		</section>
