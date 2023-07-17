@@ -49,7 +49,7 @@ export default function Project({
 							<img
 								src={cover_url}
 								alt={cover_alt}
-								style={cover_aspect_ratio ? { aspectRatio: cover_aspect_ratio } : {}}
+								style={cover_aspect_ratio ? { aspectRatio: cover_aspect_ratio.toFixed(10) } : {}}
 							/>
 						)}
 						{!cover_url && slug === 'discofy' && (
