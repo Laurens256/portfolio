@@ -12,7 +12,7 @@ interface File {
 
 const revalidateToken = process.env.REVALIDATE_TOKEN;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	// Check for secret to confirm this is a valid request
 	if (req.query.secret !== revalidateToken) {
 		return res
