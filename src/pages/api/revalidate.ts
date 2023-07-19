@@ -13,9 +13,9 @@ interface File {
 const revalidateToken = process.env.REVALIDATE_TOKEN;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	if (req.method !== 'POST') {
-		return res.status(405).json({ message: `Method not allowed, allowed method: POST. Your method: ${req.method}` });
-	}
+	// if (req.method !== 'POST') {
+	// 	return res.status(405).json({ message: `Method not allowed, allowed method: POST. Your method: ${req.method}` });
+	// }
 	// Check for secret to confirm this is a valid request
 	if (req.query.secret !== revalidateToken) {
 		return res
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		return res.status(200).json({ revalidated: true });
 	} catch (err) {
 		console.error(err);
-		return res.status(500).send('Error revalidating');
+		return res.status(500).send(`Error revalidating: ${err}`);
 	}
 }
 
