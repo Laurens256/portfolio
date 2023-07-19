@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			const url = file.filename.split('mdx/')[1].replace('.mdx', '');
 			// if file is in root mdx folder, revalidate index page
 			// if file is in any subfolder, revalidate that page
-			return url.includes('/') ? `/${url}` : '/';
+			return url.includes('/') ? `/${url}/` : '/';
 		});
 
 		await Promise.all(revalidatePaths.map((path) => res.revalidate(path)));
@@ -51,7 +51,7 @@ const getChangedMdxFiles = async () => {
 		).json();
 
 		const changedFiles: File[] = latestCommit.files;
-		mdxFiles = changedFiles.filter((file: any) => file.filename.endsWith('.mdx'));
+		mdxFiles = changedFiles.filter((file) => file.filename.endsWith('.mdx'));
 
 		// if changes are made to any file other than mdx files, entire site will be rebuilt
 		const alreadyBuilt = mdxFiles.some((file) => !file.filename.endsWith('.mdx'));
