@@ -15,7 +15,9 @@ const revalidateToken = process.env.REVALIDATE_TOKEN;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	// Check for secret to confirm this is a valid request
 	if (req.query.secret !== revalidateToken) {
-		return res.status(401).json({ message: 'Invalid token' });
+		return res
+			.status(401)
+			.json({ message: 'Invalid token', req: req, token: revalidateToken });
 	}
 
 	const { mdxFiles, error } = await getChangedMdxFiles();
