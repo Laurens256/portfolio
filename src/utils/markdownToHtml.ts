@@ -4,7 +4,8 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import remarkPettyCode from 'rehype-pretty-code';
 
-import { getMediaDimensions } from './getMediaDimensions';
+// @ts-ignore
+import getMediaDimensions from 'get-media-dimensions';
 
 const videoExt = new Set(['mp4', 'webm', 'ogg', 'avi', 'flv', 'mov']);
 
@@ -54,11 +55,9 @@ const setMediaAspectRatio = async (htmlString: string) => {
 		const extension = url.split('.').pop();
 		const format = videoExt.has(extension) ? 'video' : 'image';
 		try {
-			const { dimensions, error } = await getMediaDimensions(`public/${url}`);
+			const dimensions = await getMediaDimensions(`public/${url}`, format);
 
-			if (error) {
-				throw new Error(error);
-			} else {
+			if (dimensions && dimensions.width && dimensions.height) {
 				const aspectRatio = (dimensions.width / dimensions.height).toFixed(10);
 				const replacedSubst = subst(url, aspectRatio);
 				return match.replace(regex, replacedSubst);
