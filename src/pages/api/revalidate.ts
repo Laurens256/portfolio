@@ -14,10 +14,7 @@ const revalidateToken = process.env.REVALIDATE_TOKEN;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.query.secret !== revalidateToken) {
-		return res
-			.status(401)
-			.json({ message: 'Invalid token' });
-			// .json({ message: 'Invalid token', req: req, token: revalidateToken });
+		return res.status(401).json({ message: 'Invalid token' });
 	}
 
 	const { mdxFiles, error } = await getChangedMdxFiles();
@@ -66,12 +63,15 @@ const getChangedMdxFiles = async () => {
 		error = { code: 500, message: 'Error fetching latest commit' };
 	}
 
-	return { mdxFiles: [
-		{
-			sha: 'test',
-			filename: 'src/mdx/projects/dataweek.mdx',
-			status: 'test'
-		}
-	], error };
+	return {
+		mdxFiles: [
+			{
+				sha: 'test',
+				filename: 'src/mdx/projects/dataweek.mdx',
+				status: 'test'
+			}
+		],
+		error
+	};
 	// return { mdxFiles, error };
 };
