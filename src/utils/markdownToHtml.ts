@@ -4,7 +4,6 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import remarkPettyCode from 'rehype-pretty-code';
 
-// @ts-expect-error
 import getMediaDimensions from 'get-media-dimensions';
 
 const videoExt = new Set(['mp4', 'webm', 'ogg', 'avi', 'flv', 'mov']);
