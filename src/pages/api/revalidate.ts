@@ -32,8 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			return url.includes('/') ? `/${url}` : '/';
 		});
 
-		console.log(revalidatePaths);
-
 		await Promise.all(revalidatePaths.map((path) => res.revalidate(path)));
 
 		return res.status(200).json({ revalidated: true });
@@ -55,23 +53,18 @@ const getChangedMdxFiles = async () => {
 		const changedFiles: File[] = latestCommit.files;
 		mdxFiles = changedFiles.filter((file: any) => file.filename.endsWith('.mdx'));
 
+		// if changes are made to any file other than mdx files, entire site will be rebuilt
+		const alreadyBuilt = mdxFiles.some((file) => !file.filename.endsWith('.mdx'));
+
 		if (mdxFiles.length === 0) {
 			error = { code: 200, message: 'No changes to mdx files' };
+		} else if (alreadyBuilt) {
+			error = { code: 200, message: 'Changes already built' };
 		}
 	} catch (err) {
 		console.error(err);
 		error = { code: 500, message: 'Error fetching latest commit' };
 	}
 
-	return {
-		mdxFiles: [
-			{
-				sha: 'test',
-				filename: 'src/mdx/projects/dataweek.mdx',
-				status: 'test'
-			}
-		],
-		error
-	};
-	// return { mdxFiles, error };
+	return { mdxFiles, error };
 };
