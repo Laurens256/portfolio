@@ -13,14 +13,11 @@ interface File {
 const revalidateToken = process.env.REVALIDATE_TOKEN;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	// if (req.method !== 'POST') {
-	// 	return res.status(405).json({ message: `Method not allowed, allowed method: POST. Your method: ${req.method}` });
-	// }
-	// Check for secret to confirm this is a valid request
 	if (req.query.secret !== revalidateToken) {
 		return res
 			.status(401)
-			.json({ message: 'Invalid token', req: req, token: revalidateToken });
+			.json({ message: 'Invalid token' });
+			// .json({ message: 'Invalid token', req: req, token: revalidateToken });
 	}
 
 	const { mdxFiles, error } = await getChangedMdxFiles();
@@ -37,6 +34,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			// if file is in any subfolder, revalidate that page
 			return url.includes('/') ? `/${url}` : '/';
 		});
+
+		console.log(revalidatePaths);
 
 		await Promise.all(revalidatePaths.map((path) => res.revalidate(path)));
 
@@ -67,5 +66,12 @@ const getChangedMdxFiles = async () => {
 		error = { code: 500, message: 'Error fetching latest commit' };
 	}
 
-	return { mdxFiles, error };
+	return { mdxFiles: [
+		{
+			sha: 'test',
+			filename: 'src/mdx/projects/dataweek.mdx',
+			status: 'test'
+		}
+	], error };
+	// return { mdxFiles, error };
 };
