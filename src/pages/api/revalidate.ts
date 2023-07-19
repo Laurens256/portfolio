@@ -17,22 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		return res.status(401).json({ message: 'Invalid token' });
 	}
 
-	const { mdxFiles, error } = await getChangedMdxFiles();
+	const { paths, error } = await getPathsToRevalidate();
 
 	if (error) {
 		return res.status(error.code).json({ message: error.message });
 	}
 
 	try {
-		// Collect all the paths to revalidate in an array
-		const revalidatePaths = mdxFiles.map((file) => {
-			const url = file.filename.split('mdx/')[1].replace('.mdx', '');
-			// if file is in root mdx folder, revalidate index page
-			// if file is in any subfolder, revalidate that page
-			return url.includes('/') ? `/${url}/` : '/';
-		});
-
-		await Promise.all(revalidatePaths.map((path) => res.revalidate(path)));
+		await Promise.all(paths.map((path) => res.revalidate(path)));
 
 		return res.status(200).json({ revalidated: true });
 	} catch (err) {
@@ -40,6 +32,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		return res.status(500).send(`Error revalidating: ${err}`);
 	}
 }
+
+const getPathsToRevalidate = async () => {
+	const { mdxFiles, error } = await getChangedMdxFiles();
+  
+	// use set so we dont have to worry about duplicates
+	const pathsSet: Set<string> = new Set();
+  
+	mdxFiles.forEach((file) => {
+	  const url = file.filename.split('mdx/')[1].replace('.mdx', '');
+  
+	  // if file is in root mdx folder, revalidate index page
+	  // if file is in any subfolder, revalidate that page
+	  pathsSet.add(url.includes('/') ? `/${url}` : '/');
+	});
+  
+	const indexRevalidate = mdxFiles.some(
+	  (file) =>
+		['added', 'removed', 'renamed'].includes(file.status) &&
+		file.filename.includes('mdx/projects')
+	);
+	if (indexRevalidate) {
+	  pathsSet.add('/');
+	}
+  
+	const paths = Array.from(pathsSet);
+  
+	return { paths, error };
+  };
 
 const getChangedMdxFiles = async () => {
 	let mdxFiles: File[] = [];
@@ -51,7 +71,7 @@ const getChangedMdxFiles = async () => {
 		).json();
 
 		const changedFiles: File[] = latestCommit.files;
-		mdxFiles = changedFiles.filter((file) => file.filename.endsWith('.mdx'));
+		mdxFiles = changedFiles.filter((file) => file.filename.endsWith('.mdx') && file.filename.includes('mdx/'));
 
 		// if changes are made to any file other than mdx files, entire site will be rebuilt
 		const alreadyBuilt = mdxFiles.some((file) => !file.filename.endsWith('.mdx'));
