@@ -14,6 +14,7 @@ const revalidateToken = process.env.REVALIDATE_TOKEN;
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	// Check for secret to confirm this is a valid request
+	// wip
 	if (req.query.secret !== revalidateToken) {
 		return res
 			.status(401)
