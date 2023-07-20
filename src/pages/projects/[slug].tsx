@@ -1,6 +1,7 @@
 import styles from './project.module.css';
 
-import { ProjectMDX, allProjectMDXes } from 'contentlayer/generated';
+import { allProjectMDXes } from 'contentlayer/generated';
+import { convertHtmlToReact } from '@hedgedoc/html-to-react';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,28 +13,30 @@ const getProjectBySlug = (slug: string) => {
 	return allProjectMDXes.find((project) => project.slug === slug);
 };
 
-export default function Project({
-	project,
-	storyHTML
-}: {
-	project: ProjectMDX;
-	storyHTML: string;
-}) {
-	const { document_title, document_description, long_title, slug, case_description } =
-		project;
-
-	const quickLinks = project.quick_links;
-	const cover_url = project.cover_url;
-	const cover_alt = project.cover_alt;
-	const cover_aspect_ratio = project.cover_aspect_ratio;
-
-	const documentTitle = `${document_title} | Laurens Duin`;
+export default function Project({ projectData }: { projectData: ProjectData }) {
+	const {
+		slug,
+		documentTitle,
+		documentDescription,
+		longTitle,
+		coverHTML,
+		caseDescription,
+		quickLinks,
+		storyHTML
+	} = projectData;
 
 	return (
 		<>
 			<Head>
 				<title key="title">{documentTitle}</title>
-				<meta name="description" key="description" content={document_description} />
+				<meta name="description" key="description" content={documentDescription} />
+
+				<meta property="og:title" key="og:title" content={documentTitle} />
+				<meta
+					property="og:description"
+					key="og:description"
+					content={documentDescription}
+				/>
 			</Head>
 
 			<nav className={styles.nav}>
@@ -43,26 +46,19 @@ export default function Project({
 			</nav>
 			<main className={`${styles.project} ${styles[slug]}`}>
 				<header>
-					<div>
-						<h1>{long_title}</h1>
-						{cover_url && (
-							<img
-								src={cover_url}
-								alt={cover_alt}
-								style={cover_aspect_ratio ? { aspectRatio: cover_aspect_ratio.toFixed(10) } : {}}
-							/>
-						)}
-						{!cover_url && slug === 'discofy' && (
-							<div className={styles.spotifyloader}>
-								<SpotifyLoader />
-							</div>
-						)}
-					</div>
+					<h1 dangerouslySetInnerHTML={{ __html: longTitle }}></h1>
+
+					{convertHtmlToReact(coverHTML)}
+					{!coverHTML && slug === 'discofy' && (
+						<div className={styles.spotifyloader}>
+							<SpotifyLoader />
+						</div>
+					)}
 
 					<section>
 						<div className={styles.case}>
 							<h2>Case</h2>
-							<p>{case_description}</p>
+							<p dangerouslySetInnerHTML={{ __html: caseDescription }}></p>
 						</div>
 
 						{quickLinks && (
@@ -90,15 +86,50 @@ export default function Project({
 	);
 }
 
+interface ProjectData {
+	slug: string;
+	documentTitle: string;
+	documentDescription: string;
+	longTitle: string;
+	coverHTML: string;
+	caseDescription: string;
+	quickLinks:
+		| {
+				name: string;
+				url: string;
+		  }[]
+		| undefined;
+	storyHTML: string;
+}
+
 export async function getStaticProps({ params }: { params: { slug: string } }) {
 	const project = getProjectBySlug(params.slug);
 
-	const storyHTML = project?.body.raw ? await markdownToHtml(project.body.raw) : '';
+	if (!project) {
+		throw new Error(`No project found for slug: ${params.slug}`);
+	}
+
+	const [longTitle, coverHTML, caseHTML, storyHTML] = await Promise.all([
+		project.long_title ? markdownToHtml(project.long_title) : '',
+		project.cover_img ? markdownToHtml(project.cover_img) : '',
+		project.case_description ? markdownToHtml(project?.case_description) : '',
+		project.body.raw ? markdownToHtml(project.body.raw, false) : ''
+	]);
+
+	const projectData: ProjectData = {
+		slug: project!.slug,
+		documentTitle: `${project?.document_title || ''} | Laurens Duin`,
+		documentDescription: project?.document_description || '',
+		longTitle: longTitle,
+		coverHTML: coverHTML,
+		caseDescription: caseHTML,
+		quickLinks: project?.quick_links,
+		storyHTML: storyHTML
+	};
 
 	return {
 		props: {
-			project: project,
-			storyHTML: storyHTML
+			projectData
 		}
 	};
 }

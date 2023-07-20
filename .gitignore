@@ -3,6 +3,7 @@ node_modules
 .contentlayer
 dist
 build
+generated-img
 
 ############################
 # NextJS

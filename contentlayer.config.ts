@@ -25,7 +25,6 @@ export const ProjectMDX = defineDocumentType(() => ({
 	filePathPattern: 'projects/**/*.mdx',
 	contentType: 'mdx',
 	fields: {
-		slug: { type: 'string', required: true },
 		published: { type: 'boolean', default: false },
 		rank: { type: 'number', required: true },
 
@@ -35,9 +34,7 @@ export const ProjectMDX = defineDocumentType(() => ({
 		background_color: { type: 'string', required: true },
 		icon_url: { type: 'string', required: false },
 
-		cover_url: { type: 'string', required: false },
-		cover_alt: { type: 'string', required: false },
-		cover_aspect_ratio: { type: 'number', required: false },
+		cover_img: { type: 'string', required: false },
 
 		long_title: { type: 'string', required: true },
 		short_title: { type: 'string', required: true },
@@ -51,6 +48,15 @@ export const ProjectMDX = defineDocumentType(() => ({
 				}
 			})),
 			required: false
+		}
+	},
+	computedFields: {
+		slug: {
+			type: 'string',
+			resolve: (post) => {
+				const parts = post._raw.flattenedPath.split('/');
+				return parts[parts.length - 1];
+			}
 		}
 	}
 }));

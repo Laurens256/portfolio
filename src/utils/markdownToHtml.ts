@@ -6,9 +6,12 @@ import remarkPettyCode from 'rehype-pretty-code';
 
 import getMediaDimensions from 'get-media-dimensions';
 
+import generateStaticImage from './animatedToStatic';
+
 const videoExt = new Set(['mp4', 'webm', 'ogg', 'avi', 'flv', 'mov']);
 
-const markdownToHtml = async (markdown: string) => {
+// removewrapper removes any outside <p> tags, useful when generating small snippets of text
+const markdownToHtml = async (markdown: string, shouldRemoveWrapper = true) => {
 	const HTMLString = String(
 		await unified()
 			.use(remarkParse)
@@ -23,7 +26,13 @@ const markdownToHtml = async (markdown: string) => {
 	const modifiedHTMLString = findVideo(
 		await setMediaAspectRatio(setAnchorBlank(HTMLString))
 	);
-	return modifiedHTMLString;
+
+	return shouldRemoveWrapper ? removeWrapper(modifiedHTMLString) : modifiedHTMLString;
+};
+
+const removeWrapper = (htmlString: string) => {
+	const regex = /<p>([\w\W]*?)<\/p>/g;
+	return htmlString.replace(regex, '$1');
 };
 
 // find any anchor tags and set them to open in a new tab
@@ -46,7 +55,15 @@ const setMediaAspectRatio = async (htmlString: string) => {
 	const regex = /<img.*?src="(.+?)".*?>/g;
 	// since videos are still in an img tag at this point, no need to check for video tags
 	// videos get put in a video tag later on, see findVideo()
-	const subst = (url: string, aspectRatio: string) => {
+	const subst = async (url: string, aspectRatio: string) => {
+		// if the image is an animated image, generate a static image and use that when prefers-reduced-motion is set to reduce
+		if (url.includes('animated-')) {
+			const staticPath = await generateStaticImage(`public${url}`);
+
+			if (staticPath) {
+				return `<picture><source srcset="${staticPath}" media="(prefers-reduced-motion: reduce)"><img src="${url}" style="aspect-ratio: ${aspectRatio};"></picture>`;
+			}
+		}
 		return `<img src="${url}" style="aspect-ratio: ${aspectRatio};">`;
 	};
 
@@ -54,11 +71,11 @@ const setMediaAspectRatio = async (htmlString: string) => {
 		const extension = url.split('.').pop();
 		const format = videoExt.has(extension) ? 'video' : 'image';
 		try {
-			const dimensions = await getMediaDimensions(`public/${url}`, format);
+			const dimensions = await getMediaDimensions(`public${url}`, format);
 
 			if (dimensions && dimensions.width && dimensions.height) {
 				const aspectRatio = (dimensions.width / dimensions.height).toFixed(10);
-				const replacedSubst = subst(url, aspectRatio);
+				const replacedSubst = await subst(url, aspectRatio);
 				return match.replace(regex, replacedSubst);
 			}
 		} catch (error) {
