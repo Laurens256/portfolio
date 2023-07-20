@@ -55,16 +55,16 @@ const setMediaAspectRatio = async (htmlString: string) => {
 	const regex = /<img.*?src="(.+?)".*?>/g;
 	// since videos are still in an img tag at this point, no need to check for video tags
 	// videos get put in a video tag later on, see findVideo()
-	const subst = async (url: string, aspectRatio: string) => {
+	const subst = async (url: string, aspectRatio: string, alt: string) => {
 		// if the image is an animated image, generate a static image and use that when prefers-reduced-motion is set to reduce
 		if (url.includes('animated-')) {
 			const staticPath = await generateStaticImage(`public${url}`);
 
 			if (staticPath) {
-				return `<picture><source srcset="${staticPath}" media="(prefers-reduced-motion: reduce)"><img src="${url}" style="aspect-ratio: ${aspectRatio};"></picture>`;
+				return `<picture><source srcset="${staticPath}" media="(prefers-reduced-motion: reduce)"><img src="${url}" alt="${alt}" style="aspect-ratio: ${aspectRatio};"></picture>`;
 			}
 		}
-		return `<img src="${url}" style="aspect-ratio: ${aspectRatio};">`;
+		return `<img src="${url}" alt="${alt}" style="aspect-ratio: ${aspectRatio};">`;
 	};
 
 	const modifiedString = await replaceAsync(htmlString, regex, async (match, url) => {
@@ -73,9 +73,11 @@ const setMediaAspectRatio = async (htmlString: string) => {
 		try {
 			const dimensions = await getMediaDimensions(`public${url}`, format);
 
+			const alt = match.match(/alt="(.+?)"/)?.[1] || '';
+
 			if (dimensions && dimensions.width && dimensions.height) {
 				const aspectRatio = (dimensions.width / dimensions.height).toFixed(10);
-				const replacedSubst = await subst(url, aspectRatio);
+				const replacedSubst = await subst(url, aspectRatio, alt);
 				return match.replace(regex, replacedSubst);
 			}
 		} catch (error) {
