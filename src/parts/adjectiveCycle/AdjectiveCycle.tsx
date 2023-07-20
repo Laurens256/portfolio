@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
 import styles from './adjectiveCycle.module.css';
 
+// ran variable is used because useEffect runs twice on initial render in development mode and it's annoying
+let ran = false;
 export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 	const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -20,6 +22,10 @@ export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 	};
 
 	useEffect(() => {
+		if (ran) {
+			return;
+		}
+		ran = true;
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 		mediaQuery.addEventListener('change', () => {
 			mediaQuery.matches ? disableTypewriter() : typewriter();
