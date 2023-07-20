@@ -1,4 +1,23 @@
 .typewriter {
 	color: var(--typewriter-color);
 	font-family: 'jetbrains', monospace;
+	white-space: nowrap;
+}
+
+.typewriter::after {
+	content: '|';
+	display: inline-block;
+	width: .6ch;
+	margin-left: -.4ch;
+	animation: blink 1s infinite;
+}
+
+.typewriter.moving::after {
+	animation: none;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
 }
