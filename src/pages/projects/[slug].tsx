@@ -22,7 +22,8 @@ export default function Project({ projectData }: { projectData: ProjectData }) {
 		coverHTML,
 		caseDescription,
 		quickLinks,
-		storyHTML
+		storyHTML,
+		backgroundColor
 	} = projectData;
 
 	return (
@@ -37,6 +38,8 @@ export default function Project({ projectData }: { projectData: ProjectData }) {
 					key="og:description"
 					content={documentDescription}
 				/>
+
+				<meta name="theme-color" content={backgroundColor ? backgroundColor : ''} />
 			</Head>
 
 			<nav className={styles.nav}>
@@ -90,6 +93,7 @@ interface ProjectData {
 	slug: string;
 	documentTitle: string;
 	documentDescription: string;
+	backgroundColor?: string;
 	longTitle: string;
 	coverHTML: string;
 	caseDescription: string;
@@ -120,6 +124,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 		slug: project!.slug,
 		documentTitle: `${project?.document_title || ''} | Laurens Duin`,
 		documentDescription: project?.document_description || '',
+		backgroundColor: project?.panel_bg_color,
 		longTitle: longTitle,
 		coverHTML: coverHTML,
 		caseDescription: caseHTML,
