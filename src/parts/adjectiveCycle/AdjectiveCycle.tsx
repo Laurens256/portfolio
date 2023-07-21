@@ -1,11 +1,9 @@
 import { useRef, useEffect } from 'react';
 import styles from './adjectiveCycle.module.css';
 
-// ran variable is used because useEffect runs twice on initial render in development mode and it's annoying
-let ran = false;
 export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 	const spanRef = useRef<HTMLSpanElement>(null);
-
+	
 	const disableTypewriter = () => {
 		if (!spanRef.current) {
 			return;
@@ -14,13 +12,15 @@ export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 		clearInterval(erasingInterval);
 		clearTimeout(erasingTimeout);
 		clearTimeout(typingTimeout);
-
+		
 		const spanEl = spanRef.current;
 		spanEl.classList.remove(styles.typewriter);
 		spanEl.classList.remove(styles.moving);
 		spanEl.textContent = strings[0];
 	};
-
+	
+	// ran variable is used because useEffect runs twice on initial render in development mode and it's annoying
+	let ran = false;
 	useEffect(() => {
 		if (ran) {
 			return;
