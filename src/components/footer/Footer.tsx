@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './footer.module.css';
 import ThemeSwitcher from '@/parts/themeSwitcher/ThemeSwitcher';
 
@@ -15,9 +16,9 @@ export default function Footer({ route }: { route: string }) {
 					<ul>
 						{socials.map((social) => (
 							<li key={social.name}>
-								<a href={social.link} className="underline" target="_blank">
+								<Link href={social.link} className="underline" target="_blank">
 									{social.name}
-								</a>
+								</Link>
 							</li>
 						))}
 						<li className={styles['theme-switcher-container']}>

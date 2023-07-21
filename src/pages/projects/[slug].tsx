@@ -67,9 +67,9 @@ export default function Project({ projectData }: { projectData: ProjectData }) {
 								<ul>
 									{quickLinks.map((quickLink, i) => (
 										<li key={i}>
-											<a href={quickLink.url} target="_blank">
+											<Link href={quickLink.url} target="_blank">
 												{quickLink.name}
-											</a>
+											</Link>
 										</li>
 									))}
 								</ul>

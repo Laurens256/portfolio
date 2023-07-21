@@ -1,6 +1,7 @@
 import styles from './contact.module.css';
 
 import { FormEvent } from 'react';
+import Link from 'next/link';
 import { betterLinkScroll } from '@/components/header/Header';
 
 const validateForm = (e: FormEvent<HTMLFormElement>) => {
@@ -47,9 +48,9 @@ export default function Contact() {
 				<h2 id="contact">Contact</h2>
 				<p>
 					Want to get in contact? Use this form or contact me through one of my{' '}
-					<a onClick={betterLinkScroll} href="#socials">
+					<Link onClick={betterLinkScroll} href="#socials">
 						socials
-					</a>
+					</Link>
 				</p>
 
 				<form action="/api/contact" method="POST" onSubmit={validateForm} noValidate>

@@ -1,18 +1,23 @@
 import styles from './header.module.css';
 
 import Router from 'next/router';
+import Link from 'next/link';
 
 export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	e.preventDefault();
-	const href = e.currentTarget.getAttribute('href')?.replace('#', '');
+
+	const href = e.currentTarget.getAttribute('href')?.replace(/[#/]/g, '');
 	const heading: HTMLElement | null = document.querySelector(`#${href}`);
 
-	heading?.setAttribute('tabindex', '-1');
-	heading?.focus({preventScroll: true});
-	heading?.scrollIntoView({
-		behavior: 'smooth'
-	});
-	heading?.blur();
+	if (heading) {
+		heading.setAttribute('tabindex', '-1');
+		heading.focus({ preventScroll: true });
+
+		heading.scrollIntoView({
+			behavior: 'smooth'
+		});
+		heading.blur();
+	}
 };
 
 const logoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -38,15 +43,18 @@ export default function Header() {
 				<div>
 					<ul>
 						<li key="-1">
-							<a onClick={logoClick} href="/" aria-label='home'>
+							<Link onClick={logoClick} href="/" aria-label="home">
 								/
-							</a>
+							</Link>
 						</li>
 						{navLinks.map(({ title, href }) => (
 							<li key={title}>
-								<a className={`underline`} onClick={betterLinkScroll} href={`#${href}`}>
+								<Link
+									className={`underline`}
+									onClick={betterLinkScroll}
+									href={`#${href}`}>
 									{title}
-								</a>
+								</Link>
 							</li>
 						))}
 					</ul>

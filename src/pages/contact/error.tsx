@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './contact-feedback.module.css';
 
 export default function Error() {
@@ -6,7 +7,7 @@ export default function Error() {
 			<article>
 				<h1>Something went wrong :(</h1>
 				<p>Please try again later</p>
-				<a className='underline' href="/">Back to home</a>
+				<Link className='underline' href="/">Back to home</Link>
 			</article>
 		</main>
 	);

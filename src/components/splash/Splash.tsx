@@ -4,6 +4,7 @@ import { SplashMdx } from 'contentlayer/generated';
 
 import { betterLinkScroll } from '@/components/header/Header';
 import AdjectiveCycle from '@/parts/adjectiveCycle/AdjectiveCycle';
+import Link from 'next/link';
 
 export default function Splash({ splashData }: { splashData: SplashMdx }) {
 	let subheading1 = splashData.body.raw;
@@ -31,13 +32,13 @@ export default function Splash({ splashData }: { splashData: SplashMdx }) {
 						)}
 					</p>
 				</div>
-				<a
+				<Link
 					href="#projects"
 					aria-label="scroll to my projects"
 					className={styles.scrollbtn}
 					onClick={betterLinkScroll}>
 					My Projects
-				</a>
+				</Link>
 			</section>
 		</>
 	);
