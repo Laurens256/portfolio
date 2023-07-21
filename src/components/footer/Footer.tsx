@@ -11,21 +11,21 @@ const socials = [
 export default function Footer({ route }: { route: string }) {
 	return (
 		<footer className={`${styles.footer} ${styles[route]}`}>
-				<section>
-					<h3 id="socials">Socials</h3>
-					<ul>
-						{socials.map((social) => (
-							<li key={social.name}>
-								<Link href={social.link} className="underline" target="_blank">
-									{social.name}
-								</Link>
-							</li>
-						))}
-						<li className={styles['theme-switcher-container']}>
-							<ThemeSwitcher />
+			<section>
+				<h3 id="socials">Socials</h3>
+				<ul>
+					{socials.map((social) => (
+						<li key={social.name}>
+							<Link href={social.link} className="underline" target="_blank">
+								{social.name}
+							</Link>
 						</li>
-					</ul>
-				</section>
+					))}
+					<li className={styles['theme-switcher-container']}>
+						<ThemeSwitcher />
+					</li>
+				</ul>
+			</section>
 		</footer>
 	);
 }

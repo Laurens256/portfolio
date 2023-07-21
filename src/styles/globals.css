@@ -127,6 +127,16 @@ body {
 	font-family: var(--body-fonts);
 	color: var(--main-text);
 	background-color: var(--main-bg);
+	background-color: var(--secondary-bg);
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+
+.page-wrapper {
+	--wrapper-padding-bottom: 2rem;
+	background-color: var(--main-bg);
+	padding-bottom: var(--wrapper-padding-bottom);
 }
 
 h1,

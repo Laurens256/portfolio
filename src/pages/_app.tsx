@@ -37,7 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
 			<ProgressBar delay={150} options={{ showSpinner: false }} />
 
-			<Component {...pageProps} />
+			<div className="page-wrapper">
+				<Component {...pageProps} />
+			</div>
 
 			{!noFooterRoutes.includes(router.pathname) && <Footer route={currentRoute} />}
 		</>

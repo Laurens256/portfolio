@@ -113,7 +113,7 @@
 	.link-panel .inner {
 		--panel-padding: min(2rem, 3vw);
 		grid-template-columns: 1fr;
-		grid-template-rows: 60% 1fr;
+		grid-template-rows: 1fr 40%;
 	}
 
 	.link-panel .info {

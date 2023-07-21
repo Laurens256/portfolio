@@ -1,7 +1,9 @@
 .splash {
 	max-width: var(--main-page-width);
 	margin: 0 auto;
-	min-height: max(calc(100vh - var(--header-height)), 35rem);
+	/* min-height: max(calc(100vh - var(--header-height)), 35rem); */
+
+	height: clamp(35rem, calc(100vh - var(--header-height)), 80rem);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
