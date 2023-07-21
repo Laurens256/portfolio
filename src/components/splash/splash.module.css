@@ -21,7 +21,7 @@
 	font-weight: 700;
 	letter-spacing: 1px;
 	line-height: 2rem;
-	color: #1db954;
+	color: var(--splash-intro-color);
 	text-transform: uppercase;
 }
 

@@ -61,6 +61,7 @@
 	--glitchy-text: #30dc1d;
 	--form-error: #e1ff00;
 	--typewriter-color: #c5c5c5;
+	--splash-intro-color: #1db954;
 
 	/* ---------------------- */
 	/* ---- other values ---- */
@@ -94,7 +95,8 @@
 	--link-color: #0969da;
 	--glitchy-text: #008602;
 	--form-error: #ff0000;
-	--typewriter-color: #333;
+	--typewriter-color: #464646;
+	--splash-intro-color: var(--link-color);
 }
 
 /* adds a smooth color transition when switching theme */
