@@ -10,12 +10,13 @@ export default function Projects({ projects }: { projects: ProjectMDX[] }) {
 			<h2 id="projects">My projects</h2>
 			<ul>
 				{projects.map(
-					({ short_title, long_title, slug, background_color, icon_url }, i) => (
+					({ short_title, long_title, slug, panel_bg_color, panel_text_color, icon_url }, i) => (
 						<li
 							key={i}
 							style={
 								{
-									'--panel-bg-color': background_color || 'var(--secondary-bg-color)'
+									'--panel-bg-color': panel_bg_color, 
+									'--panel-text-color': panel_text_color
 								} as React.CSSProperties
 							}
 							// className={styles.linkpanel}

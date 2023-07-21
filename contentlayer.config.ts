@@ -31,7 +31,8 @@ export const ProjectMDX = defineDocumentType(() => ({
 		document_title: { type: 'string', required: true },
 		document_description: { type: 'string', required: true },
 
-		background_color: { type: 'string', required: true },
+		panel_bg_color: { type: 'string', default: 'var(--secondary-bg)' },
+		panel_text_color: { type: 'string', default: 'var(--text-white)' },
 		icon_url: { type: 'string', required: false },
 
 		cover_img: { type: 'string', required: false },
