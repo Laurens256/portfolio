@@ -6,8 +6,8 @@ import Link from 'next/link';
 export const betterLinkScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 	e.preventDefault();
 
-	const href = e.currentTarget.getAttribute('href')?.replace(/[#/]/g, '');
-	const heading: HTMLElement | null = document.querySelector(`#${href}`);
+	const selector = e.currentTarget.getAttribute('href')?.split('#')[1];
+	const heading: HTMLElement | null = document.querySelector(`#${selector}`);
 
 	if (heading) {
 		heading.setAttribute('tabindex', '-1');
