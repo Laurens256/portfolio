@@ -15,28 +15,55 @@
 	gap: var(--panel-gap);
 }
 
-.projects ul li a {
+
+.link-panel {
 	--panel-padding: min(3rem, 6vw);
 	--panel-height: 20rem;
-	display: grid;
-	grid-template-columns: 60% 1fr;
+	display: block;
+	color: var(--text-white);
 	height: var(--panel-height);
-	padding: var(--panel-padding);
+	border-radius: var(--panel-border-radius);
 }
 
-.projects ul li a div {
+.link-panel .inner {
+	position: relative;
+	display: grid;
+	grid-template-columns: 60% 1fr;
+	border: solid 2px var(--main-bg);
+	border-radius: var(--panel-border-radius);
+	height: 100%;
+	padding: var(--panel-padding);
+	background-color: var(--panel-bg-color, var(--secondary-bg));
+	transition: transform 0.4s ease, border-color 0.2s ease;
+}
+
+.link-panel:is(:hover, :focus-visible) .inner {
+	transform: scale(0.975);
+	border-color: var(--main-text);
+}
+
+.link-panel:focus {
+	outline: none;
+}
+
+.link-panel:focus-visible .inner {
+	outline-offset: 5px;
+	outline: solid 3px var(--panel-bg-color);
+}
+
+.link-panel .info {
 	align-self: end;
 }
 
-.projects ul li a div h3 {
+.link-panel .info h3 {
 	font-size: clamp(1.5rem, 3rem, 12vw);
 }
 
-.projects ul li a div p {
+.link-panel .info p {
 	font-size: clamp(1.2rem, 1.4rem, 5vw);
 }
 
-.projects ul li a img {
+.projects .link-panel img {
 	place-self: center end;
 	height: calc(var(--panel-height) - var(--panel-padding) * 2);
 }
@@ -48,14 +75,14 @@
 	--text-shadow-size: min(0.3rem, max(0.5vw, 0.15rem));
 }
 
-.projects ul li.pokedex a div h3 {
+.projects ul li.pokedex .link-panel .info h3 {
 	position: relative;
 	font-family: inherit;
 	font-size: clamp(2rem, 3.5rem, 12vw);
 	color: #000;
 }
 
-.projects ul li.pokedex a div p {
+.projects ul li.pokedex .link-panel .info p {
 	margin-top: 0.4rem;
 	font-size: clamp(1.5rem, 1.6rem, 5.5vw);
 	color: #000;
@@ -63,8 +90,8 @@
 	--text-shadow-size: min(0.125rem, max(0.5vw, 0.15rem));
 }
 
-.projects ul li.pokedex a div h3::after,
-.projects ul li.pokedex a div p::after {
+.projects ul li.pokedex .link-panel .info h3::after,
+.projects ul li.pokedex .link-panel .info p::after {
 	content: attr(data-value);
 	/* zorgt ervoor dat screenreaders ::after niet voorlezen, werkt niet in Firefox dus fallback zonder */
 	content: attr(data-value) / '';
@@ -82,24 +109,30 @@
 	image-rendering: pixelated;
 }
 
-.projects ul li.discofy a {
+.projects ul li.discofy .link-panel {
 	color: #000;
 }
 
 @media screen and (max-width: 600px) {
-	.projects ul li a {
+	.link-panel {
 		grid-template-columns: 1fr;
 	}
-	.projects ul li a {
+	.link-panel {
 		grid-template-columns: 1fr;
 	}
 
-	.projects ul li a div {
+	.link-panel .info {
 		align-self: center;
 		text-align: center;
 	}
 
-	.projects ul li a img {
+	.link-panel img {
 		display: none;
+	}
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	.link-panel:is(:hover, :focus-visible) {
+		transform: none;
 	}
 }

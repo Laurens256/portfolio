@@ -1,5 +1,4 @@
 import styles from './projects.module.css';
-import panelStyles from '@/styles/link-panel.module.css';
 
 import Link from 'next/link';
 
@@ -11,7 +10,7 @@ export default function Projects({ projects }: { projects: ProjectMDX[] }) {
 			<h2 id="projects">My projects</h2>
 			<ul>
 				{projects.map(
-					({  short_title, long_title, slug, background_color, icon_url  }, i) => (
+					({ short_title, long_title, slug, background_color, icon_url }, i) => (
 						<li
 							key={i}
 							style={
@@ -19,18 +18,16 @@ export default function Projects({ projects }: { projects: ProjectMDX[] }) {
 									'--panel-bg-color': background_color || 'var(--secondary-bg-color)'
 								} as React.CSSProperties
 							}
+							// className={styles.linkpanel}
 							className={styles[slug]}>
-							<Link className={panelStyles.linkPanel} href={`/projects/${slug}`}>
-								<div>
-									<h3 data-value={short_title}>{short_title}</h3>
-									<p data-value={long_title}>{long_title}</p>
+							<Link className={styles['link-panel']} href={`/projects/${slug}`}>
+								<div className={styles.inner}>
+									<section className={styles.info}>
+										<h3 data-value={short_title}>{short_title}</h3>
+										<p data-value={long_title}>{long_title}</p>
+									</section>
+									{icon_url && <img src={icon_url} alt="" />}
 								</div>
-								{icon_url && (
-									<img
-										src={icon_url}
-										alt=""
-									/>
-								)}
 							</Link>
 						</li>
 					)
