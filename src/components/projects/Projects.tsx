@@ -10,18 +10,21 @@ export default function Projects({ projects }: { projects: ProjectMDX[] }) {
 			<h2 id="projects">My projects</h2>
 			<ul>
 				{projects.map(
-					({ short_title, long_title, slug, panel_bg_color, panel_text_color, icon_url }, i) => (
+					(
+						{ short_title, long_title, slug, panel_bg_color, panel_text_color, icon_url },
+						i
+					) => (
 						<li
 							key={i}
 							style={
 								{
-									'--panel-bg-color': panel_bg_color, 
+									'--panel-bg-color': panel_bg_color,
 									'--panel-text-color': panel_text_color
 								} as React.CSSProperties
-							}
-							// className={styles.linkpanel}
-							className={styles[slug]}>
-							<Link className={styles['link-panel']} href={`/projects/${slug}`}>
+							}>
+							<Link
+								className={`${styles['link-panel']} ${styles[slug]}`}
+								href={`/projects/${slug}`}>
 								<div className={styles.inner}>
 									<section className={styles.info}>
 										<h3 data-value={short_title}>{short_title}</h3>

@@ -17,7 +17,6 @@
 
 
 .link-panel {
-	--panel-padding: min(3rem, 6vw);
 	--panel-height: 20rem;
 	display: block;
 	height: var(--panel-height);
@@ -25,6 +24,7 @@
 }
 
 .link-panel .inner {
+	--panel-padding: min(3rem, 6vw);
 	position: relative;
 	display: grid;
 	grid-template-columns: 60% 1fr;
@@ -63,33 +63,35 @@
 	font-size: clamp(1.2rem, 1.4rem, 5vw);
 }
 
-.projects .link-panel img {
+.link-panel img {
 	place-self: center end;
-	height: calc(var(--panel-height) - var(--panel-padding) * 2);
+	max-height: calc(var(--panel-height) - var(--panel-padding) * 2);
 }
 
-/* project specific styles */
-.projects ul li.pokedex {
+/* ---------------------------------- */
+/*       project specific styles      */
+/* ---------------------------------- */
+.link-panel.pokedex {
 	font-family: pokemon, 'satoshi', 'Source Sans Pro', Arial, Helvetica, sans-serif;
 	--text-shadow-color: #424242;
 	--text-shadow-size: min(0.3rem, max(0.5vw, 0.15rem));
 }
 
-.projects ul li.pokedex .link-panel .info h3 {
+.link-panel.pokedex .info h3 {
 	position: relative;
 	font-family: inherit;
 	font-size: clamp(2rem, 3.5rem, 12vw);
 }
 
-.projects ul li.pokedex .link-panel .info p {
+.link-panel.pokedex .info p {
 	margin-top: 0.4rem;
 	font-size: clamp(1.5rem, 1.6rem, 5.5vw);
 	position: relative;
 	--text-shadow-size: min(0.125rem, max(0.5vw, 0.15rem));
 }
 
-.projects ul li.pokedex .link-panel .info h3::after,
-.projects ul li.pokedex .link-panel .info p::after {
+.link-panel.pokedex .info h3::after,
+.link-panel.pokedex .info p::after {
 	content: attr(data-value);
 	/* zorgt ervoor dat screenreaders ::after niet voorlezen, werkt niet in Firefox dus fallback zonder */
 	content: attr(data-value) / '';
@@ -103,25 +105,26 @@
 		var(--text-shadow-size) var(--text-shadow-size) var(--text-shadow-color);
 }
 
-.projects ul li.pokedex img {
+.link-panel.pokedex img {
 	image-rendering: pixelated;
 }
 
 @media screen and (max-width: 600px) {
-	.link-panel {
+	.link-panel .inner {
+		--panel-padding: min(2rem, 3vw);
 		grid-template-columns: 1fr;
-	}
-	.link-panel {
-		grid-template-columns: 1fr;
+		grid-template-rows: 60% 1fr;
 	}
 
 	.link-panel .info {
 		align-self: center;
 		text-align: center;
+		z-index: 1;
 	}
 
 	.link-panel img {
-		display: none;
+		height: 100%;
+		justify-self: center;
 	}
 }
 
