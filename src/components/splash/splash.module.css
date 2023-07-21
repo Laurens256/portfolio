@@ -1,9 +1,8 @@
 .splash {
 	max-width: var(--main-page-width);
 	margin: 0 auto;
-	/* min-height: max(calc(100vh - var(--header-height)), 35rem); */
-
-	height: clamp(35rem, calc(100vh - var(--header-height)), 80rem);
+	min-height: calc(100vh - var(--header-height));
+	max-height: 80rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -38,8 +37,9 @@
 .splash div p:last-of-type {
 	font-family: Ubuntu, var(--body-fonts);
 	font-size: 2.05rem;
+	font-size: clamp(1.6rem, 2.05rem, 15vw);
 	font-weight: 300;
-	line-height: 44.8px;
+	line-height: 1.35;
 }
 
 .splash div p:last-of-type span {
