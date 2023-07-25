@@ -40,6 +40,7 @@
 	font-size: clamp(1.6rem, 2.05rem, 15vw);
 	font-weight: 300;
 	line-height: 1.35;
+	text-wrap: balance;
 }
 
 .splash div p:last-of-type span {
