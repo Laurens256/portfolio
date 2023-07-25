@@ -3,7 +3,7 @@ import styles from './adjectiveCycle.module.css';
 
 export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 	const spanRef = useRef<HTMLSpanElement>(null);
-	
+
 	const disableTypewriter = () => {
 		if (!spanRef.current) {
 			return;
@@ -12,30 +12,35 @@ export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 		clearInterval(erasingInterval);
 		clearTimeout(erasingTimeout);
 		clearTimeout(typingTimeout);
-		
+
 		const spanEl = spanRef.current;
 		spanEl.classList.remove(styles.typewriter);
 		spanEl.classList.remove(styles.moving);
 		spanEl.textContent = strings[0];
 	};
-	
+
+	const mediaQueryChangeListener = () => {
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		mediaQuery.matches ? disableTypewriter() : typewriter();
+	};
+
 	// ran variable is used because useEffect runs twice on initial render in development mode and it's annoying
 	let ran = false;
 	useEffect(() => {
-		if (ran) {
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		if (ran || mediaQuery.matches) {
 			return;
 		}
 		ran = true;
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-		mediaQuery.addEventListener('change', () => {
-			mediaQuery.matches ? disableTypewriter() : typewriter();
-		});
 
-		if (mediaQuery.matches) {
-			return;
-		}
+		mediaQuery.addEventListener('change', mediaQueryChangeListener);
 
 		typewriter();
+
+		return () => {
+			disableTypewriter();
+			mediaQuery.removeEventListener('change', mediaQueryChangeListener);
+		};
 	}, []);
 
 	// all the intervals and timeouts are stored in variables so they can be cleared on disableTypewriter
@@ -84,7 +89,6 @@ export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 			typingInterval = setInterval(() => {
 				if (i === currentString.length) {
 					clearInterval(typingInterval);
-					// clearInterval(typing);
 					spanEl.textContent = currentString;
 					spanEl.classList.remove(styles.moving);
 					erasingTimeout = setTimeout(() => {
@@ -103,7 +107,6 @@ export default function AdjectiveCycle({ strings }: { strings: string[] }) {
 
 			erasingInterval = setInterval(() => {
 				if (i === -1) {
-					// clearInterval(erasing);
 					clearInterval(erasingInterval);
 					spanEl.classList.remove(styles.moving);
 					typingTimeout = setTimeout(() => {
