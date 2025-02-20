@@ -17,6 +17,11 @@ previewDescription: Client- & server side rendered websites of the Pokémon Fire
 
 <img src="/projects/pokedex/animated-pokedex_cover.webp" alt="pokédex cover" class="coverImage" />
 
+*Pokémon Fire Red intro screen (Nintendo, 2004)*
+
+[//]: # (<br />)
+[//]: # (<br />)
+
 <ProjectQuickInfo
 	caseDescription="First, build a single page web-app. Then convert it to a progressively enhanced server side rendered web-app."
 	quickLinks={[
@@ -41,5 +46,6 @@ Unfortunately, due to the server-costs involved in hosting an application like t
 <style>
 	.coverImage {
 		image-rendering: pixelated;
+		margin-bottom: 0;
 	}
 </style>
