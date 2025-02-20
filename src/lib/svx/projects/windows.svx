@@ -1,0 +1,15 @@
+---
+rank: 2
+published: false
+title: Windows xp clone
+previewImage: https://placehold.co/600x400/
+previewImageAlt: Windows xp home screen
+previewDescription: A side project to practice working with Svelte v5
+---
+
+lorem ipsum **something**
+
+![alt](https://placehold.co/600x400/)
+
+<style>
+</style>

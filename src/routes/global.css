@@ -1,0 +1,163 @@
+@font-face {
+	font-family: satoshi;
+	src: url(/fonts/satoshi-variable.woff);
+}
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	color-scheme: light dark;
+}
+
+body {
+	font-family: var(--font-sans-serif);
+	line-height: 1.5;
+	background-color: var(--secondary-bg);
+	color: var(--primary-text);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a.underline {
+	font-family: satoshi, var(--font-sans-serif);
+	text-wrap: balance;
+}
+
+button {
+	background-color: transparent;
+	border: 0;
+}
+
+button:not(:disabled) {
+	cursor: pointer;
+}
+
+ul,
+ol,
+dl {
+	list-style: none;
+}
+
+a {
+	color: var(--link);
+}
+
+a.underline {
+	color: var(--link);
+	text-decoration: none;
+	position: relative;
+	width: fit-content;
+}
+
+a:is(.underline:is(:hover, :focus-visible), .active)::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+a.underline::after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	transition: transform 0.25s;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	transform: scaleX(0);
+	transform-origin: right;
+}
+
+.shiki,
+.shiki span {
+	color: var(--shiki-dark);
+	background-color: var(--shiki-dark-bg);
+	tab-size: 2;
+}
+
+.shiki {
+	overflow-x: auto;
+	border-radius: .3rem;
+	padding: 0.25rem 0.5rem;
+}
+.shiki code {
+	font-family: "Ubuntu Mono", Consolas, monospace;
+}
+
+:root {
+	--primary-bg: #000;
+	--secondary-bg: #161616;
+
+	--input-bg: #222222;
+
+	--primary-text: #ffffff;
+	--secondary-text: #e2e2e2;
+
+	--link: #58a6ff;
+
+	--error-highlight: #ffff00;
+
+	--font-sans-serif: -apple-system, sans-serif;
+	--page-width: min(90%, 50rem);
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--primary-bg: #ffffff;
+		--secondary-bg: #eeeeee;
+
+		--input-bg: #dddddd;
+
+		--primary-text: #161616;
+		--secondary-text: #2c2c2c;
+
+		--link: #0c7eff;
+
+		--error-highlight: #ff0000;
+	}
+
+	.shiki,
+  .shiki span {
+    color: var(--shiki-light);
+    background-color: var(--secondary-bg);
+  }
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

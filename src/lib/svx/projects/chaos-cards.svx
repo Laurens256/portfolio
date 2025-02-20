@@ -1,0 +1,68 @@
+---
+rank: 1
+published: false
+title: Chaos Cards graduation project
+previewImage: /projects/chaos-cards/game.webp
+previewImageAlt: chaos cards playing screen
+previewDescription: A web based Uno game accessible to blind people using a screenreader
+---
+
+<script>
+	import { ProjectQuickInfo } from '$components'
+</script>
+
+# Chaos cards
+
+<br />
+
+![chaos cards playing screen](/projects/chaos-cards/game-with-chat.webp)
+
+<br />
+
+<ProjectQuickInfo
+	caseDescription="Build an online multiplayer game that seeing people and/or visually impaired people using a screenreader can play together"
+	quickLinks={[{ label: 'Github Repo', href: 'https://github.com/Laurens256/afstudeerproject' }]}
+/>
+
+Chaos Cards is an online game I created for my bachelor's graduation project. It has the same rules as popular card game: Uno. The game can be played in realtime by people anywhere over the internet. The added twist is that this game is also entirely playable by (blind) people using a screenreader.
+
+## What is a screenreader?
+A screenreader is a piece of software that reads out the contents of a screen to a user. This is useful for people with visual impairments, which was my target audience for this project. The screenreader reads out the text on the screen and can also read out the contents of buttons, links and other interactive elements. By using their keyboard, a user can navigate through the website and interact with it.
+
+## Tech stack
+For this project the tech stack I decided on consists of: Next.js frontend, Express server, Typescript, and Socket.io for communication between the server and client. The reason I chose this tech stack is I had the most experience with these tools working on large scale projects, and we had a relatively short time to build a working prototype.
+
+## How does it work
+A large portion of the website relies on simple, native, html elements and attributes. These elements and attributes are implemented according to the [WCAG](https://www.w3.org/TR/WCAG21/) (Web Content Accessibility Guidelines) spec. These guidelines describe best practices and rules to follow when building a website to make it as accessible as possible.
+
+The more complicated part of this project (the interaction) builds upon this spec with some creative logic to make the interaction more or less the same for people using a screenreader and people not using a screenreader.
+
+### Implementation
+The reason why the interactive aspect of this project is possible is because of the [aria-live attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live). This attribute tells the browser to make the screenreader announce something, even when the user does not manually trigger this interaction. This attribute can be used to make screenreaders read notifications for example, which is similar to what we're doing when we want to make the screenreader read when someone has played a card. I use the following React component to store the complete game history, and makes a screenreader read the most recent history item.
+
+```tsx
+const GameHistory = ({ entries, urgency = 'assertive' }: GameHistoryProps) => (
+	<section className="visuallyHidden">
+		<ol aria-label="game history">
+			{entries.map(({ key, entry }) => (
+				<li key={key}>{entry}</li>
+			))}
+			<li>The game started</li>
+		</ol>
+		<p aria-live={urgency}>{entries[0]?.entry}</p>
+	</section>
+);
+```
+<br>
+
+## Testing
+Throughout the project, I tested the usability of the prototype with both seeing- and visually impaired people, since the goal of the project was to allow seeing and visually impaired people to play together.
+
+accessibility of the application multiple times with a contact at Bartiméus, an interest group for the visually impaired. My contact, Mike, is completely blind
+
+[//]: # (## Demo)
+[//]: # (To view in detail how the project works, you can take a look at the video below &#40;sorry English folks, my narration is in Dutch&#41;.)
+
+[//]: # (<video aria-label="video showing the full flow of the chaos cards application" controls>)
+[//]: # (	<source src="./img/walkthrough.mp4" type="video/mp4" />)
+[//]: # (</video>)
