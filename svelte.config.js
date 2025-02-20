@@ -54,7 +54,6 @@ const config = {
 	compilerOptions: {
 		runes: true,
 		warningFilter: (warning) => !ignoredWarnings.includes(warning.code),
-		cssHash: ({ hash, css }) => `meow-${hash(css)}`,
 	},
 
 	extensions: ['.svelte', '.svx'],

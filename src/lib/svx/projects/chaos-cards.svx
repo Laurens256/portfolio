@@ -1,6 +1,6 @@
 ---
 rank: 1
-published: false
+published: true
 title: Chaos Cards graduation project
 previewImage: /projects/chaos-cards/game.webp
 previewImageAlt: chaos cards playing screen
@@ -32,7 +32,12 @@ A screenreader is a piece of software that reads out the contents of a screen to
 ## Tech stack
 For this project the tech stack I decided on consists of: Next.js frontend, Express server, Typescript, and Socket.io for communication between the server and client. The reason I chose this tech stack is I had the most experience with these tools working on large scale projects, and we had a relatively short time to build a working prototype.
 
+![chaos cards home screen](/projects/chaos-cards/rooms-screen.webp)
+
 ## How does it work
+To be able to play a video game in realtime, we have to make sure the client can communicate with the server quickly. To achieve this, we use [Socket.io](https://socket.io/), a library which uses Websockets to create an open connection between the client and the server. Using this connection, the client and server are able to communicate much quicker than we would be able to using normal HTTP requests.
+
+## Accessibility
 A large portion of the website relies on simple, native, html elements and attributes. These elements and attributes are implemented according to the [WCAG](https://www.w3.org/TR/WCAG21/) (Web Content Accessibility Guidelines) spec. These guidelines describe best practices and rules to follow when building a website to make it as accessible as possible.
 
 The more complicated part of this project (the interaction) builds upon this spec with some creative logic to make the interaction more or less the same for people using a screenreader and people not using a screenreader.
@@ -55,14 +60,18 @@ const GameHistory = ({ entries, urgency = 'assertive' }: GameHistoryProps) => (
 ```
 <br>
 
-## Testing
-Throughout the project, I tested the usability of the prototype with both seeing- and visually impaired people, since the goal of the project was to allow seeing and visually impaired people to play together.
+## Validation
+Throughout the project, I tested the usability of the prototype with both seeing- and visually impaired people, since the goal of the project was to allow seeing and visually impaired people to play together. For testing with visually impaired people, I reached out to Bartiméus, an interest group for the visually impaired. Here, I got in contact with Mike, who helped me test and improve my prototype several times. The testing with seeing people was done by my teachers, and fellow students.
 
-accessibility of the application multiple times with a contact at Bartiméus, an interest group for the visually impaired. My contact, Mike, is completely blind
+![chaos cards create room screen](/projects/chaos-cards/create-room.webp)
 
-[//]: # (## Demo)
-[//]: # (To view in detail how the project works, you can take a look at the video below &#40;sorry English folks, my narration is in Dutch&#41;.)
+## Result
+The result of this project is a fully working prototype of a game that can be played by both seeing and visually impaired people. Chaos cards is fully playable with- or without a screenreader, and can be played in realtime with people anywhere in the world. There is no online demo for this project because of the involved costs of running a server and the fact that this is a prototype not optimized for a production environment. For a full walkthrough of the application, you can view the video below.
 
-[//]: # (<video aria-label="video showing the full flow of the chaos cards application" controls>)
-[//]: # (	<source src="./img/walkthrough.mp4" type="video/mp4" />)
-[//]: # (</video>)
+<video aria-label="video showing the full flow of the chaos cards application" controls>
+	<source src="/projects/chaos-cards/walkthrough.mp4" type="video/mp4" />
+</video>
+
+<br />
+
+If you wish, you can also run the project locally with the code from my [Github repo](https://github.com/Laurens256/afstudeerproject).

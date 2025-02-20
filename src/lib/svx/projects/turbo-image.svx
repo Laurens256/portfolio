@@ -25,7 +25,7 @@ previewDescription: An image format converter which runs completely in the brows
 	caseDescription='Build an image converter which runs completely in the browser.'
 	quickLinks={[
 		{ label: 'Github repo', href: 'https://github.com/Laurens256/turbo-image' },
-		{ label: 'Live prototype', href: 'https://turbo-image-rbec5nt6i-laurens256s-projects.vercel.app/' },
+		{ label: 'Live prototype', href: 'https://turbo-image.vercel.app/' },
 	]}
 />
 
@@ -151,4 +151,4 @@ const handleZipDownload = async (files: UploadedFile[]) => {
 <br />
 
 ## The result
-What started as a way to learn a new version of Svelte and build a quick and dirty image converter prototype, ended as an optimized, customizable web application with way more features than I will realistically ever use. If you want to give Turbo Image a try, you can [view the project here](https://turbo-image-rbec5nt6i-laurens256s-projects.vercel.app/).
+What started as a way to learn a new version of Svelte and build a quick and dirty image converter prototype, ended as an optimized, customizable web application with way more features than I will realistically ever use. If you want to give Turbo Image a try, you can [view the project here](https://turbo-image.vercel.app/).
