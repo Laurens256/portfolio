@@ -8,7 +8,7 @@
 
 <footer class="root">
 	<section>
-		<h5 id="__footer_socials__" class="heading">Contact</h5>
+		<h2 id="__footer_socials__" class="heading">Contact</h2>
 		<ul aria-labelledby="__footer_socials__" class="socialsList">
 			{#each socials as { label, href }}
 				<li>

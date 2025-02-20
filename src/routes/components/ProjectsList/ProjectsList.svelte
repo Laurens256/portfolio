@@ -12,7 +12,7 @@
 <section>
 	<header class="header">
 		<h2 id="__projects__">My projects</h2>
-		<a href="/projects" class="underline">See more</a>
+		<a href="/projects" class="underline" aria-label="see all projects">See more</a>
 	</header>
 
 	<ol class="list" aria-labelledby="__projects__">
