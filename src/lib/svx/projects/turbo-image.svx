@@ -17,7 +17,7 @@ previewDescription: An image format converter which runs completely in the brows
 
 <picture>
   <source srcset="/projects/turbo-image/cover-dark.webp" media="(prefers-color-scheme: light)"/>
-  <img src="/projects/turbo-image/cover-light.webp" alt="turbo image start screen" />
+  <img src="/projects/turbo-image/cover-light.webp" alt="turbo image start screen" width="1493" height="838" />
 </picture>
 
 

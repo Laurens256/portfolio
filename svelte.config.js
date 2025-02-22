@@ -3,6 +3,7 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import rehypeUnwrapImages from 'rehype-unwrap-images';
 import addSlugFrontmatter from './packages/addSlug.js';
+import enhanceImages from './packages/enhanceImages.js';
 import { codeToHtml } from 'shiki';
 
 const ignoredWarnings = ['script_context_deprecated', 'a11y_img_redundant_alt', 'a11y_media_has_caption'];
@@ -15,6 +16,7 @@ const config = {
 		vitePreprocess(),
 		mdsvex({
 			remarkPlugins: [
+				enhanceImages,
 				addSlugFrontmatter,
 			],
 			rehypePlugins: [rehypeUnwrapImages],
