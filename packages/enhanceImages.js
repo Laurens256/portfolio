@@ -3,24 +3,33 @@ import path from 'path';
 import sharp from 'sharp';
 import fs from 'fs';
 
+// ! if ever preprocessing images outside of project page, should add dynamic width
+const MAX_WIDTH_PX = 1200;
+
 const EXCLUDED_FORMATS = ['svg'];
 
 const GENERATE_OPTIONS = {
 	avif: {
 		quality: 85,
 		chromaSubsampling: '4:2:0',
+		effort: 9,
 	},
 	webp: {
 		quality: 85,
+		effort: 6,
 	},
 	jpeg: {
-		quality: 80,
+		quality: 85,
 		progressive: true,
 	},
 };
 
 const generateImage = async ({ imagePath, format, options, outputPath }) => {
-	let processor = sharp(imagePath);
+	let processor = sharp(imagePath)
+		.resize({
+			width: MAX_WIDTH_PX,
+			withoutEnlargement: true,
+		});
 
 	switch (format) {
 	case 'avif':
@@ -51,7 +60,7 @@ const enhanceImages = () => {
 		const promises = [];
 
 		visit(tree, 'image', (node) => {
-			const [url, params] = node.url.split('?');
+			const [url, paramsString] = node.url.split('?');
 			const isInternal = url.startsWith('/');
 
 			if (!isInternal) {
@@ -69,18 +78,20 @@ const enhanceImages = () => {
 
 					if (withFallback) {
 						for (const [format, options] of Object.entries(GENERATE_OPTIONS)) {
-							if (format === metadata.format) {
-								sourcePaths[format] = url;
+							const generatedPath = path.join('/', 'generated', `${filename}.${format}`);
+							const publicGeneratedPath = path.join('static', generatedPath);
+
+							const fileExists = fs.existsSync(publicGeneratedPath);
+
+							if (fileExists) {
+								sourcePaths[format] = generatedPath;
 								continue;
 							}
 
-							const generatedPath = path.join(
-								'/',
-								'generated',
-								`${filename}.${format}`,
-							);
-
-							const publicGeneratedPath = path.join('static', generatedPath);
+							// if (format === metadata.format) {
+							// 	sourcePaths[format] = url;
+							// 	continue;
+							// }
 
 							await generateImage({
 								imagePath: absoluteImagePath,
@@ -93,32 +104,39 @@ const enhanceImages = () => {
 						}
 					}
 
-					const paramsHTMLAttributes = params
-						? params.split('&').map((param) => {
-							const [key, value] = param.split('=');
-							return `${key}="${value}"`;
-						}).join(' ')
-						: '';
+					const paramsObject = Object.fromEntries(new URLSearchParams(paramsString));
 
 					const { jpeg: jpegGeneratedPath, ...progressivePaths } = sourcePaths;
 
-					const sourceElements = Object.entries(progressivePaths)
-						.map(([format, generatedPath]) => `<source type="image/${format}" srcset="${generatedPath}" >`);
-
-					node.value = `
-						<picture>
-							${sourceElements.join('\n')}
-							<img 
-								src="${withFallback ? jpegGeneratedPath : url}" 
-								alt="${node.alt || ''}" 
-								width="${metadata.width}" 
-								height="${metadata.height}" 
-								loading="lazy" 
-								decoding="async"
-								${paramsHTMLAttributes}
-							>
-						</picture>`;
-					node.type = 'html';
+					node.type = 'element';
+					node.data = {
+						hName: 'picture',
+						hChildren: [
+							...Object.entries(progressivePaths).map(([type, sourcePath]) => ({
+								type: 'element',
+								tagName: 'source',
+								properties: {
+									srcSet: sourcePath,
+									type: `image/${type}`,
+								},
+								data: { hName: 'source' },
+							})),
+							{
+								type: 'element',
+								tagName: 'img',
+								properties: {
+									src: withFallback ? jpegGeneratedPath : url,
+									alt: node.alt || '',
+									width: metadata.width,
+									height: metadata.height,
+									loading: 'lazy',
+									decoding: 'async',
+									...paramsObject,
+								},
+								data: { hName: 'source' },
+							},
+						],
+					};
 				} catch (error) {
 					console.warn(`Could not process image: ${url}`, error);
 				}

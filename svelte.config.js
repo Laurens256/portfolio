@@ -1,9 +1,9 @@
 import { mdsvex, escapeSvelte } from 'mdsvex';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import rehypeUnwrapImages from 'rehype-unwrap-images';
 import addSlugFrontmatter from './packages/addSlug.js';
 import enhanceImages from './packages/enhanceImages.js';
+import unwrapPictures from './packages/unwrapPictures.js';
 import { codeToHtml } from 'shiki';
 
 const ignoredWarnings = ['script_context_deprecated', 'a11y_img_redundant_alt', 'a11y_media_has_caption'];
@@ -19,7 +19,9 @@ const config = {
 				enhanceImages,
 				addSlugFrontmatter,
 			],
-			rehypePlugins: [rehypeUnwrapImages],
+			rehypePlugins: [
+				unwrapPictures,
+			],
 			highlight: {
 				highlighter: async (code, lang = 'text') => {
 					const html = escapeSvelte(await codeToHtml(code, {
