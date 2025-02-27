@@ -43,7 +43,7 @@ A large portion of the website relies on simple, native, html elements and attri
 The more complicated part of this project (the interaction) builds upon this spec with some creative logic to make the interaction more or less the same for people using a screenreader and people not using a screenreader.
 
 ### Implementation
-The reason why the interactive aspect of this project is possible is because of the [aria-live attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live). This attribute tells the browser to make the screenreader announce something, even when the user does not manually trigger this interaction. This attribute can be used to make screenreaders read notifications for example, which is similar to what we're doing when we want to make the screenreader read when someone has played a card. I use the following React component to store the complete game history, and makes a screenreader read the most recent history item.
+The reason why the interactive aspect of this project is possible is because of the [aria-live attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live). This attribute tells the browser to make the screenreader announce something, even when the user does not manually trigger this interaction. This attribute can be used to make screenreaders read notifications for example, which is similar to what we're doing when we want to make the screenreader read when someone has played a card. I use the following React component to store the complete game history, and make a screenreader read the most recent history item.
 
 ```tsx
 const GameHistory = ({ entries, urgency = 'assertive' }: GameHistoryProps) => (
@@ -60,13 +60,15 @@ const GameHistory = ({ entries, urgency = 'assertive' }: GameHistoryProps) => (
 ```
 <br>
 
+All we need to pass to this component are clear descriptions of what "actions" can happen throughout a game. For example: someone playing a certain card with a certain number or someone ending their turn. Since we know all possible actions in advance, we can write these messages where the code handles the actions. 
+
 ## Validation
-Throughout the project, I tested the usability of the prototype with both seeing- and visually impaired people, since the goal of the project was to allow seeing and visually impaired people to play together. For testing with visually impaired people, I reached out to Bartiméus, an interest group for the visually impaired. Here, I got in contact with Mike, who helped me test and improve my prototype several times. The testing with seeing people was done by my teachers, and fellow students.
+Throughout the project, I tested the usability of the prototype with both seeing- and visually impaired people, since the goal of the project was to allow seeing and visually impaired people to play together. For testing with visually impaired people, I reached out to [Bartiméus](https://bartimeus.nl/), an interest group for the visually impaired. Here, I got in contact with Mike, who helped me test and improve my prototype several times. The testing with seeing people was done by my teachers, and fellow students.
 
 ![chaos cards create room screen](/projects/chaos-cards/create-room.webp)
 
 ## Result
-The result of this project is a fully working prototype of a game that can be played by both seeing and visually impaired people. Chaos cards is fully playable with- or without a screenreader, and can be played in realtime with people anywhere in the world. There is no online demo for this project because of the involved costs of running a server and the fact that this is a prototype not optimized for a production environment. For a full walkthrough of the application, you can view the video below.
+The result of this project is a fully working prototype of a game that can be played by both seeing and visually impaired people. Chaos cards is fully playable with- or without a screenreader, and can be played in realtime with people anywhere in the world. There is no online demo for this project because of the involved costs of running a server and the fact that this is a prototype not optimized for a production environment. For a full walkthrough of the application, you can view the video below. Note that I'm using a screenreader in this demo, but any of the interactions would work the same using a mouse or touchscreen.
 
 <video aria-label="video showing the full flow of the chaos cards application" controls>
 	<source src="/projects/chaos-cards/walkthrough.mp4" type="video/mp4" />

@@ -15,8 +15,7 @@ previewDescription: Client- & server side rendered websites of the Pokémon Fire
 
 <br />
 
-![pokédex cover](/projects/pokedex/animated-pokedex_cover.webp?class=coverImage)
-
+![pokédex cover](/projects/pokedex/pokedex_cover.png?class=coverImage)
 *Pokémon Fire Red intro screen (Nintendo, 2004)*
 
 <ProjectQuickInfo
@@ -28,12 +27,52 @@ previewDescription: Client- & server side rendered websites of the Pokémon Fire
 	]}
 />
 
-This case consists of 2 assignments. First, we were tasked with building a single page web-application from scratch. From scratch meaning no (JavaScript) frameworks were allowed. Afterwards, we had to take this website and make it completely server side rendered with performance optimizations. This application had to incorporate data from an external API of your own choice. For my project, I chose the [PokeAPI](https://pokeapi.co/), which supplies all sorts of data on Pokémon.
+This case consists of 2 assignments. First, we were tasked with building a single page web-application from scratch. From scratch meaning no (JavaScript) frameworks were allowed. Afterward, we had to take this website and make it completely server side rendered with performance optimizations. This application had to incorporate data from an external API of your own choice. For my project, I chose the [PokeAPI](https://pokeapi.co/), which supplies all sorts of data on Pokémon.
 
 The website is built in the style of my favorite Pokémon game: Pokémon Fire Red. My plan was to recreate the Pokémon Fire Red Pokédex using pure CSS and TypeScript. This style turned out to be quite challenging to recreate using pure CSS because of the pixelated style the game is in. I ended up having to modify an existing Pokémon font, draw my own pixelart sprites using CSS box shadow and many more challenges.
+
 ![pokémon list in the style of pokémon fire red](/projects/pokedex/pokemon_list.webp)
 
-For the first part of this project, I built a JavaScript heavy website which gets rendered fully on the client. I did my best to rebuild the original Pokémon Fire Red ui using pure CSS and JavaScript for interaction. This website is not functional without JavaScript, but has a more "app-like" feel compared to traditional server-side rendered website. To view this version of the website online, check out [Pokédex from Scratch](https://pokedex-from-scratch.vercel.app/)
+[//]: # (For the first part of this project, I built a JavaScript heavy website which gets rendered fully on the client. I did my best to rebuild the original Pokémon Fire Red ui using pure CSS and JavaScript for interaction. This website is not functional without JavaScript, but has a more "app-like" feel compared to traditional server-side rendered website. To view this version of the website online, check out [Pokédex from Scratch]&#40;https://pokedex-from-scratch.vercel.app/&#41;)
+
+For the first part of the project, I built a client side rendered, JavaScript heavy website. Because we were not allowed to use existing frameworks to build this website, I had to build a lot of architecture we take for granted when using frameworks myself. An example of this is routing. To create an "app-like" feel, I implemented my own (scrappy) version of a client side router I was most familiar with at the time: Angular's. Here's some simplified code on how it works:
+```ts
+const routes: Route[] = [
+	{ path: '/', view: SplashView, viewName: 'splashview', soundtrack: 'title-screen' },
+	{ path: '/pokemon', view: ListView, viewName: 'listview' },
+];
+
+const findRoute = () => {
+	const path = window.location.pathname;
+	const urlPathSegments = path.split('/').slice(1).filter((segment) => segment);
+
+	routeLoop:
+		for (const [i, route] of routes.entries()) {
+			const routeSegments = route.path
+				.split('/')
+				.slice(1)
+				.filter((segment) => segment);
+			if (urlPathSegments.length !== routeSegments.length) continue;
+	
+			let param = '';
+			for (let i = 0; i < routeSegments.length; i++) {
+				if (routeSegments[i].startsWith(':')) {
+					param = urlPathSegments[i];
+				} else if (routeSegments[i] !== urlPathSegments[i]) {
+					continue routeLoop;
+				}
+			}
+	
+			return { route: route, param: param };
+		}
+	return { route: errorRoute, param: undefined };
+}
+```
+
+<br />
+
+Then, inside each view, a minimal template would be set using innerHTML, which would then be populated using native JavaScript methods like `querySelector` and `textContent`. The result of this is a simple, completely native client side router, meaning the entire page does not need to be reloaded when changing pages.
+
 
 ![description page of charizard](/projects/pokedex/charizard_description.webp)
 

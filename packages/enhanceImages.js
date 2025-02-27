@@ -4,19 +4,17 @@ import sharp from 'sharp';
 import fs from 'fs';
 
 // ! if ever preprocessing images outside of project page, should add dynamic width
-const MAX_WIDTH_PX = 1200;
+const MAX_WIDTH_PX = 1200; // based on 800px page width
 
 const EXCLUDED_FORMATS = ['svg'];
 
 const GENERATE_OPTIONS = {
 	avif: {
 		quality: 85,
-		chromaSubsampling: '4:2:0',
-		effort: 9,
+		chromaSubsampling: '4:4:4',
 	},
 	webp: {
 		quality: 85,
-		effort: 6,
 	},
 	jpeg: {
 		quality: 85,
@@ -24,7 +22,7 @@ const GENERATE_OPTIONS = {
 	},
 };
 
-const generateImage = async ({ imagePath, format, options, outputPath }) => {
+const generateImage = async ({ imagePath, format, options, outputPath, lossless }) => {
 	let processor = sharp(imagePath)
 		.resize({
 			width: MAX_WIDTH_PX,
@@ -33,10 +31,10 @@ const generateImage = async ({ imagePath, format, options, outputPath }) => {
 
 	switch (format) {
 	case 'avif':
-		processor = processor.avif(options);
+		processor = processor.avif({ ...options, lossless });
 		break;
 	case 'webp':
-		processor = processor.webp(options);
+		processor = processor.webp({ ...options, lossless });
 		break;
 	case 'jpeg':
 		processor = processor.jpeg(options);
@@ -88,16 +86,12 @@ const enhanceImages = () => {
 								continue;
 							}
 
-							// if (format === metadata.format) {
-							// 	sourcePaths[format] = url;
-							// 	continue;
-							// }
-
 							await generateImage({
 								imagePath: absoluteImagePath,
 								format,
 								options,
 								outputPath: publicGeneratedPath,
+								lossless: metadata.width < MAX_WIDTH_PX,
 							});
 
 							sourcePaths[format] = generatedPath;
@@ -107,6 +101,9 @@ const enhanceImages = () => {
 					const paramsObject = Object.fromEntries(new URLSearchParams(paramsString));
 
 					const { jpeg: jpegGeneratedPath, ...progressivePaths } = sourcePaths;
+
+					const clampedWidth = Math.min(metadata.width, MAX_WIDTH_PX);
+					const clampedHeight = Math.round((clampedWidth / metadata.width) * metadata.height);
 
 					node.type = 'element';
 					node.data = {
@@ -127,8 +124,8 @@ const enhanceImages = () => {
 								properties: {
 									src: withFallback ? jpegGeneratedPath : url,
 									alt: node.alt || '',
-									width: metadata.width,
-									height: metadata.height,
+									width: clampedWidth,
+									height: clampedHeight,
 									loading: 'lazy',
 									decoding: 'async',
 									...paramsObject,
