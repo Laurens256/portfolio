@@ -83,7 +83,7 @@ The pencil tool is just one of the many tools I implemented, and some of the oth
 ### Minesweeper
 Before building the Minesweeper game, I actually had to learn how the game works. I had played the game before when I was younger but never understood how it'd worked. For those unfamiliar: Minesweeper is a game where you have to clear a grid of mines without hitting one. The game gives you hints on where the mines are by showing you the number of mines in the surrounding cells. While working on this project, I ended up spending quite a bit of time playing it. See if you can beat my high score of 470 seconds on expert mode ;)
 
-![an expert game of minesweeper finished in 470 seconds](/projects/windows/minesweeper.png)
+![an expert game of minesweeper, failed after 223 seconds](/projects/windows/minesweeper.png)
 
 ### Calculator
 The calculator program was pretty simple to build since there are many existing examples of calculators online. The calculator model I built does not use the `eval` function to prevent security risks. Instead, the input string is parsed into parts that we can calculate with.
