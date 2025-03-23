@@ -4,7 +4,7 @@ published: true
 title: TurboImage
 previewImage: /projects/turbo-image/cover-dark.webp
 previewImageAlt: turbo image start screen
-previewDescription: An image format converter which runs completely in the browser
+previewDescription: An image format converter that runs completely in the browser
 ---
 
 <script>
@@ -31,39 +31,15 @@ previewDescription: An image format converter which runs completely in the brows
 
 An image converter is a tool that allows you to change an image's file format. For example: `image.jpg` &#8594; `image.png`. TurboImage is a side project I started on my own after facing frustrations with existing image converters. Often, there are limits to how many images you can convert at once, long loading times, or limits on how many images you can convert per hour.
 
-The reason for these limits, is the costs of converting images on the server. The conversion of images has to be done on the server to support the widest range of image formats, since the method to create images directly in the browser only supports a few of the most common formats.
+The reason for these limits is the cost of converting images on the server. Image conversion must be done on the server to support the widest range of formats, since creating images directly in the browser only supports a few common formats.
 
-However, whenever I need to convert images myself, I usually want to convert to one of these common formats. This means that in theory, I could let my browser do all the work of converting the image without having to be reliant on a (third party) server. All we need to do to make this converter is create an interface which allows us to set the options for our conversion like file format and image compression.
+However, when I need to convert images, I usually want to convert to one of these common formats. This means that in theory, I could let my browser do all the work of converting the image without having to be reliant on a (third party) server. To build this converter, we just need an interface that lets us set conversion options like file format and image compression.
 
 ## Tech stack
-Another reason I started this project is because the [Svelte 5 beta](https://svelte.dev/blog/svelte-5-release-candidate) had just released. Svelte is a framework I like to work with on personal projects for its simplicity and quick setup. The changes made in this newest version looked interesting, so I wanted to explore this new version in a technically advanced project. For this project my entire tech stack consists of Svelte 5 (with SvelteKit) and Typescript for type checking. Since I want this converter to work completely on the client we won't be using any server components.
-
-## Testing supported formats
-Since the method we're using to convert images is completely reliant on the user's browser, we need to test which image formats are supported by the browser. Typically, browsers support more *input* formats than *output* formats. In Google Chrome v132.0 for example, we can only output files in the formats: `.png`, `.jpg` and `.webp`. However, we can input files in many more formats such as `.avif`, `.gif`, `.apng` and many more. The way we test which input formats are supported is by trying to load a very small version of the image with the mimetype. If the image fails to load, the browser does not support this image input type, and we can disallow users from uploading images with this type.
-
-```ts
-const testImageInputs = async () => {
-	const imageInputs = (await Promise.all(
-		Object.entries(imageTypeTests).map(async ([mimetype, base64]) => {
-			const url = `data:${mimetype};base64,${base64}`;
-			const image = new Image();
-			image.src = url;
-			const supported = await new Promise<boolean>((resolve) => {
-				image.onload = () => resolve(true);
-				image.onerror = () => resolve(false);
-			});
-
-			return supported ? mimeType : null;
-		}),
-	)).filter((value) => value !== null);
-
-	return imageInputs;
-}
-```
-<br />
+Another reason I started this project is because the [Svelte 5 beta](https://svelte.dev/blog/svelte-5-release-candidate) had just released. Svelte is a framework I like to work with on personal projects for its simplicity and quick setup. The changes made in this newest version looked interesting, so I wanted to explore this new version in a technically advanced project. For this project, my entire tech stack consists of Svelte 5 (with SvelteKit) and TypeScript for type checking. Since I want this converter to work entirely on the client, we won't be using any server components.
 
 ## Image conversion
-The method we'll use to convert our images is the HTML canvas api. Provided the file we *input* is supported by the canvas api of the browser we're using, we can draw the image onto our canvas. Once the image is drawn, we can simply convert it to any of the supported *output* formats. Note that not all input formats are also supported as an output format. Here's a **simplified** example snippet on how this works:
+We'll use the HTML Canvas API to convert images. Provided the file we *input* is supported by the canvas api of the browser we're using, we can draw the image onto our canvas. Once the image is drawn, we can simply convert it to any of the supported *output* formats. Note that not all input formats are also supported as an output format. Here's a **simplified** code snippet on how this works:
 
 ```ts
 const convertImage = async (input: UploadedFile) => {
@@ -87,9 +63,9 @@ const convertImage = async (input: UploadedFile) => {
 <br />
 
 ## Browser support
-Besides the limited support for image formats, another thing this project relies on is certain FileSystem apis. We use these apis to get access to the images that the user wants to upload but also to write the converted images to the user's disk. One of these apis we rely on is [createWritable](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle/createWritable). The reason this api is interesting, is because it allows us to *stream* a file directly onto the user's disk. The alternative to streaming a file onto the user's disk is loading the entire file into memory and downloading it all at once. This can cause the entire browser to freeze when working with large files.
+Besides the limited support for image formats, another thing this project relies on is certain FileSystem APIs. We use these APIs to get access to the images that the user wants to upload but also to write the converted images to the user's disk. One of these APIs we rely on is [createWritable](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle/createWritable). This API is interesting because it allows us to *stream* a file directly to the user's disk. The alternative to streaming a file onto the user's disk is loading the entire file into memory and downloading it all at once. This can cause the entire browser to freeze when working with large files.
 
-Luckily, someone wrote an [excellent ponyfill](https://www.npmjs.com/package/native-file-system-adapter) for this functionality. This ponyfill falls back to using a service worker if the browser does not support the functionality natively. This service worker is able to stream the file to our client somewhat like a server would be able to. All credit for this ponyfill goes to the module author.
+Fortunately, an [excellent ponyfill](https://www.npmjs.com/package/native-file-system-adapter) exists for this functionality. This ponyfill falls back to using a service worker if the browser does not support the functionality natively. This service worker is able to stream the file to our client somewhat like a server would be able to. All credit for this ponyfill goes to the module author.
 
 ## Zip streaming
 Now that we have the permissions part out of the way, we still have to get to the logic of actually writing a file to the user's disk. We do this in two different ways:
@@ -151,4 +127,4 @@ const handleZipDownload = async (files: UploadedFile[]) => {
 <br />
 
 ## The result
-What started as a way to learn a new version of Svelte and build a quick and dirty image converter prototype, ended as an optimized, customizable web application with way more features than I will realistically ever use. If you want to give Turbo Image a try, you can [view the project here](https://turbo-image.vercel.app/).
+What began as a way to learn a new version of Svelte and build a quick and dirty image converter prototype, ended as an optimized, customizable web application with way more features than I will realistically ever use. If you want to give Turbo Image a try, you can [view the project here](https://turbo-image.vercel.app/).

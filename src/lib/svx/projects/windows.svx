@@ -1,15 +1,105 @@
 ---
-rank: 2
-published: false
+rank: 1
+published: true
 title: Windows xp clone
-previewImage: https://placehold.co/600x400/
+previewImage: /projects/windows/windows.png
 previewImageAlt: Windows xp home screen
-previewDescription: A side project to practice working with Svelte v5
+previewDescription: A usable clone of the Windows XP desktop
 ---
 
-lorem ipsum **something**
+# Windows XP clone
 
-![alt](https://placehold.co/600x400/)
+![windows xp home screen with a variety of opened applications](/projects/windows/windows.png)
 
-<style>
-</style>
+<script>
+    import { ProjectQuickInfo } from '$components'
+</script>
+
+
+<ProjectQuickInfo
+    caseDescription='Build a Windows desktop clone with usable programs'
+    quickLinks={[
+    { label: 'Github repo', href: 'https://github.com/laurens256/windows-xp' },
+    { label: 'Live prototype', href: 'https://windows-xp-ochre.vercel.app/' },
+    ]}
+/>
+
+To me, Windows XP is one of the most iconic operating systems created. I may be biased since this is the first operating system I remember using on a computer (yes I'm young). The goal of this side project was to recreate that nostalgic Windows XP experience in the browser, complete with functionality of the applications and windows. This includes the opening, closing, resizing, and moving windows.
+
+After coming up with the idea, I quickly found an existing style package that included the styles for basic UI elements like buttons and dropdowns. This package also includes the styles for the window title bars, which saved me a lot of time. Here's a link to the [original author's work](https://botoxparty.github.io/XP.css/). This package does not include any of the styles within the applications I built.
+
+## Tech stack
+For this project, I decided to use SvelteKit with TypeScript. I chose SvelteKit for its simple global state management, which I anticipated needing for tasks like tracking open windows.
+
+## Programs
+The programs I wanted to build for this project were chosen based on a mix of how fun they would be to build and how fun they would be to use. These programs ended up being:
+- MS Paint
+- Minesweeper
+- Calculator
+- Command Prompt
+- Notepad
+
+### MS Paint
+MS Paint is one of the larger, more fleshed out programs I built. In this program you can paint to a blank canvas with a variety of tools. The drawing functionality relies on the HTML Canvas api to paint pixels or shapes. I implemented the various tools by first creating a base "framework" which defines some events like `onActionStart` and `onDestroy`. Here is what the simplified implementation of one of the tools looks like; the pencil tool.
+
+```ts
+class PencilHandler extends BaseToolHandler implements ToolHandler {
+	constructor(args: BaseToolHandlerPropsFromHandler) {
+		super({
+			toolId: ToolId.PENCIL,
+			isSelectionAware: true,
+			...args,
+		});
+	}
+
+	onInitialize({ cursorSize, color }: ToolHandlerLifecycleFnProps) {
+		this.paintLayer.lineJoin = 'round';
+		this.paintLayer.lineCap = 'round';
+		this.paintLayer.lineWidth = cursorSize;
+		this.paintLayer.strokeStyle = color;
+	}
+
+	onActionMove({ fromX, fromY, toX, toY }: ToolHandlerFnProps) {
+		this.paintLayer.beginPath();
+		this.paintLayer.moveTo(fromX, fromY);
+		this.paintLayer.lineTo(toX, toY);
+		this.paintLayer.stroke();
+	}
+
+	onActionEnd () {
+		this.paintLayer.closePath();
+	}
+}
+```
+
+<br>
+
+In this code example you can see a tool specifies some logic that should happen when a certain event is triggered. For example, when the user moves their mouse while holding the mouse button down, the `onActionMove` event is triggered.
+
+![drawing of a sunny blue sky with a tree in MS Paint](/projects/windows/paint.png)
+
+The pencil tool is just one of the many tools I implemented, and some of the other tools are much more complicated. If you're curious about how I implemented the other tools, you can check out the [source code](https://github.com/Laurens256/windows-xp/tree/main/src/lib/components/apps/Paint/tools).
+
+### Minesweeper
+Before building the Minesweeper game, I actually had to learn how the game works. I had played the game before when I was younger but never understood how it'd worked. For those unfamiliar: Minesweeper is a game where you have to clear a grid of mines without hitting one. The game gives you hints on where the mines are by showing you the number of mines in the surrounding cells. While working on this project, I ended up spending quite a bit of time playing it. See if you can beat my high score of 470 seconds on expert mode ;)
+
+![an expert game of minesweeper finished in 470 seconds](/projects/windows/minesweeper.png)
+
+### Calculator
+The calculator program was pretty simple to build since there are many existing examples of calculators online. The calculator model I built does not use the `eval` function to prevent security risks. Instead, the input string is parsed into parts that we can calculate with.
+
+![calculator application showing the calculation of 1 + 1](/projects/windows/calc.png)
+
+### Command Prompt
+The command prompt is a simplified terminal experience with a few basic commands. I did not add a lot of commands to this program because I wanted to focus on some of the more interactive and visually appealing programs. The program in its current state is a cool proof of concept and is designed in a way so that it would be easy to add more commands should I wish to do so.
+
+![a command prompt logging the text hello portfolio](/projects/windows/cmd.png)
+
+
+### Notepad
+Notepad is a simple text editor I recreated. In essence, it's nothing more than a `textarea` with some surrounding styles. The main reason I implemented this program is that I wanted an immersive way to show a little explanation about the project. The Notepad program launches when you open the website, providing an explanation of how it works and what you can do.
+
+![notepad application with a small introduction to the website's controls](/projects/windows/notepad.png)
+
+## Result
+The result of this project is a cool throwback to the Windows XP operating system. There are a lot of interactions I didn't cover in this article, so I would heavily encourage you to take a look at the site yourself if you're interested. You can [find the site here](https://windows-xp-ochre.vercel.app/).

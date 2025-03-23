@@ -1,5 +1,5 @@
 ---
-rank: 1
+rank: 2
 published: true
 title: Chaos Cards graduation project
 previewImage: /projects/chaos-cards/game.webp
